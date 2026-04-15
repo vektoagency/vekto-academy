@@ -9,7 +9,7 @@ const pipelineSteps = [
     step: "01",
     title: "Учи",
     desc: "Завърши модулите и усвои workflow-а",
-    detail: "Структуриран курс от реална AI видео агенция. Научаваш инструментите, промптинга и workflow-а, които използваме за реални клиенти — стъпка по стъпка.",
+    detail: "Структурирано обучение от реална AI видео агенция. Научаваш инструментите, промптинга и workflow-а, които използваме за реални клиенти — стъпка по стъпка.",
   },
   {
     step: "02",
@@ -26,7 +26,7 @@ const pipelineSteps = [
 ];
 
 const navLinks = [
-  { href: "#features", label: "Курс" },
+  { href: "#features", label: "Обучение" },
   { href: "#for-who", label: "За кого" },
   { href: "#about", label: "За нас" },
   { href: "#testimonials", label: "Резултати" },
@@ -96,8 +96,8 @@ function MobileNav() {
 const platformTabs = [
   {
     id: "course",
-    label: "Курс",
-    title: "Структуриран курс",
+    label: "Обучение",
+    title: "Структурирано обучение",
     desc: "Модули наредени по логика — гледаш, практикуваш, минаваш напред. Прогресът се пази автоматично.",
     ui: (
       <div className="w-full bg-[#0d0d0d] rounded-xl border border-white/10 overflow-hidden">
@@ -389,7 +389,7 @@ export default function HomePage() {
           <span className="text-white/10 hidden sm:block">|</span>
           <div className="flex items-center gap-1">
             <span className="text-[#c8ff00]">✓</span>
-            <span>Реална агенция зад курса</span>
+            <span>Реална агенция зад обучението</span>
           </div>
         </div>
 
@@ -442,7 +442,7 @@ export default function HomePage() {
               <p className="text-white/40 text-sm mt-3 max-w-sm leading-relaxed">Един акаунт. Всичко точно тук — без Discord, без Telegram, без разхвърляни линкове.</p>
             </div>
             <div className="flex flex-col gap-1 md:items-end">
-              <p className="text-white font-black text-lg md:text-right">Курс. Общност. Работа.</p>
+              <p className="text-white font-black text-lg md:text-right">Обучение. Общност. Работа.</p>
               <p className="text-white/40 text-sm md:text-right">На едно място. Влизаш и започваш.</p>
             </div>
           </div>
@@ -472,7 +472,7 @@ export default function HomePage() {
             <div className="p-8 md:p-12 bg-[#c8ff00]/5 border-b md:border-b-0 md:border-r border-white/10">
               <p className="text-[#c8ff00] font-bold text-sm uppercase tracking-widest mb-6">Това е за теб ако...</p>
               <ul className="space-y-4">
-                {["Искаш да правиш пари с AI съдържание", "Търсиш реална общност, не YouTube курс", "Искаш да работиш freelance или remote", "Готов си да се докажеш и да получиш работа", "Нямаш опит но имаш желание да учиш"].map((t) => (
+                {["Искаш да правиш пари с AI съдържание", "Търсиш реална общност, не YouTube видеа", "Искаш да работиш freelance или remote", "Готов си да се докажеш и да получиш работа", "Нямаш опит но имаш желание да учиш"].map((t) => (
                   <li key={t} className="flex items-start gap-3 text-sm text-white/80">
                     <span className="text-[#c8ff00] mt-0.5 flex-shrink-0 font-bold">✓</span>{t}
                   </li>
@@ -605,7 +605,7 @@ export default function HomePage() {
               <p className="text-white/40 text-sm mb-3">Месечно</p>
               <p className="text-5xl font-black mb-1">€49<span className="text-white/30 text-xl font-normal">/мес</span></p>
               <ul className="space-y-2 text-sm text-white/50 my-6">
-                <li className="flex items-center gap-2"><span className="text-[#c8ff00]">✓</span> Курс + общност</li>
+                <li className="flex items-center gap-2"><span className="text-[#c8ff00]">✓</span> Обучение + общност</li>
                 <li className="flex items-center gap-2"><span className="text-[#c8ff00]">✓</span> Weekly Q&A</li>
                 <li className="flex items-center gap-2"><span className="text-[#c8ff00]">✓</span> Job pipeline</li>
               </ul>
@@ -881,7 +881,7 @@ const testimonials = [
     name: "Ивана К.",
     role: "Social media → Vekto team",
     photo: "", // добави /images/ivana.jpg
-    text: "Курсът е различен от всичко което съм гледала. Реални примери, реални инструменти, реален feedback.",
+    text: "Обучението е различно от всичко което съм гледала. Реални примери, реални инструменти, реален feedback.",
   },
   {
     name: "Стефан Д.",
@@ -902,7 +902,7 @@ const clients = [
 const features = [
   {
     icon: "🎬",
-    title: "Видео курс",
+    title: "Видео обучение",
     desc: "Структурирани модули директно в платформата — гледаш, учиш и практикуваш без да излизаш навсякъде.",
   },
   {
@@ -935,14 +935,14 @@ const features = [
 const faq = [
   {
     q: "Трябва ли ми опит с AI или видео?",
-    a: "Не. Курсът е структуриран от нулата. Единственото което трябва е желание да учиш и компютър.",
+    a: "Не. Обучението е структурирано от нулата. Единственото което трябва е желание да учиш и компютър.",
   },
   {
     q: "Как реално мога да стана част от Vekto екипа?",
     a: "Завършваш модулите, предаваш тестов проект и ако качеството е на ниво — влизаш в пула за платени проекти. Нямаме гаранция, но активните членове получават реални briefs от нашите клиенти.",
   },
   {
-    q: "Какво точно включва курсът?",
+    q: "Какво точно включва обучението?",
     a: "Видео модули за AI инструменти, workflow-и, prompting и производство на съдържание. Всичко е базирано на реални проекти на Vekto — не теория.",
   },
   {
@@ -958,7 +958,7 @@ const faq = [
     a: "Не. €199 е launch цена само за първите 50 члена. След като местата се запълнят, цената се вдига.",
   },
   {
-    q: "На какъв език е курсът?",
+    q: "На какъв език е обучението?",
     a: "Български. Всички модули, чатът и Q&A сесиите са на български.",
   },
 ];

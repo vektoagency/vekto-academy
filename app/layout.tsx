@@ -10,13 +10,13 @@ const geist = Geist({
 
 export const metadata: Metadata = {
   title: "Vekto Academy — Научи AI видео. Получи реална работа.",
-  description: "Платформа за AI видео съдържание от Vekto Agency. Курс, общност и job pipeline — всичко на едно място. Влезни и започни.",
-  keywords: ["AI видео", "AI курс", "видео продукция", "Vekto Academy", "freelance", "AI съдържание", "онлайн курс"],
+  description: "Платформа за AI видео съдържание от Vekto Agency. Обучение, общност и job pipeline — всичко на едно място. Влезни и започни.",
+  keywords: ["AI видео", "AI обучение", "видео продукция", "Vekto Academy", "freelance", "AI съдържание", "онлайн обучение"],
   authors: [{ name: "Vekto Agency", url: "https://vektoagency.com" }],
   metadataBase: new URL("https://vektoacademy.com"),
   openGraph: {
     title: "Vekto Academy — Научи AI видео. Получи реална работа.",
-    description: "Учиш от агенция с реални клиенти. Докажи се — и ти плащаме. Курс + общност + job pipeline на едно място.",
+    description: "Учиш от агенция с реални клиенти. Докажи се — и ти плащаме. Обучение + общност + job pipeline на едно място.",
     url: "https://vektoacademy.com",
     siteName: "Vekto Academy",
     locale: "bg_BG",
