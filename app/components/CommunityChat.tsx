@@ -40,6 +40,9 @@ const PINNED: Record<string, string> = {
 const ADMIN_CLERK_ID = process.env.NEXT_PUBLIC_ADMIN_CLERK_ID ?? "";
 type ActiveView = { type: "channel"; id: string } | { type: "dm" };
 
+// Global admin state — set during connect
+let _isAdmin = false;
+
 // ── Helpers ────────────────────────────────────────────
 function formatTime(date: Date | string) {
   return new Date(date).toLocaleTimeString("bg-BG", { hour: "2-digit", minute: "2-digit" });
@@ -73,16 +76,44 @@ function Avatar({ user, size = 38 }: { user: { name?: string; image?: string }; 
 // ── Single Message ─────────────────────────────────────
 function MessageItem({ msg, showHeader }: { msg: FormatMessageResponse; showHeader: boolean }) {
   const { client } = useChatContext();
+  const { channel } = useChannelStateContext();
   const isMe = msg.user?.id === client.userID;
   const isDeleted = msg.type === "deleted";
   const [hovered, setHovered] = useState(false);
+  const [showModMenu, setShowModMenu] = useState(false);
+  const canModerate = _isAdmin && !isMe && !isDeleted;
+
+  async function handleDelete() {
+    if (!confirm("Изтрий това съобщение?")) return;
+    try {
+      await client.deleteMessage(msg.id, true);
+    } catch { /* ignore */ }
+    setShowModMenu(false);
+  }
+
+  async function handleBan() {
+    if (!msg.user?.id) return;
+    if (!confirm(`Банвай ${msg.user.name ?? msg.user.id}? Няма да може да пише повече.`)) return;
+    try {
+      await channel.banUser(msg.user.id, { reason: "Banned by admin" });
+    } catch { /* ignore */ }
+    setShowModMenu(false);
+  }
+
+  async function handleMute() {
+    if (!msg.user?.id) return;
+    try {
+      await client.muteUser(msg.user.id);
+    } catch { /* ignore */ }
+    setShowModMenu(false);
+  }
 
   return (
     <div
-      className="group flex items-start gap-3 px-4 py-0.5 hover:bg-white/[0.02] transition-colors"
+      className="group flex items-start gap-3 px-4 py-0.5 hover:bg-white/[0.02] transition-colors relative"
       style={{ paddingTop: showHeader ? "12px" : "2px" }}
       onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      onMouseLeave={() => { setHovered(false); setShowModMenu(false); }}
     >
       {/* Avatar / spacer */}
       <div className="w-10 flex-shrink-0 flex justify-center" style={{ paddingTop: showHeader ? 2 : 0 }}>
@@ -99,6 +130,9 @@ function MessageItem({ msg, showHeader }: { msg: FormatMessageResponse; showHead
             <span className={`font-bold text-sm ${isMe ? "text-[#c8ff00]" : "text-white"}`}>
               {msg.user?.name ?? "Потребител"}
             </span>
+            {msg.user?.role === "admin" && (
+              <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#c8ff00]/15 text-[#c8ff00] uppercase">Admin</span>
+            )}
             <span className="text-white/20 text-[11px]">{formatTime(msg.created_at!)}</span>
           </div>
         )}
@@ -131,6 +165,43 @@ function MessageItem({ msg, showHeader }: { msg: FormatMessageResponse; showHead
           </div>
         )}
       </div>
+
+      {/* Mod actions */}
+      {canModerate && hovered && (
+        <div className="absolute right-3 top-1">
+          <button
+            onClick={() => setShowModMenu(o => !o)}
+            className="p-1 rounded-md bg-[#111] border border-white/10 text-white/30 hover:text-white/70 hover:bg-white/10 transition-colors"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 5v.01M12 12v.01M12 19v.01" />
+            </svg>
+          </button>
+          {showModMenu && (
+            <div className="absolute right-0 top-full mt-1 w-44 bg-[#111] border border-white/10 rounded-xl shadow-2xl shadow-black/60 overflow-hidden z-50">
+              <button onClick={handleDelete} className="w-full flex items-center gap-2 px-3 py-2 text-xs text-red-400 hover:bg-red-500/10 transition-colors">
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+                Изтрий съобщение
+              </button>
+              <button onClick={handleMute} className="w-full flex items-center gap-2 px-3 py-2 text-xs text-yellow-400 hover:bg-yellow-500/10 transition-colors">
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+                </svg>
+                Заглуши потребител
+              </button>
+              <button onClick={handleBan} className="w-full flex items-center gap-2 px-3 py-2 text-xs text-red-500 hover:bg-red-500/10 transition-colors">
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                </svg>
+                Банвай потребител
+              </button>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
@@ -311,7 +382,8 @@ export default function CommunityChat() {
     if (!user || connected) return;
     async function connect() {
       const res = await fetch("/api/stream-token");
-      const { token } = await res.json();
+      const { token, isAdmin } = await res.json();
+      _isAdmin = isAdmin ?? false;
       await client.connectUser(
         { id: user!.id, name: [user!.firstName, user!.lastName].filter(Boolean).join(" ") || "Потребител", image: user!.imageUrl },
         token
