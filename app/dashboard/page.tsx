@@ -477,7 +477,7 @@ export default async function DashboardPage({
                     <p className="text-[#c8ff00] text-[10px] font-black uppercase tracking-[0.2em] mb-2">Vekto Academy</p>
                     <h2 className="text-2xl md:text-3xl font-black mb-2">Обучение</h2>
                     <p className="text-white/40 text-sm leading-relaxed mb-5 max-w-lg">
-                      AI видео от нулата до реален клиентски проект. 7 модула, {totalLessonsCount} урока, lifetime достъп.
+                      Научи се да правиш AI видеа от нулата до реален клиентски проект. 7 модула, {totalLessonsCount} урока, lifetime достъп.
                     </p>
                     <div className="flex items-center gap-3 mb-5">
                       <div className="flex-1 h-2 bg-white/6 rounded-full overflow-hidden">
