@@ -738,7 +738,7 @@ export default function HomePage() {
                 <span className="text-black/30 text-xl line-through">€708/год</span>
                 <span className="text-6xl sm:text-7xl font-black text-black leading-none">€349</span>
               </div>
-              <p className="text-black/50 text-sm mb-6">≈ €1.15 на ден първата година · ~683 лв</p>
+              <p className="text-black/50 text-sm mb-6">≈ €1.15 на ден първата година · ~683 лв · с ДДС включен</p>
 
               <ul className="space-y-2.5 text-sm text-black/80 mb-6">
                 <li className="flex items-center gap-2"><span className="text-black font-bold">✓</span> Всичко от месечния план</li>
@@ -766,7 +766,7 @@ export default function HomePage() {
                 <span className="text-5xl sm:text-6xl font-black leading-none">€59</span>
                 <span className="text-white/30 text-lg">/мес</span>
               </div>
-              <p className="text-white/40 text-sm mb-6">~115 лв · отмяна по всяко време</p>
+              <p className="text-white/40 text-sm mb-6">~115 лв · с ДДС · отмяна по всяко време</p>
 
               <ul className="space-y-2.5 text-sm text-white/60 mb-6">
                 <li className="flex items-center gap-2"><span className="text-[#c8ff00]">✓</span> Пълно обучение</li>
@@ -785,7 +785,7 @@ export default function HomePage() {
           </div>
 
           <p className="text-center text-white/30 text-xs mt-8">
-            Без скрити такси · Сигурно плащане през Stripe · Пълни фактури
+            Всички цени с ДДС включен · Сигурно плащане през Stripe · Пълни фактури
           </p>
         </div>
       </section>
@@ -918,54 +918,81 @@ function StickyBar() {
 }
 
 const plans = [
-  { id: "monthly", label: "Месечно", price: "€59", sub: "/мес", badge: null, cta: "Започни месечно — €59/мес" },
-  { id: "lifetime", label: "Lifetime ⚡", price: "€349", sub: "", badge: "FOUNDING", cta: "Вземи Lifetime — €349" },
+  {
+    id: "monthly",
+    label: "Месечно",
+    price: "€59",
+    sub: "/мес",
+    bgn: "~115 лв/мес",
+    badge: null,
+    note: "Отмяна по всяко време",
+    cta: "Започни месечно — €59/мес",
+  },
+  {
+    id: "lifetime",
+    label: "Lifetime",
+    price: "€349",
+    sub: "",
+    bgn: "~683 лв · еднократно",
+    badge: "FOUNDING · 38/50",
+    note: "Спестяваш €359 vs годишно",
+    cta: "Вземи Lifetime — €349",
+  },
 ];
 
 function PricingToggle() {
   const [selected, setSelected] = useState("lifetime");
-  const [visible, setVisible] = useState(true);
   const plan = plans.find((p) => p.id === selected)!;
-
-  const selectPlan = (id: string) => {
-    setSelected(id);
-  };;
 
   return (
     <div className="flex flex-col items-center gap-4 mb-10 relative z-10 w-full max-w-md">
-      {/* Toggle */}
-      <div className="w-full grid grid-cols-2 border border-white/10 rounded-2xl overflow-hidden text-center">
-        {plans.map((p) => (
-          <button
-            key={p.id}
-            onClick={() => selectPlan(p.id)}
-            className="py-3 px-2 relative"
-            style={{
-              backgroundColor: selected === p.id ? "rgba(200,255,0,0.12)" : "transparent",
-              borderBottom: selected === p.id ? "2px solid #c8ff00" : "2px solid transparent",
-              transition: "background-color 0.2s ease, border-color 0.2s ease",
-            }}
-          >
-            {p.badge && (
-              <span className="block text-[10px] text-[#c8ff00] font-bold mb-0.5">{p.badge}</span>
-            )}
-            {!p.badge && <span className="block text-[10px] text-white/30 mb-0.5">&nbsp;</span>}
-            <p className={`text-xs mb-0.5 ${selected === p.id ? "text-white" : "text-white/40"}`}>{p.label}</p>
-            <p className={`font-bold text-sm ${selected === p.id ? "text-[#c8ff00]" : "text-white/60"}`}>
-              {p.price}<span className="font-normal text-white/30 text-xs">{p.sub}</span>
-            </p>
-          </button>
-        ))}
+      {/* Segmented selector */}
+      <div className="w-full p-1 rounded-2xl bg-white/[0.04] border border-white/10 grid grid-cols-2 gap-1">
+        {plans.map((p) => {
+          const isActive = selected === p.id;
+          return (
+            <button
+              key={p.id}
+              onClick={() => setSelected(p.id)}
+              className={`relative rounded-xl py-3 px-3 text-left transition-all ${
+                isActive
+                  ? "bg-[#c8ff00] text-black shadow-[0_0_24px_rgba(200,255,0,0.25)]"
+                  : "text-white/60 hover:bg-white/[0.04] hover:text-white/80"
+              }`}
+            >
+              <div className="flex items-baseline justify-between gap-1">
+                <span className={`text-[11px] font-bold uppercase tracking-wider ${isActive ? "text-black/70" : "text-white/40"}`}>
+                  {p.label}
+                </span>
+                {p.badge && isActive && (
+                  <span className="text-[9px] font-bold bg-black text-[#c8ff00] px-1.5 py-0.5 rounded-full">
+                    {p.badge}
+                  </span>
+                )}
+              </div>
+              <div className="flex items-baseline gap-1 mt-0.5">
+                <span className={`text-xl font-black leading-none ${isActive ? "text-black" : "text-white/80"}`}>{p.price}</span>
+                <span className={`text-xs ${isActive ? "text-black/60" : "text-white/30"}`}>{p.sub}</span>
+              </div>
+            </button>
+          );
+        })}
       </div>
 
-      {/* CTA Button */}
+      {/* Active plan meta */}
+      <div className="flex items-center justify-between w-full text-[11px] px-1">
+        <span className="text-white/40">{plan.bgn} · с ДДС</span>
+        <span className="text-[#c8ff00]/70 font-semibold">{plan.note}</span>
+      </div>
+
+      {/* CTA */}
       <Link
         href="/sign-up"
-        className="w-full text-center bg-[#c8ff00] text-black font-bold px-8 py-4 rounded-full text-base hover:bg-[#d4ff1a] hover:scale-105 shadow-[0_0_40px_rgba(200,255,0,0.2)]"
+        className="w-full text-center bg-[#c8ff00] text-black font-bold px-8 py-4 rounded-full text-base hover:bg-[#d4ff1a] hover:scale-[1.02] transition-all shadow-[0_0_40px_rgba(200,255,0,0.2)]"
       >
         {plan.cta}
       </Link>
-      <p className="text-white/25 text-xs">Без скрити такси · Отмяна по всяко време</p>
+      <p className="text-white/25 text-xs">ДДС включен · Без скрити такси · Сигурно плащане</p>
     </div>
   );
 }
