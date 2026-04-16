@@ -738,7 +738,7 @@ export default function HomePage() {
                 <span className="text-black/30 text-xl line-through">€708/год</span>
                 <span className="text-6xl sm:text-7xl font-black text-black leading-none">€349</span>
               </div>
-              <p className="text-black/50 text-sm mb-6">≈ €1.15 на ден първата година · ~683 лв · с ДДС включен</p>
+              <p className="text-black/50 text-sm mb-6">≈ €1.15 на ден първата година · с ДДС включен</p>
 
               <ul className="space-y-2.5 text-sm text-black/80 mb-6">
                 <li className="flex items-center gap-2"><span className="text-black font-bold">✓</span> Всичко от месечния план</li>
@@ -766,7 +766,7 @@ export default function HomePage() {
                 <span className="text-5xl sm:text-6xl font-black leading-none">€59</span>
                 <span className="text-white/30 text-lg">/мес</span>
               </div>
-              <p className="text-white/40 text-sm mb-6">~115 лв · с ДДС · отмяна по всяко време</p>
+              <p className="text-white/40 text-sm mb-6">С ДДС · отмяна по всяко време</p>
 
               <ul className="space-y-2.5 text-sm text-white/60 mb-6">
                 <li className="flex items-center gap-2"><span className="text-[#c8ff00]">✓</span> Пълно обучение</li>
@@ -923,7 +923,7 @@ const plans = [
     label: "Месечно",
     price: "€59",
     sub: "/мес",
-    bgn: "~115 лв/мес",
+    bgn: "С ДДС включен",
     badge: null,
     note: "Отмяна по всяко време",
     cta: "Започни месечно — €59/мес",
@@ -933,7 +933,7 @@ const plans = [
     label: "Lifetime",
     price: "€349",
     sub: "",
-    bgn: "~683 лв · еднократно",
+    bgn: "Еднократно · с ДДС",
     badge: "FOUNDING · 38/50",
     note: "Спестяваш €359 vs годишно",
     cta: "Вземи Lifetime — €349",
