@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
@@ -24,6 +24,90 @@ type Module = {
   lessons: Lesson[];
 };
 
+const COURSE: Module[] = [
+  {
+    id: 0,
+    title: "Старт",
+    emoji: "🚀",
+    lessons: [
+      { id: "0-1", title: "Как се ползва платформата", duration: "3:00", bunnyId: "" },
+      { id: "0-2", title: "Добре дошли в обучението", duration: "5:12", bunnyId: "dbc5a2c0-7b9e-48d4-a916-bfa313e9c9a8" },
+    ],
+  },
+  {
+    id: 1,
+    title: "Майндсет",
+    emoji: "🧠",
+    lessons: [
+      { id: "1-1", title: "Мисли като маркетолог, виждай като режисьор", duration: "13:00", bunnyId: "" },
+      { id: "1-2", title: "Пускай. Учи. Повтаряй.", duration: "12:00", bunnyId: "" },
+    ],
+  },
+  {
+    id: 2,
+    title: "Психология и стратегия",
+    emoji: "🎯",
+    lessons: [
+      { id: "2-1", title: "Hook / Body / CTA анатомия", duration: "12:00", bunnyId: "" },
+      { id: "2-2", title: "Голямата рамка — най-добрата рамка за платена реклама", duration: "10:00", bunnyId: "" },
+      { id: "2-3", title: "TOF MOF BOF", duration: "11:00", bunnyId: "" },
+      { id: "2-4", title: "Матрицата на ъглите — как генерираш 10 ъгъла за всеки продукт", duration: "12:00", bunnyId: "" },
+      { id: "2-5", title: "Органик vs Платено — различна логика, различни метрики", duration: "10:00", bunnyId: "" },
+    ],
+  },
+  {
+    id: 3,
+    title: "Инструментите",
+    emoji: "🛠",
+    lessons: [
+      { id: "3-1", title: "Промптинг основи", duration: "14:00", bunnyId: "" },
+      { id: "3-2", title: "Инструментите — регистрация и setup", duration: "10:00", bunnyId: "" },
+      { id: "3-3", title: "Генериране на изображения", duration: "18:00", bunnyId: "" },
+      { id: "3-4", title: "От снимка към видео", duration: "15:00", bunnyId: "" },
+      { id: "3-5", title: "Глас и аудио", duration: "12:00", bunnyId: "" },
+      { id: "3-6", title: "HeyGen — аватари и дигитален близнак", duration: "16:00", bunnyId: "" },
+      { id: "3-7", title: "CapCut — workflow от А до Я", duration: "20:00", bunnyId: "" },
+    ],
+  },
+  {
+    id: 4,
+    title: "The Playbooks",
+    emoji: "⭐",
+    lessons: [
+      { id: "4-1", title: "AI UGC реклами — Онлайн магазини · TOF и BOF", duration: "25:00", bunnyId: "" },
+      { id: "4-2", title: "Faceless viral TikTok / Reels — без да се показваш", duration: "25:00", bunnyId: "" },
+      { id: "4-3", title: "Говорещи глави / VSL — Коучове и услуги", duration: "25:00", bunnyId: "" },
+      { id: "4-4", title: "Кинематографски / Brand Film — Луксозни брандове", duration: "25:00", bunnyId: "" },
+      { id: "4-5", title: "Органично съдържание", duration: "20:00", bunnyId: "" },
+    ],
+  },
+  {
+    id: 5,
+    title: "Монтаж за задържане на внимание",
+    emoji: "✂️",
+    lessons: [
+      { id: "5-1", title: "Retention editing — смяна на кадър на всеки 3 секунди", duration: "12:00", bunnyId: "" },
+      { id: "5-2", title: "Субтитри които продават — Hormozi стил с 1 клик", duration: "11:00", bunnyId: "" },
+      { id: "5-3", title: "Sound design — swoosh · pop · riser ефекти", duration: "12:00", bunnyId: "" },
+    ],
+  },
+  {
+    id: 6,
+    title: "Машината за клиенти",
+    emoji: "💰",
+    lessons: [
+      { id: "6-1", title: "Как намираш клиенти — фитнеси · зъболекари · локален бизнес", duration: "13:00", bunnyId: "" },
+      { id: "6-2", title: "Офертата — пакет от ъгли, не просто видеа", duration: "12:00", bunnyId: "" },
+    ],
+  },
+];
+
+const ALL_LESSONS: Lesson[] = COURSE.flatMap((m) => m.lessons);
+
+function getLessonModule(lessonId: string): Module | undefined {
+  return COURSE.find((m) => m.lessons.some((l) => l.id === lessonId));
+}
+
 // ── Helpers ─────────────────────────────────────────────
 function totalMinutes(lessons: Lesson[]): number {
   return lessons.reduce((acc, l) => {
@@ -39,8 +123,6 @@ function formatDuration(secs: number): string {
 
 export default function CoursePage({ params }: { params: Promise<{ id: string }> }) {
   const { user } = useUser();
-  const [course, setCourse] = useState<Module[]>([]);
-  const [courseLoading, setCourseLoading] = useState(true);
   const [lessonId, setLessonId] = useState<string | null>(null);
   const [notes, setNotes] = useState("");
   const [notesSaved, setNotesSaved] = useState(false);
@@ -53,20 +135,8 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const autoCompleteRef = useRef(false);
 
-  const allLessons = useMemo(() => course.flatMap((m) => m.lessons), [course]);
-  const lesson = allLessons.find((l) => l.id === lessonId) ?? null;
-  const lessonModule = lesson ? course.find((m) => m.lessons.some((l) => l.id === lesson.id)) : null;
-
-  // Fetch course structure from API
-  useEffect(() => {
-    fetch("/api/course")
-      .then((r) => r.json())
-      .then(({ data }) => {
-        if (data) setCourse(data);
-      })
-      .catch(() => {})
-      .finally(() => setCourseLoading(false));
-  }, []);
+  const lesson = ALL_LESSONS.find((l) => l.id === lessonId) ?? null;
+  const lessonModule = lesson ? getLessonModule(lesson.id) : null;
 
   useEffect(() => {
     params.then(() => {
@@ -110,12 +180,12 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
       const json = await res.json();
       if (!res.ok) { console.error("markComplete error:", JSON.stringify(json)); return; }
       setProgress((prev) => ({ ...prev, [lessonId]: true }));
-      const idx = allLessons.findIndex((l) => l.id === lessonId);
-      const next = allLessons[idx + 1];
+      const idx = ALL_LESSONS.findIndex((l) => l.id === lessonId);
+      const next = ALL_LESSONS[idx + 1];
       if (next) {
         setTimeout(() => {
           setLessonId(next.id);
-          const mod = course.find((m) => m.lessons.some((l2) => l2.id === next.id));
+          const mod = getLessonModule(next.id);
           if (mod) setExpandedModules((e) => ({ ...e, [mod.id]: true }));
         }, 800);
       }
@@ -157,27 +227,19 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
   }
 
   const completedCount = Object.values(progress).filter(Boolean).length;
-  const totalLessons = allLessons.length;
+  const totalLessons = ALL_LESSONS.length;
   const progressPct = Math.round((completedCount / totalLessons) * 100);
 
-  const lessonIndex = lesson ? allLessons.findIndex((l) => l.id === lesson.id) : -1;
-  const prevLesson = lessonIndex > 0 ? allLessons[lessonIndex - 1] : null;
-  const nextLesson = lessonIndex >= 0 && lessonIndex < allLessons.length - 1 ? allLessons[lessonIndex + 1] : null;
-  const firstIncomplete = allLessons.find((l) => !progress[l.id]) ?? allLessons[0];
+  const lessonIndex = lesson ? ALL_LESSONS.findIndex((l) => l.id === lesson.id) : -1;
+  const prevLesson = lessonIndex > 0 ? ALL_LESSONS[lessonIndex - 1] : null;
+  const nextLesson = lessonIndex >= 0 && lessonIndex < ALL_LESSONS.length - 1 ? ALL_LESSONS[lessonIndex + 1] : null;
+  const firstIncomplete = ALL_LESSONS.find((l) => !progress[l.id]) ?? ALL_LESSONS[0];
 
   function goToLesson(l: Lesson) {
     setLessonId(l.id);
     autoCompleteRef.current = false;
-    const mod = course.find((m) => m.lessons.some((l2) => l2.id === l.id));
+    const mod = getLessonModule(l.id);
     if (mod) setExpandedModules((e) => ({ ...e, [mod.id]: true }));
-  }
-
-  if (courseLoading) {
-    return (
-      <div className="flex h-dvh bg-[#080808] text-white items-center justify-center">
-        <div className="w-6 h-6 border-2 border-white/10 border-t-[#c8ff00] rounded-full animate-spin" />
-      </div>
-    );
   }
 
   return (
@@ -227,10 +289,10 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
           {/* Search results */}
           {search && (
             <div className="px-2 pb-2">
-              {allLessons.filter(l => l.title.toLowerCase().includes(search.toLowerCase())).length === 0 ? (
+              {ALL_LESSONS.filter(l => l.title.toLowerCase().includes(search.toLowerCase())).length === 0 ? (
                 <p className="text-white/20 text-xs px-3 py-4 text-center">Няма резултати</p>
               ) : (
-                allLessons.filter(l => l.title.toLowerCase().includes(search.toLowerCase())).map(l => {
+                ALL_LESSONS.filter(l => l.title.toLowerCase().includes(search.toLowerCase())).map(l => {
                   const done = progress[l.id];
                   const active = l.id === lessonId;
                   return (
@@ -250,7 +312,7 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
             </div>
           )}
 
-          {!search && course.map((mod) => {
+          {!search && COURSE.map((mod) => {
             const modDone = mod.lessons.every((l) => progress[l.id]);
             const modProgress = mod.lessons.filter((l) => progress[l.id]).length;
             const isExpanded = expandedModules[mod.id];
@@ -325,7 +387,7 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
               </div>
             </div>
             <nav className="flex-1 overflow-y-auto py-2">
-              {course.map((mod) => {
+              {COURSE.map((mod) => {
                 const modDone = mod.lessons.every((l) => progress[l.id]);
                 const modProgress = mod.lessons.filter((l) => progress[l.id]).length;
                 const isExpanded = expandedModules[mod.id];
@@ -428,11 +490,11 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
                 <div className="flex flex-wrap items-center gap-5 text-sm text-white/30">
                   <span className="flex items-center gap-1.5">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                    {formatDuration(totalMinutes(allLessons))} обучение
+                    {formatDuration(totalMinutes(ALL_LESSONS))} обучение
                   </span>
                   <span className="flex items-center gap-1.5">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>
-                    {course.length} модула · {totalLessons} урока
+                    {COURSE.length} модула · {totalLessons} урока
                   </span>
                   <span className="flex items-center gap-1.5">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
@@ -487,7 +549,7 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
               <div>
                 <h2 className="font-black text-lg mb-4">Съдържание на обучението</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {course.map((mod) => {
+                  {COURSE.map((mod) => {
                     const modDone = mod.lessons.every((l) => progress[l.id]);
                     const modProgress = mod.lessons.filter((l) => progress[l.id]).length;
                     const firstIncompleteInMod = mod.lessons.find((l) => !progress[l.id]) ?? mod.lessons[0];
