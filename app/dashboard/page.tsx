@@ -6,6 +6,7 @@ import CommunityChat from "../components/CommunityChat";
 import ArenaRules from "../components/ArenaRules";
 import BillingPortalButton from "../components/BillingPortalButton";
 import NotificationBell from "../components/NotificationBell";
+import ProfileNameForm from "../components/ProfileNameForm";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -808,6 +809,9 @@ export default async function DashboardPage({
                     <p className="text-white/35 text-sm">{user?.emailAddresses?.[0]?.emailAddress}</p>
                   </div>
                 </div>
+
+                {/* Name edit */}
+                <ProfileNameForm />
                 <div className="grid grid-cols-2 gap-3">
                   <div className="bg-white/4 border border-white/6 rounded-xl p-3">
                     <p className="text-white/25 text-[10px] uppercase tracking-widest mb-1">План</p>
