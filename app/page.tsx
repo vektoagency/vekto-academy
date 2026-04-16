@@ -472,20 +472,17 @@ export default function HomePage() {
         </div>
 
         {/* Headline */}
-        <h1 className="relative z-10 mb-4 text-center font-black tracking-tight">
-          <span className="block text-[3.8rem] sm:text-7xl md:text-[7.5rem] leading-[0.9] bg-gradient-to-br from-[#e8ff6b] via-[#c8ff00] to-[#7a9e00] bg-clip-text text-transparent drop-shadow-[0_0_50px_rgba(200,255,0,0.35)]">
-            3 месеца
+        <h1 className="relative z-10 mb-5 text-center font-black tracking-tight leading-[1.02]">
+          <span className="block text-[2.8rem] sm:text-5xl md:text-[5.5rem] text-white">
+            3 месеца до
           </span>
-          <span className="block text-[1.7rem] sm:text-3xl md:text-5xl text-white leading-[1.1] mt-3">
-            до твоя първи платен клиент
-          </span>
-          <span className="block text-base sm:text-lg md:text-xl text-white/40 font-bold mt-2 uppercase tracking-[0.2em]">
-            от AI видео
+          <span className="block text-[2.8rem] sm:text-5xl md:text-[5.5rem] text-[#c8ff00] drop-shadow-[0_0_60px_rgba(200,255,0,0.3)]">
+            първия ти платен клиент.
           </span>
         </h1>
 
         <p className="text-white/50 text-sm sm:text-base md:text-lg max-w-xl mb-8 relative z-10 leading-relaxed text-center">
-          Ние сме <span className="text-white/80 font-semibold">Vekto</span>. Показваме ти процеса отвътре, възлагаме ти реални задачи, наемаме най-добрите.
+          Ние сме <span className="text-white/80 font-semibold">Vekto</span>. Правим AI видео за реални брандове, възлагаме ти задачи, наемаме най-добрите.
         </p>
 
         {/* CTA with plan toggle */}
