@@ -478,12 +478,8 @@ export default function HomePage() {
           от AI видео.
         </h1>
 
-        <p className="text-white/50 text-sm sm:text-base md:text-lg max-w-xl mb-4 relative z-10 leading-relaxed text-center">
-          Ние сме <span className="text-white/80 font-semibold">Vekto Agency</span> — 200+ AI видео проекта за реални брандове. Учим те как работим, даваме ти реални задачи, наемаме най-добрите.
-        </p>
-
-        <p className="text-white/30 text-xs sm:text-sm mb-8 relative z-10">
-          Видеа за: <span className="text-white/60 font-medium">Mens Care · Isosport · Krista G</span>
+        <p className="text-white/50 text-sm sm:text-base md:text-lg max-w-xl mb-8 relative z-10 leading-relaxed text-center">
+          Ние сме <span className="text-white/80 font-semibold">Vekto Agency</span>. Учим те workflow-а, даваме ти реални брифове, наемаме най-добрите.
         </p>
 
         {/* CTA with plan toggle */}
