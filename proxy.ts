@@ -1,4 +1,4 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { clerkMiddleware, createRouteMatcher, clerkClient } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
@@ -16,7 +16,9 @@ const clerkHandler = clerkMiddleware(async (auth, req) => {
     if (!session.userId) {
       return session.redirectToSignIn();
     }
-    const role = (session.sessionClaims?.metadata as Record<string, string>)?.role;
+    const client = await clerkClient();
+    const user = await client.users.getUser(session.userId);
+    const role = (user.publicMetadata as Record<string, string>)?.role;
     if (role !== "admin") {
       return NextResponse.redirect(new URL("/dashboard", req.url));
     }
