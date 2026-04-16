@@ -248,6 +248,67 @@ const platformTabs = [
       </div>
     ),
   },
+  {
+    id: "work",
+    label: "Работа",
+    title: "Подай портфолио — работи с нас",
+    desc: "Качваш bio, линкове и примери. Vekto Agency преглежда всеки профил лично и възлага реални платени проекти.",
+    ui: (
+      <div className="w-full bg-[#0d0d0d] rounded-xl border border-white/10 overflow-hidden">
+        <div className="flex items-center gap-2 px-4 py-3 border-b border-white/8 bg-[#111]">
+          <div className="w-2 h-2 rounded-full bg-red-500/50" />
+          <div className="w-2 h-2 rounded-full bg-yellow-500/50" />
+          <div className="w-2 h-2 rounded-full bg-green-500/50" />
+          <span className="text-white/20 text-xs ml-2">vektoacademy.com/dashboard?tab=jobs</span>
+        </div>
+        <div className="p-3 sm:p-4 h-52 sm:h-64 grid grid-cols-5 gap-3 overflow-hidden">
+          {/* Profile form */}
+          <div className="col-span-3 rounded-xl border border-white/8 bg-[#111] overflow-hidden flex flex-col">
+            <div className="px-3 py-2 border-b border-white/6 bg-[#0d0d0d]">
+              <p className="text-[9px] font-black uppercase tracking-widest text-white/30">Твоят профил</p>
+            </div>
+            <div className="p-3 flex flex-col gap-2 flex-1">
+              <div className="flex items-center gap-2">
+                <div className="w-7 h-7 rounded-lg bg-[#c8ff00] flex items-center justify-center text-black text-[10px] font-black flex-shrink-0">МГ</div>
+                <div className="min-w-0">
+                  <p className="text-xs font-bold truncate">Мартин Георгиев</p>
+                  <p className="text-white/30 text-[9px]">AI Video Creator</p>
+                </div>
+              </div>
+              <div className="bg-white/4 border border-white/8 rounded-md px-2 py-1.5">
+                <p className="text-white/20 text-[8px] uppercase tracking-widest">Портфолио</p>
+                <p className="text-white/60 text-[10px] truncate">behance.net/martin.g</p>
+              </div>
+              <div className="bg-white/4 border border-white/8 rounded-md px-2 py-1.5 flex-1">
+                <p className="text-white/20 text-[8px] uppercase tracking-widest">Bio</p>
+                <p className="text-white/60 text-[10px] leading-tight">AI видеа за брандове. Специализация в UGC и product launch.</p>
+              </div>
+              <div className="bg-[#c8ff00] text-black text-[10px] font-black py-1.5 rounded-md text-center">Изпрати за преглед →</div>
+            </div>
+          </div>
+          {/* What we look for */}
+          <div className="col-span-2 rounded-xl border border-white/6 bg-[#111] overflow-hidden flex flex-col">
+            <div className="px-2.5 py-2 bg-[#0d0d0d] border-b border-white/6">
+              <p className="text-[9px] font-black uppercase tracking-widest text-white/40">Какво търсим</p>
+            </div>
+            <div className="p-2.5 flex flex-col gap-1.5 flex-1">
+              {[
+                "Реални финализирани проекти",
+                "Ясен стил и почерк",
+                "Опит с AI инструменти",
+                "Комуникация на английски",
+              ].map((t) => (
+                <div key={t} className="flex items-start gap-1.5">
+                  <span className="text-[#c8ff00] text-[10px] leading-tight flex-shrink-0">✓</span>
+                  <p className="text-white/50 text-[10px] leading-tight">{t}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
 ];
 
 function PlatformPreview() {
