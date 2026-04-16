@@ -485,7 +485,7 @@ export default function HomePage() {
         </h1>
 
         <p className="text-white/50 text-sm sm:text-base md:text-lg max-w-xl mb-8 relative z-10 leading-relaxed text-center">
-          Ние сме <span className="text-white/80 font-semibold">Vekto Agency</span>. Учим те workflow-а, даваме ти реални брифове, наемаме най-добрите.
+          Ние сме <span className="text-white/80 font-semibold">Vekto</span>. Показваме ти процеса отвътре, възлагаме ти реални задачи, наемаме най-добрите.
         </p>
 
         {/* CTA with plan toggle */}
