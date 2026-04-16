@@ -327,7 +327,7 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
                 >
                   <span className="text-sm flex-shrink-0">{mod.emoji}</span>
                   <div className="flex-1 min-w-0">
-                    <p className={`text-xs font-bold truncate ${modDone ? "text-white/50" : "text-white/80"}`}><span className="text-white/30">{mod.id}.</span> {mod.title}</p>
+                    <p className={`text-xs font-bold truncate ${modDone ? "text-white/50" : "text-white/80"}`}>{mod.id}. {mod.title}</p>
                     <p className="text-white/20 text-[10px]">{modProgress}/{mod.lessons.length} урока</p>
                   </div>
                   <svg className={`w-3.5 h-3.5 text-white/20 flex-shrink-0 transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
@@ -400,7 +400,7 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
                     >
                       <span className="text-sm flex-shrink-0">{mod.emoji}</span>
                       <div className="flex-1 min-w-0">
-                        <p className={`text-xs font-bold truncate ${modDone ? "text-white/50" : "text-white/80"}`}><span className="text-white/30">{mod.id}.</span> {mod.title}</p>
+                        <p className={`text-xs font-bold truncate ${modDone ? "text-white/50" : "text-white/80"}`}>{mod.id}. {mod.title}</p>
                         <p className="text-white/20 text-[10px]">{modProgress}/{mod.lessons.length} урока</p>
                       </div>
                       <svg className={`w-3.5 h-3.5 text-white/20 flex-shrink-0 transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
