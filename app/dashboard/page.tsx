@@ -19,12 +19,13 @@ const planLabel: Record<string, string> = {
 };
 
 const modules = [
-  { id: 1, title: "Въведение в AI видео", duration: "26 мин", available: true },
-  { id: 2, title: "Инструменти и setup", duration: "68 мин", available: false },
-  { id: 3, title: "Prompting за видео", duration: "75 мин", available: false },
-  { id: 4, title: "Production workflow", duration: "73 мин", available: false },
-  { id: 5, title: "Клиентска работа", duration: "96 мин", available: false },
-  { id: 6, title: "Скалиране на бизнеса", duration: "105 мин", available: false },
+  { id: 0, title: "Старт", duration: "8 мин", available: true },
+  { id: 1, title: "Майндсет", duration: "25 мин", available: true },
+  { id: 2, title: "Психология и стратегия", duration: "55 мин", available: true },
+  { id: 3, title: "Инструментите", duration: "105 мин", available: true },
+  { id: 4, title: "The Playbooks ⭐", duration: "120 мин", available: true },
+  { id: 5, title: "Монтаж за задържане на внимание", duration: "35 мин", available: true },
+  { id: 6, title: "Машината за клиенти (бонус)", duration: "25 мин", available: true },
 ];
 
 const announcements = [
@@ -346,7 +347,7 @@ export default async function DashboardPage({
                         <div className="w-14 h-14 rounded-full bg-[#c8ff00] flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
                           <svg className="w-6 h-6 text-black ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                         </div>
-                        <p className="text-white/50 text-sm">Модул 01 — Въведение в AI видео</p>
+                        <p className="text-white/50 text-sm">Модул 0 — Старт</p>
                         <span className="text-[#c8ff00] text-xs font-bold bg-[#c8ff00]/10 px-3 py-1 rounded-full">Гледай сега</span>
                       </div>
                     </div>
@@ -450,15 +451,13 @@ export default async function DashboardPage({
                     <Link href="/dashboard/course/1" className="text-[#c8ff00] text-xs font-bold hover:underline">Към обучението →</Link>
                   </div>
                   <div className="flex flex-col gap-2">
-                    {modules.map((m, i) => (
-                      <div key={m.id} className={`flex items-center gap-3 px-3 py-2.5 rounded-xl border ${i === 0 ? "border-[#c8ff00]/20 bg-[#c8ff00]/4" : "border-white/5 bg-white/2"}`}>
-                        <div className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-black ${i === 0 ? "bg-[#c8ff00] text-black" : "bg-white/6 text-white/20"}`}>
-                          {i === 0
-                            ? <svg className="w-3 h-3 ml-px" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                            : `0${m.id}`}
+                    {modules.map((m) => (
+                      <div key={m.id} className="flex items-center gap-3 px-3 py-2.5 rounded-xl border border-white/5 bg-white/2">
+                        <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-black bg-white/6 text-white/25">
+                          {m.id}
                         </div>
-                        <p className={`text-xs font-semibold truncate flex-1 ${i === 0 ? "text-white" : "text-white/30"}`}>{m.title}</p>
-                        {i > 0 && <span className="text-white/15 flex-shrink-0"><IconLock /></span>}
+                        <p className="text-xs font-semibold truncate flex-1 text-white/50">{m.title}</p>
+                        <span className="text-white/15 text-[10px]">{m.duration}</span>
                       </div>
                     ))}
                   </div>
@@ -496,7 +495,7 @@ export default async function DashboardPage({
                   </div>
                   <div className="grid grid-cols-2 gap-3 flex-shrink-0">
                     {[
-                      { n: "6", label: "Модула" },
+                      { n: "7", label: "Модула" },
                       { n: String(totalLessonsCount), label: "Урока" },
                       { n: "∞", label: "Достъп" },
                       { n: "Live", label: "Q&A" },
@@ -512,30 +511,20 @@ export default async function DashboardPage({
 
               {/* Module grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {modules.map((m, i) => (
+                {modules.map((m) => (
                   <Link
                     key={m.id}
-                    href={m.available ? `/dashboard/course/${m.id}` : "#"}
-                    className={`flex items-center gap-4 rounded-2xl border p-4 transition-all group ${
-                      m.available
-                        ? "border-[#c8ff00]/25 bg-[#c8ff00]/4 hover:bg-[#c8ff00]/7 cursor-pointer"
-                        : "border-white/6 bg-[#111] opacity-50 pointer-events-none"
-                    }`}
+                    href={`/dashboard/course/${m.id}`}
+                    className="flex items-center gap-4 rounded-2xl border border-white/8 bg-[#111] hover:bg-white/5 p-4 transition-all group"
                   >
-                    <div className={`w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 font-black text-sm ${
-                      m.available ? "bg-[#c8ff00] text-black" : "bg-white/6 text-white/20"
-                    }`}>
-                      {m.available
-                        ? <svg className="w-5 h-5 ml-px" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                        : `0${m.id}`}
+                    <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 font-black text-sm bg-white/6 text-white/30">
+                      {m.id}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className={`font-bold text-sm truncate ${m.available ? "text-white" : "text-white/35"}`}>{m.title}</p>
+                      <p className="font-bold text-sm truncate text-white/80">{m.title}</p>
                       <p className="text-white/25 text-xs mt-0.5">{m.duration}</p>
                     </div>
-                    {m.available
-                      ? <span className="text-[#c8ff00] text-xs font-bold flex-shrink-0 group-hover:translate-x-0.5 transition-transform">→</span>
-                      : <span className="text-white/15 flex-shrink-0"><IconLock /></span>}
+                    <span className="text-[#c8ff00] text-xs font-bold flex-shrink-0 group-hover:translate-x-0.5 transition-transform">→</span>
                   </Link>
                 ))}
               </div>
