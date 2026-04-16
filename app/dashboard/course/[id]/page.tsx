@@ -511,83 +511,47 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
                 </button>
               </div>
 
-              {/* Progress */}
-              {completedCount > 0 && (
-                <div className="bg-white/3 border border-white/6 rounded-2xl p-5">
-                  <div className="flex items-center justify-between mb-3">
-                    <p className="font-bold text-sm">Твоят прогрес</p>
-                    <span className="text-[#c8ff00] font-black text-sm">{progressPct}%</span>
+              {/* Next lesson + Stats */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {/* Next lesson card — spans 2 cols */}
+                <button
+                  onClick={() => goToLesson(firstIncomplete)}
+                  className="sm:col-span-2 flex items-center gap-5 bg-white/3 border border-white/6 rounded-2xl p-5 hover:bg-white/5 transition-all text-left group"
+                >
+                  <div className="w-14 h-14 rounded-xl bg-[#c8ff00] flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                    <svg className="w-6 h-6 text-black ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                   </div>
-                  <div className="h-2 bg-white/8 rounded-full overflow-hidden">
-                    <div className="h-full bg-[#c8ff00] rounded-full transition-all duration-700" style={{ width: `${progressPct}%` }} />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-white/30 text-[10px] font-bold uppercase tracking-widest mb-1">
+                      {completedCount > 0 ? "Продължи" : "Започни от"}
+                    </p>
+                    <p className="text-white/90 text-sm font-bold truncate">{firstIncomplete.title}</p>
+                    <p className="text-white/25 text-xs mt-0.5">
+                      {(() => { const mod = getLessonModule(firstIncomplete.id); return mod ? `${mod.emoji} ${mod.title}` : ""; })()} · {firstIncomplete.duration}
+                    </p>
                   </div>
-                  <p className="text-white/30 text-xs mt-2">{completedCount} от {totalLessons} завършени</p>
-                </div>
-              )}
+                  <svg className="w-5 h-5 text-white/10 group-hover:text-[#c8ff00] transition-colors flex-shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+                </button>
 
-              {/* Roadmap */}
-              <div>
-                <h2 className="font-black text-lg mb-6">Пътят</h2>
-                <div className="relative">
-                  {/* Vertical line */}
-                  <div className="absolute left-[19px] top-6 bottom-6 w-px bg-white/8" />
-
-                  <div className="space-y-1">
-                    {COURSE.map((mod) => {
-                      const modDone = mod.lessons.every((l) => progress[l.id]);
-                      const modProgress = mod.lessons.filter((l) => progress[l.id]).length;
-                      const firstIncompleteInMod = mod.lessons.find((l) => !progress[l.id]) ?? mod.lessons[0];
-                      const desc: Record<number, string> = {
-                        0: "Запознай се с платформата и как работи всичко.",
-                        1: "Правилната нагласа преди да хванеш инструментите.",
-                        2: "Hook, CTA, фунии, ъгли — стратегията зад всяка реклама.",
-                        3: "Промптинг, генериране, глас, аватари, монтаж — целият арсенал.",
-                        4: "Избираш типа видео, следваш рецептата, получаваш резултат.",
-                        5: "Кадър на 3 секунди, субтитри, sound design — задръж вниманието.",
-                        6: "Как намираш клиенти и как пакетираш офертата си.",
-                      };
-
-                      return (
-                        <button
-                          key={mod.id}
-                          onClick={() => { goToLesson(firstIncompleteInMod); setExpandedModules((e) => ({ ...e, [mod.id]: true })); }}
-                          className="relative flex items-start gap-4 w-full text-left px-2 py-4 rounded-xl hover:bg-white/3 transition-all group"
-                        >
-                          {/* Step circle */}
-                          <div className={`relative z-10 w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 text-sm font-black transition-all ${
-                            modDone
-                              ? "bg-[#c8ff00] text-black"
-                              : modProgress > 0
-                                ? "bg-[#c8ff00]/20 text-[#c8ff00] border-2 border-[#c8ff00]/40"
-                                : "bg-[#151515] border border-white/10 text-white/30"
-                          }`}>
-                            {modDone ? "✓" : mod.id}
-                          </div>
-
-                          {/* Content */}
-                          <div className="flex-1 min-w-0 pt-0.5">
-                            <div className="flex items-center gap-2 mb-1">
-                              <span className="text-base">{mod.emoji}</span>
-                              <p className={`text-sm font-bold ${modDone ? "text-[#c8ff00]/80" : "text-white/85"}`}>{mod.title}</p>
-                            </div>
-                            <p className="text-white/30 text-xs leading-relaxed">{desc[mod.id]}</p>
-                            <div className="flex items-center gap-3 mt-2">
-                              <span className="text-white/20 text-[11px]">{mod.lessons.length} урока · {formatDuration(totalMinutes(mod.lessons))}</span>
-                              {modDone && <span className="text-[#c8ff00] text-[10px] font-bold">Завършен</span>}
-                              {!modDone && modProgress > 0 && <span className="text-[#c8ff00] text-[10px] font-bold">{modProgress}/{mod.lessons.length}</span>}
-                            </div>
-                          </div>
-
-                          {/* Arrow on hover */}
-                          <span className="text-white/10 group-hover:text-[#c8ff00] transition-colors pt-2.5 flex-shrink-0">
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
-                          </span>
-                        </button>
-                      );
-                    })}
+                {/* Stats column */}
+                <div className="flex flex-col gap-3">
+                  <div className="flex-1 bg-white/3 border border-white/6 rounded-2xl p-4 flex flex-col justify-center">
+                    <p className="text-[#c8ff00] text-2xl font-black">{progressPct}%</p>
+                    <p className="text-white/30 text-[10px] font-bold uppercase tracking-widest mt-1">Прогрес</p>
+                  </div>
+                  <div className="flex-1 bg-white/3 border border-white/6 rounded-2xl p-4 flex flex-col justify-center">
+                    <p className="text-white/80 text-2xl font-black">{completedCount}<span className="text-white/20 text-sm font-normal">/{totalLessons}</span></p>
+                    <p className="text-white/30 text-[10px] font-bold uppercase tracking-widest mt-1">Завършени</p>
                   </div>
                 </div>
               </div>
+
+              {/* Progress bar */}
+              {completedCount > 0 && (
+                <div className="h-2 bg-white/6 rounded-full overflow-hidden">
+                  <div className="h-full bg-[#c8ff00] rounded-full transition-all duration-700" style={{ width: `${progressPct}%` }} />
+                </div>
+              )}
 
             </div>
           )}
