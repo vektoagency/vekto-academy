@@ -451,83 +451,60 @@ export default function HomePage() {
       {/* Nav */}
       <MobileNav />
 
-      {/* Hero */}
-      <section className="relative flex flex-col items-center text-center px-5 pt-24 pb-0 min-h-screen">
+      {/* Hero — single focus: headline + subhead + CTA */}
+      <section className="relative flex flex-col items-center justify-center text-center px-6 pt-28 sm:pt-32 pb-16 sm:pb-20 min-h-[85vh]">
         {/* Background glows */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#c8ff00]/4 rounded-full blur-[140px]" />
           <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#c8ff00]/6 rounded-full blur-[80px]" />
         </div>
 
-        {/* Promo banner — Lifetime offer */}
-        <div className="inline-flex flex-col sm:flex-row items-center gap-1.5 sm:gap-3 bg-[#c8ff00] text-black rounded-full px-4 sm:px-5 py-2 mb-6 relative z-10 shadow-[0_0_30px_rgba(200,255,0,0.25)]">
-          <span className="flex items-center gap-1.5 text-[11px] sm:text-xs font-black uppercase tracking-wider">
-            <span>⚡</span>
-            <span>Доживотен достъп €349</span>
+        {/* Top badge — minimal pill, not solid */}
+        <div className="inline-flex items-center gap-2 bg-[#c8ff00]/[0.08] border border-[#c8ff00]/20 rounded-full px-4 py-2 mb-10 sm:mb-12 relative z-10">
+          <span className="text-[#c8ff00] text-xs sm:text-sm font-medium tracking-wide">
+            ⚡ Доживотен достъп €349 · До 1 юни
           </span>
-          <span className="hidden sm:block w-1 h-1 rounded-full bg-black/30" />
-          <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider">Всичко отворено веднага</span>
-          <span className="hidden sm:block w-1 h-1 rounded-full bg-black/30" />
-          <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider">До 1 юни</span>
         </div>
 
-        {/* Headline */}
-        <h1 className="font-display relative z-10 mb-5 text-center font-extrabold tracking-[-0.03em] leading-[0.98]">
-          <span className="block text-[2.8rem] sm:text-5xl md:text-[5.5rem] text-white">
-            Правиш AI видео.
+        {/* Headline — oversized, 2 lines, one accent */}
+        <h1 className="font-display relative z-10 mb-6 text-center font-extrabold tracking-[-0.04em] leading-[1.02] max-w-4xl">
+          <span className="block text-[3rem] sm:text-6xl md:text-[6rem] text-white">
+            От AI видео
           </span>
-          <span className="block text-[2.8rem] sm:text-5xl md:text-[5.5rem] text-[#c8ff00] drop-shadow-[0_0_60px_rgba(200,255,0,0.3)]">
-            Ние ти даваме клиентите.
+          <span className="block text-[3rem] sm:text-6xl md:text-[6rem] text-[#c8ff00] drop-shadow-[0_0_60px_rgba(200,255,0,0.3)]">
+            до първия ти клиент.
           </span>
         </h1>
 
-        <p className="text-white/50 text-sm sm:text-base md:text-lg max-w-xl mb-8 relative z-10 leading-relaxed text-center">
-          3 месеца структурирано обучение. Реални брифове от Vekto. Наемане на най-добрите.
+        {/* Subheadline — single line, parallel structure */}
+        <p className="text-white/70 text-base sm:text-lg md:text-xl max-w-xl mb-12 sm:mb-14 relative z-10 leading-relaxed text-center">
+          Ние сме <span className="text-white font-semibold">Vekto Agency</span>. Ти правиш видеата, ние носим клиентите.
         </p>
 
-        {/* CTA with plan toggle */}
-        <PricingToggle />
+        {/* Single primary CTA */}
+        <form action={createCheckout.bind(null, "lifetime")} className="relative z-10">
+          <button
+            type="submit"
+            className="inline-flex items-center gap-2 bg-[#c8ff00] text-black font-bold px-8 sm:px-10 py-4 sm:py-5 rounded-full hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(200,255,0,0.35)] transition-all text-base sm:text-lg"
+          >
+            <span>Започни</span>
+            <span>→</span>
+            <span className="font-black">€349 доживотен достъп</span>
+          </button>
+        </form>
 
-        {/* Social proof */}
-        <div className="flex flex-wrap justify-center items-center gap-4 text-xs sm:text-sm text-white/30 relative z-10 mb-10">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#c8ff00]" />
-            <span>Early access отворен</span>
-          </div>
-          <span className="text-white/10 hidden sm:block">|</span>
-          <div className="flex items-center gap-1">
-            <span className="text-[#c8ff00] text-xs">★★★★★</span>
-            <span>4.9 рейтинг</span>
-          </div>
-          <span className="text-white/10 hidden sm:block">|</span>
-          <div className="flex items-center gap-1">
-            <span className="text-[#c8ff00]">✓</span>
-            <span>Реална агенция зад обучението</span>
-          </div>
-        </div>
-
-        {/* Hero video */}
-        <div className="relative mt-16 w-full max-w-4xl mx-auto rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
-          <div className="aspect-video bg-[#111] flex items-center justify-center relative">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#c8ff00]/5 to-transparent" />
-            {/* Placeholder за видеото — замени src с реалното видео */}
-            <div className="flex flex-col items-center gap-4 relative z-10">
-              <div className="w-16 h-16 rounded-full bg-[#c8ff00] flex items-center justify-center cursor-pointer hover:scale-110 transition-transform">
-                <svg className="w-6 h-6 text-black ml-1" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z"/>
-                </svg>
-              </div>
-              <p className="text-white/40 text-sm">Виж какво се случва вътре</p>
-            </div>
-            {/* Overlay UI mock */}
-            <div className="absolute bottom-4 left-4 right-4 flex items-center gap-3">
-              <div className="h-1 flex-1 bg-white/10 rounded-full overflow-hidden">
-                <div className="h-full w-1/3 bg-[#c8ff00] rounded-full" />
-              </div>
-              <span className="text-white/30 text-xs">2:34</span>
-            </div>
-          </div>
-        </div>
+        {/* Micro trust signal */}
+        <p className="text-white/40 text-xs sm:text-sm mt-4 relative z-10">
+          ✓ 14 дни гаранция · или{" "}
+          <button
+            onClick={() => {
+              document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="text-white/70 underline underline-offset-2 hover:text-white transition-colors"
+          >
+            €59/мес
+          </button>
+        </p>
       </section>
 
       {/* Logos — клиенти на Vekto */}
@@ -986,86 +963,6 @@ function StickyBar() {
       <Link href="/sign-up" className="bg-[#c8ff00] text-black font-bold px-6 py-2 rounded-full text-sm hover:bg-[#d4ff1a] transition-colors">
         Присъедини се сега
       </Link>
-    </div>
-  );
-}
-
-const plans = [
-  {
-    id: "monthly",
-    label: "Месечно",
-    price: "€59",
-    sub: "/мес",
-    bgn: "Месечен абонамент",
-    badge: null,
-    note: "Отмяна по всяко време",
-    cta: "Започни месечно — €59/мес",
-  },
-  {
-    id: "lifetime",
-    label: "Доживотен",
-    price: "€349",
-    sub: "",
-    bgn: "Еднократно плащане",
-    badge: "ДО 1 ЮНИ",
-    note: "Спестяваш €359 vs годишно",
-    cta: "Вземи доживотен достъп — €349",
-  },
-];
-
-function PricingToggle() {
-  const [selected, setSelected] = useState("lifetime");
-  const plan = plans.find((p) => p.id === selected)!;
-
-  return (
-    <div className="flex flex-col items-center gap-4 mb-10 relative z-10 w-full max-w-md">
-      {/* Segmented selector */}
-      <div className="w-full p-1 rounded-2xl bg-white/[0.04] border border-white/10 grid grid-cols-2 gap-1">
-        {plans.map((p) => {
-          const isActive = selected === p.id;
-          return (
-            <button
-              key={p.id}
-              onClick={() => setSelected(p.id)}
-              className={`relative rounded-xl py-3 px-3 text-left transition-all ${
-                isActive
-                  ? "bg-[#c8ff00] text-black shadow-[0_0_24px_rgba(200,255,0,0.25)]"
-                  : "text-white/60 hover:bg-white/[0.04] hover:text-white/80"
-              }`}
-            >
-              <div className="flex items-baseline justify-between gap-1">
-                <span className={`text-[11px] font-bold uppercase tracking-wider ${isActive ? "text-black/70" : "text-white/40"}`}>
-                  {p.label}
-                </span>
-                {p.badge && isActive && (
-                  <span className="text-[9px] font-bold bg-black text-[#c8ff00] px-1.5 py-0.5 rounded-full">
-                    {p.badge}
-                  </span>
-                )}
-              </div>
-              <div className="flex items-baseline gap-1 mt-0.5">
-                <span className={`text-xl font-black leading-none ${isActive ? "text-black" : "text-white/80"}`}>{p.price}</span>
-                <span className={`text-xs ${isActive ? "text-black/60" : "text-white/30"}`}>{p.sub}</span>
-              </div>
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Active plan meta */}
-      <div className="flex items-center justify-between w-full text-[11px] px-1">
-        <span className="text-white/40">{plan.bgn}</span>
-        <span className="text-[#c8ff00]/70 font-semibold">{plan.note}</span>
-      </div>
-
-      {/* CTA */}
-      <Link
-        href="/sign-up"
-        className="w-full text-center bg-[#c8ff00] text-black font-bold px-8 py-4 rounded-full text-base hover:bg-[#d4ff1a] hover:scale-[1.02] transition-all shadow-[0_0_40px_rgba(200,255,0,0.2)]"
-      >
-        {plan.cta}
-      </Link>
-      <p className="text-white/25 text-xs">ДДС включен · Без скрити такси · Сигурно плащане</p>
     </div>
   );
 }
