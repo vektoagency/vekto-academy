@@ -194,7 +194,7 @@ const platformTabs = [
           <div className="w-2 h-2 rounded-full bg-red-500/50" />
           <div className="w-2 h-2 rounded-full bg-yellow-500/50" />
           <div className="w-2 h-2 rounded-full bg-green-500/50" />
-          <span className="text-white/20 text-xs ml-2">vektoacademy.com/dashboard?tab=jobs</span>
+          <span className="text-white/20 text-xs ml-2">vektoacademy.com/dashboard?tab=arena</span>
         </div>
         <div className="p-3 sm:p-4 h-52 sm:h-64 grid grid-cols-5 gap-3 overflow-hidden">
           {/* Active challenge */}

@@ -135,8 +135,8 @@ export default async function DashboardPage({
     { href: "/dashboard", icon: <IconHome />, label: "Начало", key: "home" },
     { href: "/dashboard?tab=course", icon: <IconPlay />, label: "Обучение", key: "course" },
     { href: "/dashboard?tab=community", icon: <IconUsers />, label: "Общност", key: "community" },
-    { href: "/dashboard?tab=jobs", icon: <IconArena />, label: "Арена", key: "jobs" },
-    { href: "/dashboard?tab=arena", icon: <IconBriefcase />, label: "Работа", key: "arena" },
+    { href: "/dashboard?tab=arena", icon: <IconArena />, label: "Арена", key: "arena" },
+    { href: "/dashboard?tab=jobs", icon: <IconBriefcase />, label: "Работа", key: "jobs" },
   ];
 
   const activeKey = tab === "home" || !tab ? "home" : tab;
@@ -273,8 +273,8 @@ export default async function DashboardPage({
               {activeKey === "home" && "Начало"}
               {activeKey === "course" && "Обучение"}
               {activeKey === "community" && "Общност"}
-              {activeKey === "jobs" && "Арена"}
-              {activeKey === "arena" && "Работа"}
+              {activeKey === "arena" && "Арена"}
+              {activeKey === "jobs" && "Работа"}
               {activeKey === "account" && "Профил"}
             </p>
           </div>
@@ -384,7 +384,7 @@ export default async function DashboardPage({
                     <p className="text-base font-black">Събота 18:00</p>
                     <p className="text-white/25 text-xs mt-1">Очаквай линк скоро</p>
                   </div>
-                  <Link href="/dashboard?tab=jobs" className="rounded-2xl bg-[#111] border border-white/8 p-5 flex-1 hover:border-white/15 transition-all group">
+                  <Link href="/dashboard?tab=arena" className="rounded-2xl bg-[#111] border border-white/8 p-5 flex-1 hover:border-white/15 transition-all group">
                     <p className="text-white/30 text-[10px] uppercase tracking-widest mb-2 font-semibold">⚡ Арена</p>
                     <p className="text-base font-black leading-tight">Предизвикателство #001</p>
                     <p className="text-[#c8ff00] text-xs mt-1 font-bold group-hover:underline">€150 награда →</p>
@@ -537,7 +537,7 @@ export default async function DashboardPage({
           {activeKey === "community" && <CommunityChat />}
 
           {/* ── ARENA TAB ── */}
-          {activeKey === "jobs" && (
+          {activeKey === "arena" && (
             <div className="max-w-5xl mx-auto">
 
               {/* Header */}
@@ -659,7 +659,7 @@ export default async function DashboardPage({
           )}
 
           {/* ── JOB PIPELINE TAB ── */}
-          {activeKey === "arena" && (
+          {activeKey === "jobs" && (
             <div className="max-w-5xl mx-auto">
 
               {/* Header */}
