@@ -108,12 +108,20 @@ const platformTabs = [
           <span className="text-white/20 text-xs ml-2">vektoacademy.com/course</span>
         </div>
         <div className="flex h-52 sm:h-64">
-          <div className="w-44 sm:w-56 border-r border-white/8 p-3 flex flex-col gap-1 overflow-hidden flex-shrink-0">
-            <p className="text-white/30 text-[10px] uppercase tracking-widest mb-2">Модули</p>
-            {["01 — Въведение", "02 — AI инструменти", "03 — Prompting", "04 — Workflow", "05 — Клиентски проект"].map((m, i) => (
-              <div key={m} className={`px-3 py-2 rounded-lg text-xs flex items-center gap-2 ${i === 2 ? "bg-[#c8ff00]/10 text-[#c8ff00]" : "text-white/30"}`}>
-                <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${i < 2 ? "bg-[#c8ff00]" : i === 2 ? "bg-[#c8ff00]" : "bg-white/15"}`} />
-                {m}
+          <div className="w-44 sm:w-56 border-r border-white/8 p-3 flex flex-col gap-0.5 overflow-hidden flex-shrink-0">
+            <p className="text-white/30 text-[10px] uppercase tracking-widest mb-2">Меню</p>
+            {[
+              { n: "0.", title: "Старт", emoji: "🚀" },
+              { n: "1.", title: "Майндсет", emoji: "🧠" },
+              { n: "2.", title: "Стратегия", emoji: "🎯" },
+              { n: "3.", title: "Инструменти", emoji: "🛠️" },
+              { n: "4.", title: "Playbooks", emoji: "⭐" },
+              { n: "5.", title: "Монтаж", emoji: "✂️" },
+              { n: "6.", title: "Клиенти", emoji: "💼" },
+            ].map((m, i) => (
+              <div key={m.n} className={`px-2 py-1 rounded-md text-[11px] flex items-center gap-1.5 ${i === 4 ? "bg-[#c8ff00]/10 text-[#c8ff00]" : i < 4 ? "text-white/40" : "text-white/25"}`}>
+                <span className="text-xs flex-shrink-0">{m.emoji}</span>
+                <span className="truncate">{m.n} {m.title}</span>
               </div>
             ))}
           </div>
@@ -124,10 +132,10 @@ const platformTabs = [
               </div>
             </div>
             <div className="flex gap-2">
-              <div className="h-1.5 flex-1 bg-white/8 rounded-full overflow-hidden"><div className="h-full w-2/3 bg-[#c8ff00] rounded-full" /></div>
-              <span className="text-white/20 text-[10px]">1:45 / 2:34</span>
+              <div className="h-1.5 flex-1 bg-white/8 rounded-full overflow-hidden"><div className="h-full w-3/5 bg-[#c8ff00] rounded-full" /></div>
+              <span className="text-white/20 text-[10px]">2:10 / 3:42</span>
             </div>
-            <p className="text-white/40 text-xs">03 — Prompting за AI видео</p>
+            <p className="text-white/40 text-xs">4. The Playbooks — Higgsfield + Arcads</p>
           </div>
         </div>
       </div>
@@ -164,9 +172,11 @@ const platformTabs = [
                 <div className={`rounded-xl px-3 py-2 text-xs max-w-[80%] ${m.accent ? "bg-[#c8ff00]/10 text-[#c8ff00]/80" : "bg-white/5 text-white/50"}`}>{m.msg}</div>
               </div>
             ))}
-            <div className="mt-1 flex items-center gap-2 bg-white/5 rounded-lg px-3 py-2">
+            <div className="mt-1 flex items-center gap-2 bg-white/[0.03] border border-white/8 rounded-xl px-3 py-1.5">
               <span className="text-white/20 text-xs flex-1">Напиши съобщение...</span>
-              <span className="text-white/20 text-xs">↵</span>
+              <div className="w-5 h-5 rounded-md bg-[#c8ff00] flex items-center justify-center flex-shrink-0">
+                <svg className="w-2.5 h-2.5 text-black" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </div>
             </div>
           </div>
         </div>
@@ -175,7 +185,7 @@ const platformTabs = [
   },
   {
     id: "jobs",
-    label: "Job Pipeline",
+    label: "Работа",
     title: "Платени проекти",
     desc: "Реални briefs от Vekto Agency директно в профила ти. Приемаш, изпълняваш, получаваш плащане.",
     ui: (
@@ -184,7 +194,7 @@ const platformTabs = [
           <div className="w-2 h-2 rounded-full bg-red-500/50" />
           <div className="w-2 h-2 rounded-full bg-yellow-500/50" />
           <div className="w-2 h-2 rounded-full bg-green-500/50" />
-          <span className="text-white/20 text-xs ml-2">vektoacademy.com/jobs</span>
+          <span className="text-white/20 text-xs ml-2">vektoacademy.com/dashboard?tab=arena</span>
         </div>
         <div className="p-4 h-52 sm:h-64 flex flex-col gap-3 overflow-hidden">
           {[
@@ -776,7 +786,7 @@ function StickyBar() {
 
   return (
     <div className="hidden md:flex fixed bottom-6 left-1/2 -translate-x-1/2 z-50 items-center gap-6 bg-[#111] border border-white/15 rounded-full px-6 py-3 shadow-2xl backdrop-blur-sm">
-      <p className="text-white/60 text-sm">Lifetime достъп — само €199</p>
+      <p className="text-white/60 text-sm">Доживотен достъп — само €199</p>
       <Link href="/sign-up" className="bg-[#c8ff00] text-black font-bold px-6 py-2 rounded-full text-sm hover:bg-[#d4ff1a] transition-colors">
         Присъедини се сега
       </Link>
@@ -917,7 +927,7 @@ const features = [
   },
   {
     icon: "💼",
-    title: "Job Pipeline",
+    title: "Работа",
     desc: "Реални платени проекти от Vekto Agency — получаваш brief директно в профила си.",
   },
   {
