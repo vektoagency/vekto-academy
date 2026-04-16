@@ -375,7 +375,7 @@ function ChatInner({ active, sidebarOpen, onToggle }: {
 
         {/* Input */}
         <div className="px-3 pb-3 pt-1 flex-shrink-0">
-          <div className="bg-[#111315] border border-white/8 rounded-2xl overflow-hidden focus-within:border-[#c8ff00]/25 focus-within:shadow-[0_0_0_1px_rgba(200,255,0,0.08)] transition-all duration-200">
+          <div className="bg-white/[0.03] border border-white/8 rounded-xl overflow-hidden focus-within:border-[#c8ff00]/25 focus-within:bg-white/[0.05] transition-all duration-200">
             <MessageInput focus />
           </div>
         </div>

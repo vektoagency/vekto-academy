@@ -219,37 +219,39 @@ body {
 }
 .str-chat__theme-dark .str-chat__message-textarea-container {
   background: transparent !important;
-  padding: 9px 12px !important;
+  padding: 6px 10px !important;
 }
 .str-chat__theme-dark .str-chat__message-textarea {
   background: transparent !important;
-  color: rgba(255,255,255,0.85) !important;
-  font-size: 14px !important;
+  color: rgba(255,255,255,0.8) !important;
+  font-size: 13px !important;
   caret-color: #c8ff00 !important;
-  line-height: 1.5 !important;
-  max-height: 120px !important;
+  line-height: 1.4 !important;
+  max-height: 80px !important;
+  min-height: 20px !important;
 }
 .str-chat__theme-dark .str-chat__message-textarea::placeholder {
-  color: rgba(255,255,255,0.18) !important;
+  color: rgba(255,255,255,0.2) !important;
+  font-size: 13px !important;
 }
 
 /* Send button */
 .str-chat__theme-dark .str-chat__send-button {
-  background: rgba(200,255,0,0.1) !important;
-  margin: 6px 8px 6px 0 !important;
-  border-radius: 10px !important;
-  padding: 5px 8px !important;
-  border: 1px solid rgba(200,255,0,0.15) !important;
+  background: #c8ff00 !important;
+  margin: 4px 6px 4px 0 !important;
+  border-radius: 8px !important;
+  padding: 4px 8px !important;
+  border: none !important;
   transition: all 0.15s !important;
 }
 .str-chat__theme-dark .str-chat__send-button:hover {
-  background: rgba(200,255,0,0.2) !important;
+  background: #d4ff33 !important;
 }
 .str-chat__theme-dark .str-chat__send-button svg {
-  color: #c8ff00 !important;
-  fill: #c8ff00 !important;
-  width: 16px !important;
-  height: 16px !important;
+  color: #000 !important;
+  fill: #000 !important;
+  width: 14px !important;
+  height: 14px !important;
 }
 .str-chat__theme-dark .str-chat__message-input-inner button svg {
   color: rgba(255,255,255,0.2) !important;
