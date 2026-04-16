@@ -454,7 +454,7 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
               </svg>
             </button>
             <p className="font-semibold text-sm truncate text-white/60">
-              {lesson ? lesson.title : "AI Видео Реклами"}
+              {lesson ? lesson.title : "Обучение"}
             </p>
           </div>
 
@@ -482,7 +482,7 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
                   <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff00]" />
                   <span className="text-[#c8ff00] text-xs font-semibold">Vekto Academy</span>
                 </div>
-                <h1 className="text-2xl sm:text-4xl font-black leading-tight">AI Видео Реклами</h1>
+                <h1 className="text-2xl sm:text-4xl font-black leading-tight">Обучение</h1>
                 <p className="text-white/30 text-xs sm:text-sm tracking-wide">Нагласа → Стратегия → Инструменти → Правиш → Продаваш</p>
                 <p className="text-white/45 text-sm sm:text-base leading-relaxed">
                   Научи се да правиш AI видео реклами от нулата — от психология и стратегия, през инструменти и playbooks, до реални клиенти. Всичко, което ползваме в агенцията, в едно практично обучение.
@@ -585,7 +585,7 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
                 {/* Breadcrumb + title */}
                 <div>
                   <div className="flex items-center gap-2 mb-3 text-xs text-white/25">
-                    <button onClick={() => setLessonId(null)} className="hover:text-white/60 transition-colors">AI Видео Реклами</button>
+                    <button onClick={() => setLessonId(null)} className="hover:text-white/60 transition-colors">Обучение</button>
                     <span>›</span>
                     <span>{lessonModule?.title}</span>
                   </div>
