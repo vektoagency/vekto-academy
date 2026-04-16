@@ -28,6 +28,7 @@ const pipelineSteps = [
 const navLinks = [
   { href: "#features", label: "Обучение" },
   { href: "#for-who", label: "За кого" },
+  { href: "#path", label: "Път" },
   { href: "#about", label: "За нас" },
   { href: "#testimonials", label: "Резултати" },
   { href: "#pricing", label: "Цени" },
@@ -595,6 +596,69 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Progression — 3-step path to first client */}
+      <section id="path" className="py-16 sm:py-24 px-4 sm:px-6 bg-[#0a0a0a] border-y border-white/10">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-14">
+            <span className="text-[#c8ff00] text-sm font-semibold uppercase tracking-widest mb-3 block">Твоят път</span>
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-tight mb-4">Твоят път до първия клиент</h2>
+            <p className="text-white/50 text-sm sm:text-base max-w-2xl mx-auto">Структурирана прогресия в 3 месеца — всеки етап надгражда предишния и те води към реална работа.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 relative">
+            {/* Step 1 */}
+            <div className="rounded-2xl p-6 sm:p-8 bg-[#0d0d0d] border border-white/10 flex flex-col">
+              <div className="flex items-center gap-3 mb-5">
+                <span className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#c8ff00] font-black text-sm">01</span>
+                <span className="text-white/40 text-[11px] font-bold uppercase tracking-widest">Месец 1</span>
+              </div>
+              <h3 className="text-xl font-black mb-2">Основи</h3>
+              <p className="text-white/60 text-sm mb-5">Изграждаш фундамента — AI инструменти, prompting, workflow-и и първите ти завършени проекти.</p>
+              <ul className="space-y-2 text-sm text-white/70 mt-auto">
+                <li className="flex items-start gap-2"><span className="text-[#c8ff00] mt-0.5">✓</span>Видео модули от нулата</li>
+                <li className="flex items-start gap-2"><span className="text-[#c8ff00] mt-0.5">✓</span>Практически задания</li>
+                <li className="flex items-start gap-2"><span className="text-[#c8ff00] mt-0.5">✓</span>Общност + Weekly Q&amp;A</li>
+              </ul>
+            </div>
+
+            {/* Step 2 */}
+            <div className="rounded-2xl p-6 sm:p-8 bg-[#0d0d0d] border border-white/10 flex flex-col">
+              <div className="flex items-center gap-3 mb-5">
+                <span className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#c8ff00] font-black text-sm">02</span>
+                <span className="text-white/40 text-[11px] font-bold uppercase tracking-widest">Месец 2</span>
+              </div>
+              <h3 className="text-xl font-black mb-2">Арена</h3>
+              <p className="text-white/60 text-sm mb-5">Състезания и challenges срещу други членове. Получаваш ревюта, изграждаш рефлекс и се откроиш.</p>
+              <ul className="space-y-2 text-sm text-white/70 mt-auto">
+                <li className="flex items-start gap-2"><span className="text-[#c8ff00] mt-0.5">✓</span>Седмични challenges</li>
+                <li className="flex items-start gap-2"><span className="text-[#c8ff00] mt-0.5">✓</span>Ревю от Vekto екипа</li>
+                <li className="flex items-start gap-2"><span className="text-[#c8ff00] mt-0.5">✓</span>Leaderboard и значки</li>
+              </ul>
+            </div>
+
+            {/* Step 3 — highlighted */}
+            <div className="rounded-2xl p-6 sm:p-8 bg-[#c8ff00]/[0.06] border-2 border-[#c8ff00]/40 flex flex-col shadow-[0_0_40px_rgba(200,255,0,0.08)] relative">
+              <span className="absolute -top-3 left-6 bg-[#c8ff00] text-black text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider">Целта</span>
+              <div className="flex items-center gap-3 mb-5">
+                <span className="w-10 h-10 rounded-full bg-[#c8ff00] text-black flex items-center justify-center font-black text-sm">03</span>
+                <span className="text-[#c8ff00] text-[11px] font-bold uppercase tracking-widest">Месец 3</span>
+              </div>
+              <h3 className="text-xl font-black mb-2">Портфолио + Vekto задачи</h3>
+              <p className="text-white/70 text-sm mb-5">Изграждаш професионално портфолио и влизаш в пула за реални платени задачи от Vekto клиенти.</p>
+              <ul className="space-y-2 text-sm text-white/80 mt-auto">
+                <li className="flex items-start gap-2"><span className="text-[#c8ff00] mt-0.5">✓</span>Професионално портфолио</li>
+                <li className="flex items-start gap-2"><span className="text-[#c8ff00] mt-0.5">✓</span>Реални задачи от Vekto</li>
+                <li className="flex items-start gap-2"><span className="text-[#c8ff00] mt-0.5">✓</span>Pipeline към наемане</li>
+              </ul>
+            </div>
+          </div>
+
+          <p className="text-center text-white/40 text-xs sm:text-sm mt-10 max-w-2xl mx-auto">
+            С <span className="text-[#c8ff00] font-semibold">Доживотен достъп</span> получаваш цялата структура отворена от ден 1 — можеш да прескачаш напред, да се връщаш и да работиш по свой темп.
+          </p>
+        </div>
+      </section>
+
       {/* Instructor — premium split layout */}
       <section id="about" className="py-16 sm:py-24 bg-[#0d0d0d] border-y border-white/10 overflow-hidden">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -722,7 +786,10 @@ export default function HomePage() {
               <div className="flex flex-wrap items-center gap-2 mb-6">
                 <span className="inline-flex items-center gap-1.5 bg-black text-[#c8ff00] text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
                   <span>⚡</span>
-                  <span>Оферта до 1 юни</span>
+                  <span>Всичко отворено от ден 1</span>
+                </span>
+                <span className="inline-flex items-center bg-black/10 text-black text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
+                  Оферта до 1 юни
                 </span>
                 <span className="inline-flex items-center bg-black/10 text-black text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
                   Спестяваш €359
@@ -755,13 +822,14 @@ export default function HomePage() {
 
             {/* Monthly — secondary */}
             <div className="md:col-span-2 order-2 rounded-3xl p-6 sm:p-8 bg-[#0d0d0d] border border-white/10 flex flex-col">
-              <p className="text-white/40 text-xs mb-3 uppercase tracking-[0.2em] font-semibold">Месечен · abonament</p>
+              <p className="text-white/40 text-xs mb-3 uppercase tracking-[0.2em] font-semibold">Месечен · абонамент</p>
 
               <div className="flex items-baseline gap-2 mb-2">
                 <span className="text-5xl sm:text-6xl font-black leading-none">€59</span>
                 <span className="text-white/30 text-lg">/мес</span>
               </div>
-              <p className="text-white/40 text-sm mb-6">Отмяна по всяко време</p>
+              <p className="text-white/40 text-sm mb-2">Отмяна по всяко време</p>
+              <p className="text-white/30 text-xs mb-6">Структурирана прогресия месец по месец</p>
 
               <ul className="space-y-2.5 text-sm text-white/60 mb-6">
                 <li className="flex items-center gap-2"><span className="text-[#c8ff00]">✓</span> Пълно обучение</li>
@@ -1094,6 +1162,18 @@ const faq = [
   {
     q: "Как реално мога да стана част от Vekto екипа?",
     a: "Завършваш модулите, предаваш тестов проект и ако качеството е на ниво — влизаш в пула за платени проекти. Нямаме гаранция, но активните членове получават реални задачи от нашите клиенти.",
+  },
+  {
+    q: "Защо има структура по месеци — не е ли по-добре да имам всичко веднага?",
+    a: "Структурираната прогресия работи по-добре от информационен хаос. Основите първо, после состезателна практика в Арена, после реални задачи и портфолио. Ако искаш всичко отворено от ден 1 — вземи Доживотен достъп и работи по свой темп.",
+  },
+  {
+    q: "Какво точно има в първия месец?",
+    a: "Фундаменталните модули: AI инструменти, prompting, workflow-и, първи практически задания и достъп до общността с Weekly Q&A. Достатъчно за да завършиш реални проекти и да влезеш в Арена с увереност.",
+  },
+  {
+    q: "Какво е Арена и как работи?",
+    a: "Арена е мястото за седмични challenges — реални задачи със срокове, където получаваш ревю от Vekto екипа и се сравняваш с други членове. Изграждаш рефлекс, портфолио и репутация преди да те свържем с платени клиенти.",
   },
   {
     q: "Какво точно включва обучението?",
