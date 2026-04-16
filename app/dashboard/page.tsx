@@ -156,7 +156,7 @@ export default async function DashboardPage({
         {/* Nav */}
         <nav className="flex-1 px-3 py-4 flex flex-col gap-0.5 overflow-y-auto">
 
-          <p className="text-white/20 text-[10px] uppercase tracking-widest px-3 mb-1.5 font-semibold">Главно</p>
+          <p className="text-white/20 text-[10px] uppercase tracking-widest px-3 mb-1.5 font-semibold">Меню</p>
           {navItems.map((l) => {
             const active = activeKey === l.key;
             return (
