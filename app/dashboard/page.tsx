@@ -874,7 +874,7 @@ export default async function DashboardPage({
                     <div className="flex items-center gap-3">
                       <span className="text-white/30"><IconLogout /></span>
                       <div>
-                        <p className="font-bold text-sm">Log out</p>
+                        <p className="font-bold text-sm">Излизане</p>
                         <p className="text-white/35 text-xs">Излез от акаунта</p>
                       </div>
                     </div>

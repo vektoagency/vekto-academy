@@ -35,7 +35,7 @@ export default function ProfileNameForm() {
     return (
       <button
         onClick={startEdit}
-        className="flex items-center gap-2 text-xs text-white/30 hover:text-white/60 transition-colors mb-4"
+        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/8 text-xs text-white/50 hover:text-white/80 hover:bg-white/8 transition-all mb-4"
       >
         <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
