@@ -750,7 +750,7 @@ export default function HomePage() {
                   Вземи доживотен достъп — €349
                 </button>
               </form>
-              <p className="text-black/50 text-xs text-center mt-3">Връщаш инвестицията за 6 месеца · после чиста печалба</p>
+              <p className="text-black/50 text-xs text-center mt-3">Плащаш веднъж · Достъп завинаги · Без абонамент</p>
             </div>
 
             {/* Monthly — secondary */}
