@@ -498,7 +498,7 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
                   </span>
                   <span className="flex items-center gap-1.5">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                    Lifetime достъп
+                    Доживотен достъп
                   </span>
                 </div>
 
@@ -646,7 +646,7 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
         <nav className="md:hidden flex-shrink-0 border-t border-white/8 bg-[#0a0a0a] flex items-center">
           <Link href="/dashboard" className="flex-1 flex flex-col items-center gap-1 py-3 text-white/25 hover:text-white/60 transition-colors">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
-            <span className="text-[9px] font-semibold">Home</span>
+            <span className="text-[9px] font-semibold">Начало</span>
           </Link>
           <button onClick={() => setLessonId(null)} className="flex-1 flex flex-col items-center gap-1 py-3 text-[#c8ff00] transition-colors">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
@@ -654,11 +654,11 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
           </button>
           <Link href="/dashboard?tab=community" className="flex-1 flex flex-col items-center gap-1 py-3 text-white/25 hover:text-white/60 transition-colors">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-            <span className="text-[9px] font-semibold">Community</span>
+            <span className="text-[9px] font-semibold">Общност</span>
           </Link>
           <Link href="/dashboard?tab=jobs" className="flex-1 flex flex-col items-center gap-1 py-3 text-white/25 hover:text-white/60 transition-colors">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-            <span className="text-[9px] font-semibold">Jobs</span>
+            <span className="text-[9px] font-semibold">Арена</span>
           </Link>
         </nav>
 

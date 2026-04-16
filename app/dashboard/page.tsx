@@ -15,7 +15,7 @@ const supabase = createClient(
 const planLabel: Record<string, string> = {
   monthly: "Месечен",
   yearly: "Годишен",
-  lifetime: "Lifetime ⚡",
+  lifetime: "Доживотен ⚡",
 };
 
 const modules = [
@@ -41,7 +41,7 @@ const announcements = [
     avatar: "V",
     time: "преди 1д",
     tag: "📅 Събитие",
-    text: "Weekly Q&A — всяка събота в 18:00ч. Задавай въпроси директно към екипа на агенцията.",
+    text: "Q&A на живо — всяка събота в 18:00ч. Задавай въпроси директно към екипа на агенцията.",
   },
 ];
 
@@ -131,11 +131,11 @@ export default async function DashboardPage({
   }
 
   const navItems = [
-    { href: "/dashboard", icon: <IconHome />, label: "Home", key: "home" },
+    { href: "/dashboard", icon: <IconHome />, label: "Начало", key: "home" },
     { href: "/dashboard?tab=course", icon: <IconPlay />, label: "Обучение", key: "course" },
-    { href: "/dashboard?tab=community", icon: <IconUsers />, label: "Community", key: "community" },
-    { href: "/dashboard?tab=jobs", icon: <IconArena />, label: "Arena", key: "jobs" },
-    { href: "/dashboard?tab=arena", icon: <IconBriefcase />, label: "Jobs", key: "arena" },
+    { href: "/dashboard?tab=community", icon: <IconUsers />, label: "Общност", key: "community" },
+    { href: "/dashboard?tab=jobs", icon: <IconArena />, label: "Арена", key: "jobs" },
+    { href: "/dashboard?tab=arena", icon: <IconBriefcase />, label: "Работа", key: "arena" },
   ];
 
   const activeKey = tab === "home" || !tab ? "home" : tab;
@@ -200,8 +200,8 @@ export default async function DashboardPage({
           <div className="mt-4 mb-1">
             <p className="text-white/20 text-[10px] uppercase tracking-widest px-3 mb-1.5 font-semibold">Ресурси</p>
             {[
-              { label: "AI Tools", icon: "⚡" },
-              { label: "Prompt Templates", icon: "◻" },
+              { label: "AI Инструменти", icon: "⚡" },
+              { label: "Промпт шаблони", icon: "◻" },
             ].map((r) => (
               <button key={r.label} className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-white/30 hover:text-white hover:bg-white/5 transition-all text-left">
                 <span className="text-base w-4 text-center leading-none">{r.icon}</span>
@@ -269,11 +269,11 @@ export default async function DashboardPage({
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/vekto-logo.png" alt="" className="h-8 w-auto md:hidden" />
             <p className="font-black text-base leading-tight hidden md:block">
-              {activeKey === "home" && "Home"}
+              {activeKey === "home" && "Начало"}
               {activeKey === "course" && "Обучение"}
-              {activeKey === "community" && "Community"}
-              {activeKey === "jobs" && "Arena"}
-              {activeKey === "arena" && "Job Pipeline"}
+              {activeKey === "community" && "Общност"}
+              {activeKey === "jobs" && "Арена"}
+              {activeKey === "arena" && "Работа"}
               {activeKey === "account" && "Профил"}
             </p>
           </div>
@@ -364,7 +364,7 @@ export default async function DashboardPage({
                 <div className="flex flex-col gap-4">
                   <Link href="/dashboard?tab=community" className="rounded-2xl bg-[#111] border border-white/8 p-5 flex flex-col justify-between hover:border-white/15 transition-all group flex-1">
                     <div>
-                      <p className="text-white/30 text-[10px] uppercase tracking-widest mb-3 font-semibold">Community</p>
+                      <p className="text-white/30 text-[10px] uppercase tracking-widest mb-3 font-semibold">Общност</p>
                       <div className="flex -space-x-2 mb-3">
                         {[
                           { l: "V", bg: "#c8ff00", color: "#000" },
@@ -379,14 +379,14 @@ export default async function DashboardPage({
                     <p className="text-white/40 text-xs group-hover:text-white/60 transition-colors">Отвори чата →</p>
                   </Link>
                   <div className="rounded-2xl bg-[#111] border border-white/8 p-5 flex-1">
-                    <p className="text-white/30 text-[10px] uppercase tracking-widest mb-2 font-semibold">Live Q&A</p>
+                    <p className="text-white/30 text-[10px] uppercase tracking-widest mb-2 font-semibold">На живо Q&A</p>
                     <p className="text-base font-black">Събота 18:00</p>
                     <p className="text-white/25 text-xs mt-1">Очаквай линк скоро</p>
                   </div>
                   <Link href="/dashboard?tab=jobs" className="rounded-2xl bg-[#111] border border-white/8 p-5 flex-1 hover:border-white/15 transition-all group">
-                    <p className="text-white/30 text-[10px] uppercase tracking-widest mb-2 font-semibold">⚡ Arena</p>
-                    <p className="text-base font-black leading-tight">Challenge #001</p>
-                    <p className="text-[#c8ff00] text-xs mt-1 font-bold group-hover:underline">€150 prize →</p>
+                    <p className="text-white/30 text-[10px] uppercase tracking-widest mb-2 font-semibold">⚡ Арена</p>
+                    <p className="text-base font-black leading-tight">Предизвикателство #001</p>
+                    <p className="text-[#c8ff00] text-xs mt-1 font-bold group-hover:underline">€150 награда →</p>
                   </Link>
                 </div>
               </div>
@@ -477,7 +477,7 @@ export default async function DashboardPage({
                     <p className="text-[#c8ff00] text-[10px] font-black uppercase tracking-[0.2em] mb-2">Vekto Academy</p>
                     <h2 className="text-2xl md:text-3xl font-black mb-2">Обучение</h2>
                     <p className="text-white/40 text-sm leading-relaxed mb-5 max-w-lg">
-                      Научи се да правиш AI видеа от нулата до реален клиентски проект. 7 модула, {totalLessonsCount} урока, lifetime достъп.
+                      Научи се да правиш AI видеа от нулата до реален клиентски проект. 7 модула, {totalLessonsCount} урока, доживотен достъп.
                     </p>
                     <div className="flex items-center gap-3 mb-5">
                       <div className="flex-1 h-2 bg-white/6 rounded-full overflow-hidden">
@@ -498,7 +498,7 @@ export default async function DashboardPage({
                       { n: "7", label: "Модула" },
                       { n: String(totalLessonsCount), label: "Урока" },
                       { n: "∞", label: "Достъп" },
-                      { n: "Live", label: "Q&A" },
+                      { n: "На живо", label: "Q&A" },
                     ].map((s) => (
                       <div key={s.label} className="bg-white/4 border border-white/6 rounded-xl p-3 text-center w-24">
                         <p className="font-black text-lg text-white leading-none">{s.n}</p>
@@ -549,7 +549,7 @@ export default async function DashboardPage({
                   </p>
                 </div>
                 <div className="bg-[#0d0d0d] border border-white/8 rounded-xl px-5 py-3 text-center flex-shrink-0">
-                  <p className="text-white/20 text-[10px] uppercase tracking-widest">Challenge</p>
+                  <p className="text-white/20 text-[10px] uppercase tracking-widest">Предизвикателство</p>
                   <p className="text-[#c8ff00] font-black text-2xl">#001</p>
                 </div>
               </div>
@@ -596,8 +596,8 @@ export default async function DashboardPage({
                         </p>
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-5">
                           {[
-                            { label: "Prize", value: "€150" },
-                            { label: "Deadline", value: "4 дни" },
+                            { label: "Награда", value: "€150" },
+                            { label: "Краен срок", value: "4 дни" },
                             { label: "Формат", value: "16:9" },
                             { label: "Участници", value: "12" },
                           ].map((d) => (
@@ -663,7 +663,7 @@ export default async function DashboardPage({
 
               {/* Header */}
               <div className="mb-6">
-                <p className="text-white/25 text-[10px] uppercase tracking-[0.2em] font-semibold mb-1">Vekto Job Pipeline</p>
+                <p className="text-white/25 text-[10px] uppercase tracking-[0.2em] font-semibold mb-1">Vekto Работа</p>
                 <h2 className="text-2xl md:text-3xl font-black leading-tight mb-2">Твоята работа говори.<br/>Ние слушаме.</h2>
                 <p className="text-white/35 text-sm max-w-md">Качи портфолиото си и кандидатствай. Разглеждаме всеки профил лично.</p>
               </div>
@@ -854,7 +854,7 @@ export default async function DashboardPage({
                 {member?.plan === "lifetime" && (
                   <div className="flex items-center gap-3 px-5 py-3.5 rounded-xl border border-[#c8ff00]/15 bg-[#c8ff00]/5">
                     <span className="text-[#c8ff00]">⚡</span>
-                    <p className="text-sm text-white/60">Lifetime достъп — без месечни плащания.</p>
+                    <p className="text-sm text-white/60">Доживотен достъп — без месечни плащания.</p>
                   </div>
                 )}
               </div>
