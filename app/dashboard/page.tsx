@@ -387,7 +387,7 @@ export default async function DashboardPage({
                   <Link href="/dashboard?tab=arena" className="rounded-2xl bg-[#111] border border-white/8 p-5 flex-1 hover:border-white/15 transition-all group">
                     <p className="text-white/30 text-[10px] uppercase tracking-widest mb-2 font-semibold">⚡ Арена</p>
                     <p className="text-base font-black leading-tight">Предизвикателство #001</p>
-                    <p className="text-[#c8ff00] text-xs mt-1 font-bold group-hover:underline">€150 награда →</p>
+                    <p className="text-[#c8ff00] text-xs mt-1 font-bold group-hover:underline">€30 награда →</p>
                   </Link>
                 </div>
               </div>
@@ -586,7 +586,7 @@ export default async function DashboardPage({
                         </div>
                         <div className="flex items-center gap-3">
                           <span className="text-white/30 text-xs">⏱ 4 дни останали</span>
-                          <span className="bg-[#c8ff00] text-black text-xs font-black px-3 py-1 rounded-full">€150</span>
+                          <span className="bg-[#c8ff00] text-black text-xs font-black px-3 py-1 rounded-full">€30</span>
                         </div>
                       </div>
                       <div className="bg-[#111] p-5">
@@ -597,7 +597,7 @@ export default async function DashboardPage({
                         </p>
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-5">
                           {[
-                            { label: "Награда", value: "€150" },
+                            { label: "Награда", value: "€30" },
                             { label: "Краен срок", value: "4 дни" },
                             { label: "Формат", value: "16:9" },
                             { label: "Участници", value: "12" },
@@ -638,8 +638,8 @@ export default async function DashboardPage({
                     </div>
                     <div className="divide-y divide-white/4">
                       {[
-                        { num: 1, title: "Brand Awareness — Fashion клиент", prize: "€150", winner: "М. Георгиев", entries: 8 },
-                        { num: 2, title: "AI Avatar Demo × 3 видеа", prize: "€200", winner: "И. Петров", entries: 14 },
+                        { num: 1, title: "Brand Awareness — Fashion клиент", prize: "€30", winner: "М. Георгиев", entries: 8 },
+                        { num: 2, title: "AI Avatar Demo × 3 видеа", prize: "€30", winner: "И. Петров", entries: 14 },
                       ].map((c) => (
                         <div key={c.num} className="px-4 py-3 flex items-center gap-3">
                           <p className="text-white/10 font-black text-base w-5 flex-shrink-0">#{c.num}</p>

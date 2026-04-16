@@ -204,7 +204,7 @@ const platformTabs = [
                 <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff00] animate-pulse" />
                 <p className="font-black text-[10px] tracking-widest uppercase">Live</p>
               </div>
-              <span className="bg-[#c8ff00] text-black text-[10px] font-black px-2 py-0.5 rounded-full">€150</span>
+              <span className="bg-[#c8ff00] text-black text-[10px] font-black px-2 py-0.5 rounded-full">€30</span>
             </div>
             <div className="p-3 flex-1 flex flex-col">
               <p className="text-white/25 text-[9px] uppercase tracking-widest mb-1">Brief #001</p>
@@ -231,8 +231,8 @@ const platformTabs = [
             </div>
             <div className="divide-y divide-white/5 flex-1">
               {[
-                { n: 1, w: "М. Георгиев", p: "€150" },
-                { n: 2, w: "И. Петров", p: "€200" },
+                { n: 1, w: "М. Георгиев", p: "€30" },
+                { n: 2, w: "И. Петров", p: "€30" },
               ].map((c) => (
                 <div key={c.n} className="px-2.5 py-2 flex items-center gap-1.5">
                   <p className="text-white/10 font-black text-xs w-3 flex-shrink-0">#{c.n}</p>
