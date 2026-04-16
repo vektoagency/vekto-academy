@@ -4,6 +4,9 @@ import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { createCheckout } from "./actions/checkout";
 
+const FOUNDING_COUNT = 38;
+const FOUNDING_TOTAL = 50;
+
 const pipelineSteps = [
   {
     step: "01",
@@ -461,17 +464,17 @@ export default function HomePage() {
         {/* Badge */}
         <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-3 py-1.5 mb-6 relative z-10">
           <span className="w-2 h-2 rounded-full bg-[#c8ff00] animate-pulse flex-shrink-0" />
-          <span className="text-white/60 text-[10px] sm:text-xs font-medium tracking-wide">LIFETIME ЗА €199 — ИЗТИЧА НА 1 МАЙ</span>
+          <span className="text-white/60 text-[10px] sm:text-xs font-medium tracking-wide">FOUNDING LIFETIME €349 — 38/50 ЗАЕТИ</span>
         </div>
 
         {/* Headline */}
         <h1 className="text-[2.4rem] sm:text-5xl md:text-6xl font-black leading-[1.1] mb-4 relative z-10 tracking-tight text-center">
-          Научи се на AI контент.<br />
-          <span className="text-[#c8ff00]">Получи реална работа.</span>
+          Инвестирай <span className="text-[#c8ff00]">€349</span> и получи<br />
+          първия си клиент до 90 дни.
         </h1>
 
-        <p className="text-white/50 text-sm sm:text-base md:text-lg max-w-sm md:max-w-md mb-8 relative z-10 leading-relaxed text-center">
-          Учиш от агенция с реални клиенти. Докажи се —<span className="text-white/80"> и те плащаме.</span>
+        <p className="text-white/50 text-sm sm:text-base md:text-lg max-w-md md:max-w-lg mb-8 relative z-10 leading-relaxed text-center">
+          Единственият български курс с реални платени брифове от Vekto Agency.<span className="text-white/80"> Учиш, доказваш се, печелиш.</span>
         </p>
 
         {/* CTA with plan toggle */}
@@ -702,59 +705,56 @@ export default function HomePage() {
             <h2 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-tight mb-3">Избери своя план</h2>
             <p className="text-white/40">Всичко включено. Без изненади.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="rounded-2xl p-6 sm:p-8 bg-[#0d0d0d] border border-white/10 order-2 md:order-1">
-              <p className="text-white/40 text-sm mb-3">Месечно</p>
-              <p className="text-4xl sm:text-5xl font-black mb-1">€49<span className="text-white/30 text-xl font-normal">/мес</span></p>
-              <ul className="space-y-2 text-sm text-white/50 my-6">
-                <li className="flex items-center gap-2"><span className="text-[#c8ff00]">✓</span> Обучение + общност</li>
-                <li className="flex items-center gap-2"><span className="text-[#c8ff00]">✓</span> Weekly Q&A</li>
-                <li className="flex items-center gap-2"><span className="text-[#c8ff00]">✓</span> Job pipeline</li>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
+            <div className="rounded-2xl p-6 sm:p-8 bg-[#0d0d0d] border border-white/10 order-2 md:order-1 flex flex-col">
+              <p className="text-white/40 text-sm mb-3 uppercase tracking-wide">Месечен</p>
+              <p className="text-4xl sm:text-5xl font-black mb-1">€59<span className="text-white/30 text-xl font-normal">/мес</span></p>
+              <p className="text-white/30 text-xs mb-1">~115 лв / месец</p>
+              <p className="text-white/40 text-xs mb-6">Отмяна по всяко време</p>
+              <ul className="space-y-2 text-sm text-white/50 mb-6">
+                <li className="flex items-center gap-2"><span className="text-[#c8ff00]">✓</span> Пълно обучение</li>
+                <li className="flex items-center gap-2"><span className="text-[#c8ff00]">✓</span> Общност + Weekly Q&A</li>
+                <li className="flex items-center gap-2"><span className="text-[#c8ff00]">✓</span> Реални брифове от Vekto</li>
+                <li className="flex items-center gap-2"><span className="text-[#c8ff00]">✓</span> Ревю на работата ти</li>
+                <li className="flex items-center gap-2"><span className="text-[#c8ff00]">✓</span> Pipeline към наемане</li>
               </ul>
-              <form action={createCheckout.bind(null, "monthly")}>
+              <form action={createCheckout.bind(null, "monthly")} className="mt-auto">
                 <button type="submit" className="w-full text-center border border-white/20 text-white/70 font-semibold px-6 py-3 rounded-full hover:border-white/40 hover:text-white transition-colors text-sm">
                   Започни месечно
                 </button>
               </form>
             </div>
-            <div className="rounded-2xl p-6 sm:p-8 bg-[#0d0d0d] border border-white/10 order-3 md:order-2">
-              <div className="flex items-center justify-between mb-3">
-                <p className="text-white/40 text-sm">Годишно</p>
-                <span className="text-xs bg-white/10 text-white/60 px-2 py-0.5 rounded-full">-32%</span>
+            <div className="rounded-2xl p-6 sm:p-8 bg-[#c8ff00] relative order-1 md:order-2 border-2 border-[#c8ff00] flex flex-col">
+              <div className="inline-flex items-center gap-1.5 bg-black text-[#c8ff00] text-[10px] font-bold px-3 py-1 rounded-full mb-3 self-start uppercase tracking-wider">
+                <span>⚡</span>
+                <span>Founding member · само 50 места</span>
               </div>
-              <p className="text-4xl sm:text-5xl font-black mb-1">€399<span className="text-white/30 text-xl font-normal">/год</span></p>
-              <p className="text-white/30 text-xs mb-6">= €33/месец</p>
-              <ul className="space-y-2 text-sm text-white/50 mb-6">
-                <li className="flex items-center gap-2"><span className="text-[#c8ff00]">✓</span> Всичко от месечното</li>
-                <li className="flex items-center gap-2"><span className="text-[#c8ff00]">✓</span> 2 месеца безплатно</li>
-                <li className="flex items-center gap-2"><span className="text-[#c8ff00]">✓</span> Приоритет за проекти</li>
-              </ul>
-              <form action={createCheckout.bind(null, "yearly")}>
-                <button type="submit" className="w-full text-center border border-white/20 text-white/70 font-semibold px-6 py-3 rounded-full hover:border-white/40 hover:text-white transition-colors text-sm">
-                  Започни годишно
-                </button>
-              </form>
-            </div>
-            <div className="rounded-2xl p-6 sm:p-8 bg-[#c8ff00] relative order-1 md:order-3">
-              <div className="absolute top-4 right-4 bg-black/20 text-black text-xs font-bold px-2 py-0.5 rounded-full">САМО СЕГА</div>
-              <p className="text-black/60 text-sm mb-3">Lifetime ⚡</p>
-              <p className="text-4xl sm:text-5xl font-black text-black mb-1">€199</p>
-              <p className="text-black/40 text-xs mb-6">еднократно · завинаги</p>
+              <p className="text-black/60 text-sm mb-3 uppercase tracking-wide">Lifetime</p>
+              <div className="mb-1">
+                <span className="text-black/40 text-lg line-through mr-3">€708/год</span>
+                <span className="text-4xl sm:text-5xl font-black text-black">€349</span>
+              </div>
+              <p className="text-black/50 text-xs mb-1">~683 лв · еднократно · завинаги</p>
+              <p className="text-black/60 text-xs mb-6 italic">Връщаш инвестицията за 6 месеца — после е чиста печалба</p>
               <ul className="space-y-2 text-sm text-black/70 mb-6">
-                <li className="flex items-center gap-2"><span className="text-black font-bold">✓</span> Всичко включено</li>
+                <li className="flex items-center gap-2"><span className="text-black font-bold">✓</span> Всичко от месечния</li>
                 <li className="flex items-center gap-2"><span className="text-black font-bold">✓</span> Достъп завинаги</li>
                 <li className="flex items-center gap-2"><span className="text-black font-bold">✓</span> Всички бъдещи модули</li>
+                <li className="flex items-center gap-2"><span className="text-black font-bold">✓</span> Founding member badge</li>
+                <li className="flex items-center gap-2"><span className="text-black font-bold">✓</span> Приоритет за Vekto проекти</li>
               </ul>
-              <form action={createCheckout.bind(null, "lifetime")}>
+              <form action={createCheckout.bind(null, "lifetime")} className="mt-auto">
                 <button type="submit" className="w-full text-center bg-black text-[#c8ff00] font-bold px-6 py-3 rounded-full hover:bg-black/80 transition-colors text-sm">
-                  Вземи Lifetime достъп
+                  Вземи Lifetime — €349
                 </button>
               </form>
+              <FoundingProgress count={FOUNDING_COUNT} total={FOUNDING_TOTAL} />
             </div>
           </div>
           <div className="mt-8 border border-[#c8ff00]/20 bg-[#c8ff00]/5 rounded-2xl p-6 text-center">
-            <p className="text-white/50 text-sm mb-4 uppercase tracking-widest text-xs">Lifetime офертата изтича след</p>
-            <Countdown target={new Date("2025-05-01T00:00:00")} />
+            <p className="text-white/50 text-xs mb-4 uppercase tracking-widest">Lifetime изтича на 1 май ИЛИ при 50 founding места</p>
+            <Countdown target={new Date("2026-05-01T00:00:00")} />
+            <p className="text-white/40 text-xs mt-4">Което стане първо. €349 = €1.15 на ден първата година — по-малко от кафе.</p>
           </div>
         </div>
       </section>
@@ -784,7 +784,7 @@ export default function HomePage() {
         <div className="max-w-2xl mx-auto text-center relative z-10">
           <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 mb-8">
             <span className="w-2 h-2 rounded-full bg-[#c8ff00] animate-pulse" />
-            <span className="text-white/50 text-xs tracking-wide">LIFETIME ЗА €199 — ОФЕРТАТА ИЗТИЧА НА 1 МАЙ</span>
+            <span className="text-white/50 text-xs tracking-wide">FOUNDING LIFETIME €349 — 50 МЕСТА ИЛИ 1 МАЙ</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-6xl font-black tracking-tight mb-5">
             Времето е сега.
@@ -805,8 +805,8 @@ export default function HomePage() {
       {/* Sticky CTA */}
       <div className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-[#080808]/95 backdrop-blur-sm border-t border-white/10 flex items-center justify-between gap-4 md:hidden">
         <div>
-          <p className="text-white font-semibold text-sm">Lifetime — €199</p>
-          <p className="text-white/40 text-xs">Офертата изтича на 1 май</p>
+          <p className="text-white font-semibold text-sm">Lifetime — €349</p>
+          <p className="text-white/40 text-xs">38/50 founding места</p>
         </div>
         <Link href="/sign-up" className="bg-[#c8ff00] text-black font-bold px-6 py-2.5 rounded-full text-sm hover:bg-[#d4ff1a] transition-colors flex-shrink-0">
           Присъедини се
@@ -878,7 +878,7 @@ function StickyBar() {
 
   return (
     <div className="hidden md:flex fixed bottom-6 left-1/2 -translate-x-1/2 z-50 items-center gap-6 bg-[#111] border border-white/15 rounded-full px-6 py-3 shadow-2xl backdrop-blur-sm">
-      <p className="text-white/60 text-sm">Доживотен достъп — само €199</p>
+      <p className="text-white/60 text-sm">Founding Lifetime — €349</p>
       <Link href="/sign-up" className="bg-[#c8ff00] text-black font-bold px-6 py-2 rounded-full text-sm hover:bg-[#d4ff1a] transition-colors">
         Присъедини се сега
       </Link>
@@ -887,9 +887,8 @@ function StickyBar() {
 }
 
 const plans = [
-  { id: "monthly", label: "Месечно", price: "€49", sub: "/мес", badge: null, cta: "Започни месечно — €49/мес" },
-  { id: "yearly", label: "Годишно", price: "€399", sub: "/год", badge: "СПЕСТИ 32%", cta: "Започни годишно — €399/год" },
-  { id: "lifetime", label: "Lifetime ⚡", price: "€199", sub: "", badge: "САМО СЕГА", cta: "Вземи Lifetime достъп — €199" },
+  { id: "monthly", label: "Месечно", price: "€59", sub: "/мес", badge: null, cta: "Започни месечно — €59/мес" },
+  { id: "lifetime", label: "Lifetime ⚡", price: "€349", sub: "", badge: "FOUNDING", cta: "Вземи Lifetime — €349" },
 ];
 
 function PricingToggle() {
@@ -904,7 +903,7 @@ function PricingToggle() {
   return (
     <div className="flex flex-col items-center gap-4 mb-10 relative z-10 w-full max-w-md">
       {/* Toggle */}
-      <div className="w-full grid grid-cols-3 border border-white/10 rounded-2xl overflow-hidden text-center">
+      <div className="w-full grid grid-cols-2 border border-white/10 rounded-2xl overflow-hidden text-center">
         {plans.map((p) => (
           <button
             key={p.id}
@@ -936,6 +935,26 @@ function PricingToggle() {
         {plan.cta}
       </Link>
       <p className="text-white/25 text-xs">Без скрити такси · Отмяна по всяко време</p>
+    </div>
+  );
+}
+
+function FoundingProgress({ count, total }: { count: number; total: number }) {
+  const pct = Math.min(100, Math.round((count / total) * 100));
+  return (
+    <div className="mt-4 pt-4 border-t border-black/10">
+      <div className="flex items-center justify-between mb-2">
+        <span className="text-black/70 text-xs font-semibold flex items-center gap-1">
+          <span>⚡</span>
+          <span><strong>{count}</strong> / {total} founding места заети</span>
+        </span>
+      </div>
+      <div className="h-2 bg-black/10 rounded-full overflow-hidden">
+        <div
+          className="h-full rounded-full transition-[width] duration-300"
+          style={{ width: `${pct}%`, background: "linear-gradient(90deg, #f59e0b, #ef4444)" }}
+        />
+      </div>
     </div>
   );
 }
@@ -1053,11 +1072,15 @@ const faq = [
   },
   {
     q: "Мога ли да отменя абонамента?",
-    a: "Да, по всяко време. При месечен план — преди следващото плащане. При годишен — рефунд в първите 14 дни.",
+    a: "Да, по всяко време. При месечния план спираш преди следващото плащане. При Lifetime — достъпът остава завинаги без допълнителни такси.",
   },
   {
     q: "Lifetime офертата завинаги ли важи?",
-    a: "Не. €199 е launch цена само за първите 50 члена. След като местата се запълнят, цената се вдига.",
+    a: "Не. €349 е founding цена само за първите 50 члена или до 1 май — което стане първо. След това местата са изчерпани и цената се вдига.",
+  },
+  {
+    q: "Защо €349 изглежда евтино в сравнение с €708/год?",
+    a: "€708 е реалната годишна цена на месечния план (€59 × 12). Lifetime на €349 е под половин година месечни плащания — после е чиста печалба. €349 = €1.15 на ден първата година, по-малко от едно кафе.",
   },
   {
     q: "На какъв език е обучението?",

@@ -8,11 +8,10 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 const PRICES = {
   monthly: process.env.STRIPE_PRICE_MONTHLY!,
-  yearly: process.env.STRIPE_PRICE_YEARLY!,
   lifetime: process.env.STRIPE_PRICE_LIFETIME!,
 };
 
-export async function createCheckout(plan: "monthly" | "yearly" | "lifetime") {
+export async function createCheckout(plan: "monthly" | "lifetime") {
   const { userId } = await auth();
   if (!userId) redirect("/sign-in");
 
