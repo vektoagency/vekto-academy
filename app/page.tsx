@@ -446,9 +446,9 @@ export default function HomePage() {
               <p className="text-white/40 text-sm md:text-right">На едно място. Влизаш и започваш.</p>
             </div>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {features.map((f) => (
-              <div key={f.title} className="rounded-2xl p-6 border border-white/8 hover:border-[#c8ff00]/20 transition-all group bg-[#111]">
+              <div key={f.title} className="rounded-2xl p-5 sm:p-6 border border-white/8 hover:border-[#c8ff00]/20 transition-all group bg-[#111]">
                 <div className="text-2xl mb-3">{f.icon}</div>
                 <h3 className="font-semibold mb-1">{f.title}</h3>
                 <p className="text-white/40 text-sm leading-relaxed">{f.desc}</p>
@@ -600,10 +600,10 @@ export default function HomePage() {
             <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-3">Избери своя план</h2>
             <p className="text-white/40">Всичко включено. Без изненади.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 flex flex-col-reverse md:grid">
-            <div className="rounded-2xl p-8 bg-[#0d0d0d] border border-white/10 order-2 md:order-1">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="rounded-2xl p-6 sm:p-8 bg-[#0d0d0d] border border-white/10 order-2 md:order-1">
               <p className="text-white/40 text-sm mb-3">Месечно</p>
-              <p className="text-5xl font-black mb-1">€49<span className="text-white/30 text-xl font-normal">/мес</span></p>
+              <p className="text-4xl sm:text-5xl font-black mb-1">€49<span className="text-white/30 text-xl font-normal">/мес</span></p>
               <ul className="space-y-2 text-sm text-white/50 my-6">
                 <li className="flex items-center gap-2"><span className="text-[#c8ff00]">✓</span> Обучение + общност</li>
                 <li className="flex items-center gap-2"><span className="text-[#c8ff00]">✓</span> Weekly Q&A</li>
@@ -615,12 +615,12 @@ export default function HomePage() {
                 </button>
               </form>
             </div>
-            <div className="rounded-2xl p-8 bg-[#0d0d0d] border border-white/10 order-3 md:order-2">
+            <div className="rounded-2xl p-6 sm:p-8 bg-[#0d0d0d] border border-white/10 order-3 md:order-2">
               <div className="flex items-center justify-between mb-3">
                 <p className="text-white/40 text-sm">Годишно</p>
                 <span className="text-xs bg-white/10 text-white/60 px-2 py-0.5 rounded-full">-32%</span>
               </div>
-              <p className="text-5xl font-black mb-1">€399<span className="text-white/30 text-xl font-normal">/год</span></p>
+              <p className="text-4xl sm:text-5xl font-black mb-1">€399<span className="text-white/30 text-xl font-normal">/год</span></p>
               <p className="text-white/30 text-xs mb-6">= €33/месец</p>
               <ul className="space-y-2 text-sm text-white/50 mb-6">
                 <li className="flex items-center gap-2"><span className="text-[#c8ff00]">✓</span> Всичко от месечното</li>
@@ -633,10 +633,10 @@ export default function HomePage() {
                 </button>
               </form>
             </div>
-            <div className="rounded-2xl p-8 bg-[#c8ff00] relative order-1 md:order-3">
+            <div className="rounded-2xl p-6 sm:p-8 bg-[#c8ff00] relative order-1 md:order-3">
               <div className="absolute top-4 right-4 bg-black/20 text-black text-xs font-bold px-2 py-0.5 rounded-full">САМО СЕГА</div>
               <p className="text-black/60 text-sm mb-3">Lifetime ⚡</p>
-              <p className="text-5xl font-black text-black mb-1">€199</p>
+              <p className="text-4xl sm:text-5xl font-black text-black mb-1">€199</p>
               <p className="text-black/40 text-xs mb-6">еднократно · завинаги</p>
               <ul className="space-y-2 text-sm text-black/70 mb-6">
                 <li className="flex items-center gap-2"><span className="text-black font-bold">✓</span> Всичко включено</li>

@@ -101,8 +101,8 @@ export default function AdminRevenue() {
       </div>
 
       {/* Recent charges */}
-      <div className="bg-[#111] border border-white/6 rounded-2xl overflow-hidden">
-        <div className="px-6 py-4 border-b border-white/6">
+      <div className="bg-[#111] border border-white/6 rounded-2xl overflow-hidden overflow-x-auto">
+        <div className="px-4 sm:px-6 py-4 border-b border-white/6">
           <h2 className="text-sm font-bold text-white/60">Последни плащания (30 дни)</h2>
         </div>
         {stats.recentCharges.length === 0 ? (

@@ -179,8 +179,8 @@ export default function AdminModules() {
       )}
 
       {/* Modules list */}
-      <div className="bg-[#111] border border-white/6 rounded-2xl overflow-hidden">
-        <table className="w-full text-sm">
+      <div className="bg-[#111] border border-white/6 rounded-2xl overflow-hidden overflow-x-auto">
+        <table className="w-full text-sm min-w-[600px]">
           <thead>
             <tr className="border-b border-white/6">
               <th className="text-left px-5 py-3 text-[11px] font-bold uppercase tracking-widest text-white/30">#</th>

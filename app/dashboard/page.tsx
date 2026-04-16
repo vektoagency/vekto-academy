@@ -133,7 +133,7 @@ export default async function DashboardPage({
     { href: "/dashboard?tab=course", icon: <IconPlay />, label: "Masterclass", key: "course" },
     { href: "/dashboard?tab=community", icon: <IconUsers />, label: "Community", key: "community" },
     { href: "/dashboard?tab=jobs", icon: <IconArena />, label: "Arena", key: "jobs" },
-    { href: "/dashboard?tab=arena", icon: <IconBriefcase />, label: "Job Pipeline", key: "arena" },
+    { href: "/dashboard?tab=arena", icon: <IconBriefcase />, label: "Jobs", key: "arena" },
   ];
 
   const activeKey = tab === "home" || !tab ? "home" : tab;
@@ -579,7 +579,7 @@ export default async function DashboardPage({
                         <p className="text-white/50 text-sm leading-relaxed mb-5">
                           Създай 30–60 сек промо видео за нов AI инструмент. Модерен, динамичен стил, без voiceover.
                         </p>
-                        <div className="grid grid-cols-4 gap-2 mb-5">
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-5">
                           {[
                             { label: "Prize", value: "€150" },
                             { label: "Deadline", value: "4 дни" },
@@ -592,7 +592,7 @@ export default async function DashboardPage({
                             </div>
                           ))}
                         </div>
-                        <div className="grid grid-cols-3 gap-3 mb-5">
+                        <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-5">
                           {[
                             { icon: "🎖️", label: "Badge", sub: "за всеки" },
                             { icon: "💬", label: "Feedback", sub: "личен от Vekto" },

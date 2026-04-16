@@ -314,8 +314,14 @@ function ChatInner({ active, sidebarOpen, onToggle }: {
       {/* Main */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Header */}
-        <div className="h-12 border-b border-white/6 px-4 flex items-center justify-between flex-shrink-0 bg-[#080808]">
-          <div className="flex items-center gap-2.5">
+        <div className="h-12 border-b border-white/6 px-3 sm:px-4 flex items-center justify-between flex-shrink-0 bg-[#080808]">
+          <div className="flex items-center gap-2">
+            {/* Mobile hamburger */}
+            <button onClick={() => (window as any).__setMobileSidebar?.(true)} className="md:hidden p-1.5 -ml-1 rounded-lg text-white/30 hover:text-white/70 hover:bg-white/5">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
             {isChannel ? (
               <>
                 <svg className="w-4 h-4 text-white/30" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -331,7 +337,7 @@ function ChatInner({ active, sidebarOpen, onToggle }: {
             )}
           </div>
           {isChannel && (
-            <button onClick={onToggle} className={`p-1.5 rounded-lg transition-all ${sidebarOpen ? "text-[#c8ff00] bg-[#c8ff00]/10" : "text-white/25 hover:text-white/60 hover:bg-white/5"}`}>
+            <button onClick={onToggle} className={`p-1.5 rounded-lg transition-all hidden md:block ${sidebarOpen ? "text-[#c8ff00] bg-[#c8ff00]/10" : "text-white/25 hover:text-white/60 hover:bg-white/5"}`}>
               <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                 <rect x="3" y="3" width="18" height="18" rx="2" />
                 <path strokeLinecap="round" d="M15 3v18" />
@@ -359,9 +365,9 @@ function ChatInner({ active, sidebarOpen, onToggle }: {
         </div>
       </div>
 
-      {/* Right sidebar */}
+      {/* Right sidebar (desktop only) */}
       {isChannel && (
-        <div className={`flex-shrink-0 bg-[#0d0d0d] border-l border-white/6 overflow-y-auto transition-all duration-300 ease-in-out ${sidebarOpen ? "w-56 opacity-100" : "w-0 opacity-0 pointer-events-none"}`}>
+        <div className={`flex-shrink-0 bg-[#0d0d0d] border-l border-white/6 overflow-y-auto transition-all duration-300 ease-in-out hidden md:block ${sidebarOpen ? "w-56 opacity-100" : "w-0 opacity-0 pointer-events-none"}`}>
           <ChannelSidebar channelId={active.id} />
         </div>
       )}
@@ -376,7 +382,14 @@ export default function CommunityChat() {
   const [channel, setChannel] = useState<StreamChannel | null>(null);
   const [ready, setReady] = useState(false);
   const [connected, setConnected] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [mobileSidebar, setMobileSidebar] = useState(false);
+
+  // Expose for ChatInner hamburger button
+  useEffect(() => {
+    (window as any).__setMobileSidebar = setMobileSidebar;
+    return () => { delete (window as any).__setMobileSidebar; };
+  }, []);
 
   useEffect(() => {
     if (!user || connected) return;
@@ -419,10 +432,51 @@ export default function CommunityChat() {
   const isChannelView = active.type === "channel";
 
   return (
-    <div className="flex overflow-hidden rounded-2xl border border-white/8 bg-[#080808]" style={{ height: "calc(100vh - 112px)" }}>
+    <div className="flex overflow-hidden rounded-2xl border border-white/8 bg-[#080808]" style={{ height: "calc(100dvh - 112px)" }}>
 
-      {/* Left sidebar */}
-      <div className="w-52 flex-shrink-0 flex flex-col bg-[#0d0d0d] border-r border-white/6">
+      {/* Mobile sidebar overlay */}
+      {mobileSidebar && (
+        <div className="fixed inset-0 z-50 md:hidden" onClick={() => setMobileSidebar(false)}>
+          <div className="absolute inset-0 bg-black/60" />
+          <div className="absolute left-0 top-0 bottom-0 w-64 bg-[#0d0d0d] border-r border-white/6 flex flex-col" onClick={(e) => e.stopPropagation()}>
+            <div className="h-12 px-4 flex items-center justify-between border-b border-white/6 flex-shrink-0">
+              <div>
+                <p className="font-black text-sm leading-tight">Vekto Academy</p>
+                <p className="text-white/20 text-[10px]">Community</p>
+              </div>
+              <button onClick={() => setMobileSidebar(false)} className="p-1 text-white/30 hover:text-white/70">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <nav className="flex-1 overflow-y-auto py-3 px-2">
+              <p className="text-white/18 text-[10px] uppercase tracking-widest px-2 mb-1.5 font-semibold">Channels</p>
+              {CHANNELS.map((ch) => {
+                const isActive = active.type === "channel" && active.id === ch.id;
+                return (
+                  <button key={ch.id} onClick={() => { setActive({ type: "channel", id: ch.id }); setMobileSidebar(false); }}
+                    className={`w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-left transition-all mb-0.5 ${isActive ? "bg-white/10 text-white" : "text-white/30 hover:text-white/70 hover:bg-white/5"}`}>
+                    <span className="text-sm">{ch.emoji}</span>
+                    <span className="truncate text-xs font-medium">{ch.name}</span>
+                  </button>
+                );
+              })}
+              <div className="pt-3 mt-2 border-t border-white/6">
+                <p className="text-white/18 text-[10px] uppercase tracking-widest px-2 mb-1.5 font-semibold">Direct</p>
+                <button onClick={() => { setActive({ type: "dm" }); setMobileSidebar(false); }}
+                  className={`w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-left transition-all ${active.type === "dm" ? "bg-white/10 text-white" : "text-white/30 hover:text-white/70 hover:bg-white/5"}`}>
+                  <div className="w-6 h-6 rounded-full bg-[#c8ff00] flex items-center justify-center text-black text-[9px] font-black">V</div>
+                  <span className="text-xs font-medium">Vekto Team</span>
+                </button>
+              </div>
+            </nav>
+          </div>
+        </div>
+      )}
+
+      {/* Left sidebar (desktop only) */}
+      <div className="w-52 flex-shrink-0 hidden md:flex flex-col bg-[#0d0d0d] border-r border-white/6">
         <div className="h-12 px-4 flex items-center border-b border-white/6 flex-shrink-0">
           <div>
             <p className="font-black text-sm leading-tight">Vekto Academy</p>

@@ -59,11 +59,11 @@ export default function AdminDashboard() {
       </div>
 
       {/* Stat cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
         {cards.map((c) => (
-          <div key={c.label} className="bg-[#111] border border-white/6 rounded-2xl p-5">
-            <p className="text-[11px] font-bold uppercase tracking-widest text-white/30">{c.label}</p>
-            <p className={`text-3xl font-black mt-2 ${c.color}`}>{c.value}</p>
+          <div key={c.label} className="bg-[#111] border border-white/6 rounded-2xl p-4 sm:p-5">
+            <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-white/30">{c.label}</p>
+            <p className={`text-2xl sm:text-3xl font-black mt-2 ${c.color}`}>{c.value}</p>
           </div>
         ))}
       </div>

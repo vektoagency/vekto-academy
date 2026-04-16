@@ -103,7 +103,7 @@ export default function AdminUsers() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-black text-white/90">Потребители</h1>
           <p className="text-sm text-white/30 mt-1">{users.length} регистрирани</p>
@@ -113,13 +113,13 @@ export default function AdminUsers() {
           placeholder="Търси по имейл или име..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-sm text-white/80 placeholder-white/20 w-72 focus:outline-none focus:border-[#c8ff00]/30"
+          className="bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-sm text-white/80 placeholder-white/20 w-full sm:w-72 focus:outline-none focus:border-[#c8ff00]/30"
         />
       </div>
 
       {/* Table */}
-      <div className="bg-[#111] border border-white/6 rounded-2xl overflow-hidden">
-        <table className="w-full text-sm">
+      <div className="bg-[#111] border border-white/6 rounded-2xl overflow-hidden overflow-x-auto">
+        <table className="w-full text-sm min-w-[700px]">
           <thead>
             <tr className="border-b border-white/6">
               <th className="text-left px-5 py-3 text-[11px] font-bold uppercase tracking-widest text-white/30">Потребител</th>
