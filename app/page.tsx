@@ -4,9 +4,6 @@ import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { createCheckout } from "./actions/checkout";
 
-const FOUNDING_COUNT = 38;
-const FOUNDING_TOTAL = 50;
-
 const pipelineSteps = [
   {
     step: "01",
@@ -464,7 +461,7 @@ export default function HomePage() {
         {/* Badge */}
         <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-3 py-1.5 mb-6 relative z-10">
           <span className="w-2 h-2 rounded-full bg-[#c8ff00] animate-pulse flex-shrink-0" />
-          <span className="text-white/60 text-[10px] sm:text-xs font-medium tracking-wide">FOUNDING LIFETIME €349 — 38/50 ЗАЕТИ</span>
+          <span className="text-white/60 text-[10px] sm:text-xs font-medium tracking-wide">ДОЖИВОТЕН ДОСТЪП €349 — ОФЕРТАТА ИЗТИЧА НА 1 ЮНИ</span>
         </div>
 
         {/* Headline */}
@@ -706,16 +703,16 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto relative z-10">
           <div className="text-center mb-10">
             <h2 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-tight mb-3">Избери своя план</h2>
-            <p className="text-white/40 text-sm sm:text-base">Започни с €59/мес или заключи Lifetime за €349 — завинаги.</p>
+            <p className="text-white/40 text-sm sm:text-base">Започни с €59/мес или заключи доживотен достъп за €349 — завинаги.</p>
           </div>
 
           {/* Deadline strip — urgency first */}
           <div className="mb-8 rounded-2xl border border-[#c8ff00]/20 bg-[#c8ff00]/5 px-5 sm:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="text-center sm:text-left">
-              <p className="text-[#c8ff00] text-[10px] font-bold tracking-widest uppercase mb-1">⏰ Founding lifetime изтича</p>
-              <p className="text-white/50 text-xs">1 май 2026 ИЛИ при 50 места — което стане първо</p>
+              <p className="text-[#c8ff00] text-[10px] font-bold tracking-widest uppercase mb-1">⏰ Офертата изтича на 1 юни</p>
+              <p className="text-white/50 text-xs">След 1 юни 2026 — цената на доживотния достъп се вдига</p>
             </div>
-            <Countdown target={new Date("2026-05-01T00:00:00")} />
+            <Countdown target={new Date("2026-06-01T00:00:00")} />
           </div>
 
           {/* Cards — asymmetric 3:2 */}
@@ -725,14 +722,14 @@ export default function HomePage() {
               <div className="flex flex-wrap items-center gap-2 mb-6">
                 <span className="inline-flex items-center gap-1.5 bg-black text-[#c8ff00] text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
                   <span>⚡</span>
-                  <span>Founding member</span>
+                  <span>Оферта до 1 юни</span>
                 </span>
                 <span className="inline-flex items-center bg-black/10 text-black text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
                   Спестяваш €359
                 </span>
               </div>
 
-              <p className="text-black/50 text-xs mb-3 uppercase tracking-[0.2em] font-semibold">Lifetime · еднократно</p>
+              <p className="text-black/50 text-xs mb-3 uppercase tracking-[0.2em] font-semibold">Доживотен достъп · еднократно</p>
 
               <div className="flex items-baseline gap-3 flex-wrap mb-2">
                 <span className="text-black/30 text-xl line-through">€708/год</span>
@@ -740,19 +737,17 @@ export default function HomePage() {
               </div>
               <p className="text-black/50 text-sm mb-6">≈ €1.15 на ден първата година</p>
 
-              <ul className="space-y-2.5 text-sm text-black/80 mb-6">
+              <ul className="space-y-2.5 text-sm text-black/80 mb-8">
                 <li className="flex items-center gap-2"><span className="text-black font-bold">✓</span> Всичко от месечния план</li>
                 <li className="flex items-center gap-2"><span className="text-black font-bold">✓</span> Достъп завинаги — без месечни такси</li>
                 <li className="flex items-center gap-2"><span className="text-black font-bold">✓</span> Всички бъдещи модули</li>
-                <li className="flex items-center gap-2"><span className="text-black font-bold">✓</span> Founding member badge в общността</li>
+                <li className="flex items-center gap-2"><span className="text-black font-bold">✓</span> Значка „Основател" в общността</li>
                 <li className="flex items-center gap-2"><span className="text-black font-bold">✓</span> Приоритет за платени Vekto проекти</li>
               </ul>
 
-              <FoundingProgress count={FOUNDING_COUNT} total={FOUNDING_TOTAL} />
-
-              <form action={createCheckout.bind(null, "lifetime")} className="mt-6">
+              <form action={createCheckout.bind(null, "lifetime")} className="mt-auto">
                 <button type="submit" className="w-full text-center bg-black text-[#c8ff00] font-black px-6 py-4 rounded-full hover:bg-black/90 transition-colors text-base shadow-xl">
-                  Вземи Lifetime — €349
+                  Вземи доживотен достъп — €349
                 </button>
               </form>
               <p className="text-black/50 text-xs text-center mt-3">Връщаш инвестицията за 6 месеца · после чиста печалба</p>
@@ -815,13 +810,13 @@ export default function HomePage() {
         <div className="max-w-2xl mx-auto text-center relative z-10">
           <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 mb-8">
             <span className="w-2 h-2 rounded-full bg-[#c8ff00] animate-pulse" />
-            <span className="text-white/50 text-xs tracking-wide">FOUNDING LIFETIME €349 — 50 МЕСТА ИЛИ 1 МАЙ</span>
+            <span className="text-white/50 text-xs tracking-wide">ДОЖИВОТЕН ДОСТЪП €349 — ОФЕРТАТА ИЗТИЧА НА 1 ЮНИ</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-6xl font-black tracking-tight mb-5">
             Времето е сега.
           </h2>
           <p className="text-white/50 text-base md:text-lg mb-8 max-w-sm md:max-w-md mx-auto">
-            Влез докато цената е най-ниска. След 50 члена — абонаментът расте, lifetime-ът изчезва.
+            Влез докато цената е най-ниска. След 1 юни — абонаментът расте, доживотният достъп изчезва.
           </p>
           <Link
             href="/sign-up"
@@ -836,8 +831,8 @@ export default function HomePage() {
       {/* Sticky CTA */}
       <div className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-[#080808]/95 backdrop-blur-sm border-t border-white/10 flex items-center justify-between gap-4 md:hidden">
         <div>
-          <p className="text-white font-semibold text-sm">Lifetime — €349</p>
-          <p className="text-white/40 text-xs">38/50 founding места</p>
+          <p className="text-white font-semibold text-sm">Доживотен достъп — €349</p>
+          <p className="text-white/40 text-xs">Офертата изтича на 1 юни</p>
         </div>
         <Link href="/sign-up" className="bg-[#c8ff00] text-black font-bold px-6 py-2.5 rounded-full text-sm hover:bg-[#d4ff1a] transition-colors flex-shrink-0">
           Присъедини се
@@ -909,7 +904,7 @@ function StickyBar() {
 
   return (
     <div className="hidden md:flex fixed bottom-6 left-1/2 -translate-x-1/2 z-50 items-center gap-6 bg-[#111] border border-white/15 rounded-full px-6 py-3 shadow-2xl backdrop-blur-sm">
-      <p className="text-white/60 text-sm">Founding Lifetime — €349</p>
+      <p className="text-white/60 text-sm">Доживотен достъп — €349 (до 1 юни)</p>
       <Link href="/sign-up" className="bg-[#c8ff00] text-black font-bold px-6 py-2 rounded-full text-sm hover:bg-[#d4ff1a] transition-colors">
         Присъедини се сега
       </Link>
@@ -930,13 +925,13 @@ const plans = [
   },
   {
     id: "lifetime",
-    label: "Lifetime",
+    label: "Доживотен",
     price: "€349",
     sub: "",
     bgn: "Еднократно плащане",
-    badge: "FOUNDING · 38/50",
+    badge: "ДО 1 ЮНИ",
     note: "Спестяваш €359 vs годишно",
-    cta: "Вземи Lifetime — €349",
+    cta: "Вземи доживотен достъп — €349",
   },
 ];
 
@@ -993,27 +988,6 @@ function PricingToggle() {
         {plan.cta}
       </Link>
       <p className="text-white/25 text-xs">ДДС включен · Без скрити такси · Сигурно плащане</p>
-    </div>
-  );
-}
-
-function FoundingProgress({ count, total }: { count: number; total: number }) {
-  const pct = Math.min(100, Math.round((count / total) * 100));
-  const left = Math.max(0, total - count);
-  return (
-    <div className="mt-2 pt-4 border-t border-black/15">
-      <div className="flex items-baseline justify-between mb-2">
-        <span className="text-black/80 text-xs font-bold flex items-center gap-1.5">
-          <span><strong className="text-sm">{count}</strong>/{total} founding места заети</span>
-        </span>
-        <span className="text-black/60 text-[10px] uppercase tracking-wider font-semibold">само {left} остават</span>
-      </div>
-      <div className="h-2 bg-black/15 rounded-full overflow-hidden">
-        <div
-          className="h-full rounded-full transition-[width] duration-300"
-          style={{ width: `${pct}%`, background: "linear-gradient(90deg, #f59e0b, #ef4444)" }}
-        />
-      </div>
     </div>
   );
 }
@@ -1131,15 +1105,15 @@ const faq = [
   },
   {
     q: "Мога ли да отменя абонамента?",
-    a: "Да, по всяко време. При месечния план спираш преди следващото плащане. При Lifetime — достъпът остава завинаги без допълнителни такси.",
+    a: "Да, по всяко време. При месечния план спираш преди следващото плащане. При доживотния достъп — достъпът остава завинаги без допълнителни такси.",
   },
   {
-    q: "Lifetime офертата завинаги ли важи?",
-    a: "Не. €349 е founding цена само за първите 50 члена или до 1 май — което стане първо. След това местата са изчерпани и цената се вдига.",
+    q: "Офертата за доживотен достъп завинаги ли важи?",
+    a: "Не. €349 е стартова цена валидна само до 1 юни 2026. След това цената се вдига, а еднократната оферта изчезва.",
   },
   {
     q: "Защо €349 изглежда евтино в сравнение с €708/год?",
-    a: "€708 е реалната годишна цена на месечния план (€59 × 12). Lifetime на €349 е под половин година месечни плащания — после е чиста печалба. €349 = €1.15 на ден първата година, по-малко от едно кафе.",
+    a: "€708 е реалната годишна цена на месечния план (€59 × 12). Доживотният достъп за €349 е под половин година месечни плащания — после е чиста печалба. €349 = €1.15 на ден първата година, по-малко от едно кафе.",
   },
   {
     q: "На какъв език е обучението?",
