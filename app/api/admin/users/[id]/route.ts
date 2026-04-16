@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { requireAdmin, supabase } from "../../helpers";
+import { requireAdmin, supabase, logAdminAction } from "../../helpers";
 
 // PATCH — update user role or membership
 export async function PATCH(req: Request, { params }: { params: Promise<{ id: string }> }) {
@@ -14,6 +14,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
     await adminCheck.client!.users.updateUserMetadata(id, {
       publicMetadata: { role: body.role || undefined },
     });
+    await logAdminAction(adminCheck.userId!, adminCheck.email!, body.role === "admin" ? "user.make_admin" : "user.remove_admin", id);
   }
 
   // Update plan/status in Supabase
@@ -26,6 +27,12 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
       { user_id: id, ...update },
       { onConflict: "user_id" }
     );
+
+    if (body.status === "cancelled") {
+      await logAdminAction(adminCheck.userId!, adminCheck.email!, "user.cancel", id);
+    } else if (body.plan) {
+      await logAdminAction(adminCheck.userId!, adminCheck.email!, "user.grant_access", id, { plan: body.plan });
+    }
   }
 
   return NextResponse.json({ ok: true });

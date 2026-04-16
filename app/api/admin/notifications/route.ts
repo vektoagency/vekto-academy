@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { requireAdmin, supabase } from "../helpers";
+import { requireAdmin, supabase, logAdminAction } from "../helpers";
 
 // GET — all notifications (latest 50)
 export async function GET() {
@@ -51,5 +51,6 @@ export async function POST(req: Request) {
   const { error } = await supabase.from("notifications").insert(rows);
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
+  await logAdminAction(adminCheck.userId!, adminCheck.email!, "notification.send", title, { to: userIds === "all" ? "all" : targetIds, count: targetIds.length });
   return NextResponse.json({ ok: true, sent: targetIds.length });
 }

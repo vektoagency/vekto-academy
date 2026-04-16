@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { requireAdmin, supabase } from "../helpers";
+import { requireAdmin, supabase, logAdminAction } from "../helpers";
 
 // GET — all challenges
 export async function GET() {
@@ -29,11 +29,13 @@ export async function POST(req: Request) {
       .update({ title, description, deadline, prize, status, updated_at: new Date().toISOString() })
       .eq("id", id);
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+    await logAdminAction(adminCheck.userId!, adminCheck.email!, "arena.update", title, { id });
   } else {
     const { error } = await supabase
       .from("challenges")
       .insert({ title, description, deadline, prize, status: status ?? "active" });
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+    await logAdminAction(adminCheck.userId!, adminCheck.email!, "arena.create", title);
   }
 
   return NextResponse.json({ ok: true });
@@ -47,8 +49,10 @@ export async function DELETE(req: Request) {
   const { id } = await req.json();
   if (!id) return NextResponse.json({ error: "id required" }, { status: 400 });
 
+  const { data: ch } = await supabase.from("challenges").select("title").eq("id", id).single();
   const { error } = await supabase.from("challenges").delete().eq("id", id);
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
+  await logAdminAction(adminCheck.userId!, adminCheck.email!, "arena.delete", ch?.title ?? `#${id}`);
   return NextResponse.json({ ok: true });
 }

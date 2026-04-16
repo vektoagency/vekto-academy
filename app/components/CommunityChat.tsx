@@ -83,10 +83,24 @@ function MessageItem({ msg, showHeader }: { msg: FormatMessageResponse; showHead
   const [showModMenu, setShowModMenu] = useState(false);
   const canModerate = _isAdmin && !isMe && !isDeleted;
 
+  function logModAction(action: string) {
+    fetch("/api/admin/moderation", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        action,
+        target_user_id: msg.user?.id,
+        target_user_name: msg.user?.name ?? msg.user?.id,
+        message_id: msg.id,
+      }),
+    }).catch(() => {});
+  }
+
   async function handleDelete() {
     if (!confirm("Изтрий това съобщение?")) return;
     try {
       await client.deleteMessage(msg.id, true);
+      logModAction("delete_message");
     } catch { /* ignore */ }
     setShowModMenu(false);
   }
@@ -96,6 +110,7 @@ function MessageItem({ msg, showHeader }: { msg: FormatMessageResponse; showHead
     if (!confirm(`Банвай ${msg.user.name ?? msg.user.id}? Няма да може да пише повече.`)) return;
     try {
       await channel.banUser(msg.user.id, { reason: "Banned by admin" });
+      logModAction("ban");
     } catch { /* ignore */ }
     setShowModMenu(false);
   }
@@ -104,6 +119,7 @@ function MessageItem({ msg, showHeader }: { msg: FormatMessageResponse; showHead
     if (!msg.user?.id) return;
     try {
       await client.muteUser(msg.user.id);
+      logModAction("mute");
     } catch { /* ignore */ }
     setShowModMenu(false);
   }

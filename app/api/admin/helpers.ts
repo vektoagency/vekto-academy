@@ -22,5 +22,21 @@ export async function requireAdmin() {
     return { error: NextResponse.json({ error: "Forbidden" }, { status: 403 }) };
   }
 
-  return { userId: session.userId, client };
+  return { userId: session.userId, client, email: user.emailAddresses[0]?.emailAddress ?? session.userId };
+}
+
+export async function logAdminAction(
+  adminId: string,
+  adminEmail: string,
+  action: string,
+  target: string | null = null,
+  details: Record<string, unknown> | null = null
+) {
+  await supabase.from("admin_logs").insert({
+    admin_id: adminId,
+    admin_email: adminEmail,
+    action,
+    target,
+    details,
+  });
 }

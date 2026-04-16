@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 type Module = {
   id: number;
@@ -27,6 +27,9 @@ export default function AdminModules() {
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<Partial<Module> | null>(null);
   const [saving, setSaving] = useState(false);
+  const [reordering, setReordering] = useState(false);
+  const dragItem = useRef<number | null>(null);
+  const dragOverItem = useRef<number | null>(null);
 
   async function loadModules() {
     const res = await fetch("/api/admin/modules");
@@ -64,6 +67,40 @@ export default function AdminModules() {
     await loadModules();
   }
 
+  function handleDragStart(index: number) {
+    dragItem.current = index;
+  }
+
+  function handleDragEnter(index: number) {
+    dragOverItem.current = index;
+  }
+
+  async function handleDragEnd() {
+    if (dragItem.current === null || dragOverItem.current === null || dragItem.current === dragOverItem.current) {
+      dragItem.current = null;
+      dragOverItem.current = null;
+      return;
+    }
+
+    const items = [...modules];
+    const dragged = items.splice(dragItem.current, 1)[0];
+    items.splice(dragOverItem.current, 0, dragged);
+
+    const reordered = items.map((m, i) => ({ ...m, order: i + 1 }));
+    setModules(reordered);
+
+    dragItem.current = null;
+    dragOverItem.current = null;
+
+    setReordering(true);
+    await fetch("/api/admin/modules", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ order: reordered.map((m) => ({ id: m.id, order: m.order })) }),
+    });
+    setReordering(false);
+  }
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -77,7 +114,10 @@ export default function AdminModules() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-black text-white/90">Модули</h1>
-          <p className="text-sm text-white/30 mt-1">{modules.length} модула</p>
+          <p className="text-sm text-white/30 mt-1">
+            {modules.length} модула
+            {reordering && <span className="ml-2 text-[#c8ff00]">· Запазване...</span>}
+          </p>
         </div>
         <button
           onClick={() => setEditing({ ...emptyModule, order: modules.length + 1 })}
@@ -126,24 +166,15 @@ export default function AdminModules() {
             />
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div>
               <label className="block text-[11px] font-bold uppercase tracking-widest text-white/30 mb-1.5">Video URL</label>
               <input
                 type="text"
                 value={editing.video_url ?? ""}
                 onChange={(e) => setEditing({ ...editing, video_url: e.target.value })}
-                placeholder="https://..."
+                placeholder="https://iframe.mediadelivery.net/embed/..."
                 className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white/80 placeholder-white/20 focus:outline-none focus:border-[#c8ff00]/30"
-              />
-            </div>
-            <div>
-              <label className="block text-[11px] font-bold uppercase tracking-widest text-white/30 mb-1.5">Ред (order)</label>
-              <input
-                type="number"
-                value={editing.order ?? 0}
-                onChange={(e) => setEditing({ ...editing, order: Number(e.target.value) })}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white/80 focus:outline-none focus:border-[#c8ff00]/30"
               />
             </div>
             <div className="flex items-end">
@@ -178,58 +209,68 @@ export default function AdminModules() {
         </form>
       )}
 
-      {/* Modules list */}
-      <div className="bg-[#111] border border-white/6 rounded-2xl overflow-hidden overflow-x-auto">
-        <table className="w-full text-sm min-w-[600px]">
-          <thead>
-            <tr className="border-b border-white/6">
-              <th className="text-left px-5 py-3 text-[11px] font-bold uppercase tracking-widest text-white/30">#</th>
-              <th className="text-left px-5 py-3 text-[11px] font-bold uppercase tracking-widest text-white/30">Заглавие</th>
-              <th className="text-left px-5 py-3 text-[11px] font-bold uppercase tracking-widest text-white/30">Продължителност</th>
-              <th className="text-left px-5 py-3 text-[11px] font-bold uppercase tracking-widest text-white/30">Статус</th>
-              <th className="text-right px-5 py-3 text-[11px] font-bold uppercase tracking-widest text-white/30">Действия</th>
-            </tr>
-          </thead>
-          <tbody>
-            {modules.map((m) => (
-              <tr key={m.id} className="border-b border-white/4 hover:bg-white/[0.02] transition-colors">
-                <td className="px-5 py-3 text-white/30 font-mono">{m.order}</td>
-                <td className="px-5 py-3 text-white/70 font-medium">{m.title}</td>
-                <td className="px-5 py-3 text-white/40">{m.duration ?? "—"}</td>
-                <td className="px-5 py-3">
-                  {m.available ? (
-                    <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-400">Активен</span>
-                  ) : (
-                    <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-white/10 text-white/30">Скрит</span>
-                  )}
-                </td>
-                <td className="px-5 py-3 text-right">
-                  <div className="flex items-center justify-end gap-2">
-                    <button
-                      onClick={() => setEditing(m)}
-                      className="px-3 py-1 text-[11px] rounded-lg bg-white/5 text-white/40 hover:text-white/70 hover:bg-white/10 transition-colors"
-                    >
-                      Редактирай
-                    </button>
-                    <button
-                      onClick={() => handleDelete(m.id)}
-                      className="px-3 py-1 text-[11px] rounded-lg bg-red-500/10 text-red-400/60 hover:text-red-400 hover:bg-red-500/20 transition-colors"
-                    >
-                      Изтрий
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-            {modules.length === 0 && (
-              <tr>
-                <td colSpan={5} className="text-center py-12 text-white/20 text-sm">
-                  Няма модули. Създай първия от бутона горе.
-                </td>
-              </tr>
+      {/* Drag & drop hint */}
+      <p className="text-[11px] text-white/20">Дръпни и пусни за пренареждане на модулите</p>
+
+      {/* Modules list — draggable */}
+      <div className="space-y-2">
+        {modules.map((m, index) => (
+          <div
+            key={m.id}
+            draggable
+            onDragStart={() => handleDragStart(index)}
+            onDragEnter={() => handleDragEnter(index)}
+            onDragEnd={handleDragEnd}
+            onDragOver={(e) => e.preventDefault()}
+            className="bg-[#111] border border-white/6 rounded-xl p-4 flex items-center gap-4 cursor-grab active:cursor-grabbing hover:border-white/12 transition-colors group"
+          >
+            {/* Drag handle */}
+            <div className="flex-shrink-0 text-white/15 group-hover:text-white/30 transition-colors">
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <circle cx="9" cy="6" r="1.5" /><circle cx="15" cy="6" r="1.5" />
+                <circle cx="9" cy="12" r="1.5" /><circle cx="15" cy="12" r="1.5" />
+                <circle cx="9" cy="18" r="1.5" /><circle cx="15" cy="18" r="1.5" />
+              </svg>
+            </div>
+
+            {/* Order */}
+            <span className="text-white/20 font-mono text-sm w-6 text-center flex-shrink-0">{m.order}</span>
+
+            {/* Info */}
+            <div className="flex-1 min-w-0">
+              <p className="text-white/70 font-medium text-sm truncate">{m.title}</p>
+              <p className="text-white/25 text-xs mt-0.5">{m.duration ?? "—"} · {m.video_url ? "Video OK" : "Няма видео"}</p>
+            </div>
+
+            {/* Status */}
+            {m.available ? (
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400 flex-shrink-0">Активен</span>
+            ) : (
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/10 text-white/30 flex-shrink-0">Скрит</span>
             )}
-          </tbody>
-        </table>
+
+            {/* Actions */}
+            <div className="flex items-center gap-2 flex-shrink-0">
+              <button
+                onClick={() => setEditing(m)}
+                className="px-3 py-1 text-[11px] rounded-lg bg-white/5 text-white/40 hover:text-white/70 hover:bg-white/10 transition-colors"
+              >
+                Редактирай
+              </button>
+              <button
+                onClick={() => handleDelete(m.id)}
+                className="px-3 py-1 text-[11px] rounded-lg bg-red-500/10 text-red-400/60 hover:text-red-400 hover:bg-red-500/20 transition-colors"
+              >
+                Изтрий
+              </button>
+            </div>
+          </div>
+        ))}
+        {modules.length === 0 && (
+          <div className="text-center py-12 text-white/20 text-sm bg-[#111] border border-white/6 rounded-xl">
+            Няма модули. Създай първия от бутона горе.
+          </div>
+        )}
       </div>
     </div>
   );
