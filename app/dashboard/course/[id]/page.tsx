@@ -31,7 +31,7 @@ const COURSE: Module[] = [
     emoji: "🚀",
     lessons: [
       { id: "0-1", title: "Как се ползва платформата", duration: "3:00", bunnyId: "" },
-      { id: "0-2", title: "Добре дошли в обучението", duration: "5:12", bunnyId: "dbc5a2c0-7b9e-48d4-a916-bfa313e9c9a8" },
+      { id: "0-2", title: "Добре дошли в курса", duration: "5:12", bunnyId: "dbc5a2c0-7b9e-48d4-a916-bfa313e9c9a8" },
     ],
   },
   {
@@ -48,11 +48,11 @@ const COURSE: Module[] = [
     title: "Психология и стратегия",
     emoji: "🎯",
     lessons: [
-      { id: "2-1", title: "Hook / Body / CTA анатомия", duration: "12:00", bunnyId: "" },
-      { id: "2-2", title: "Голямата рамка — най-добрата рамка за платена реклама", duration: "10:00", bunnyId: "" },
+      { id: "2-1", title: "Hook / Body / CTA анатомия", duration: "11:00", bunnyId: "" },
+      { id: "2-2", title: "Голямата рамка — най-добрата рамка за платена реклама в момента", duration: "11:00", bunnyId: "" },
       { id: "2-3", title: "TOF MOF BOF", duration: "11:00", bunnyId: "" },
-      { id: "2-4", title: "Матрицата на ъглите — как генерираш 10 ъгъла за всеки продукт", duration: "12:00", bunnyId: "" },
-      { id: "2-5", title: "Органик vs Платено — различна логика, различни метрики", duration: "10:00", bunnyId: "" },
+      { id: "2-4", title: "Матрицата на ъглите — как генерираш 10 ъгъла за всеки продукт", duration: "11:00", bunnyId: "" },
+      { id: "2-5", title: "Органик vs Платено — различна логика, различни метрики", duration: "11:00", bunnyId: "" },
     ],
   },
   {
@@ -71,13 +71,13 @@ const COURSE: Module[] = [
   },
   {
     id: 4,
-    title: "The Playbooks",
-    emoji: "⭐",
+    title: "The Playbooks ⭐",
+    emoji: "📖",
     lessons: [
-      { id: "4-1", title: "AI UGC реклами — Онлайн магазини · TOF и BOF", duration: "25:00", bunnyId: "" },
-      { id: "4-2", title: "Faceless viral TikTok / Reels — без да се показваш", duration: "25:00", bunnyId: "" },
-      { id: "4-3", title: "Говорещи глави / VSL — Коучове и услуги", duration: "25:00", bunnyId: "" },
-      { id: "4-4", title: "Кинематографски / Brand Film — Луксозни брандове", duration: "25:00", bunnyId: "" },
+      { id: "4-1", title: "AI UGC реклами — Онлайн магазини · TOF и BOF · Higgsfield · Arcads", duration: "25:00", bunnyId: "" },
+      { id: "4-2", title: "Faceless viral TikTok / Reels — без да се показваш · TOF · Kie.ai · CapCut", duration: "25:00", bunnyId: "" },
+      { id: "4-3", title: "Говорещи глави / VSL — Коучове и услуги · MOF и BOF · HeyGen · Higgsfield", duration: "25:00", bunnyId: "" },
+      { id: "4-4", title: "Кинематографски / Brand Film — Луксозни брандове и имоти · Higgsfield Cinema · Kie.ai Veo 3.1", duration: "25:00", bunnyId: "" },
       { id: "4-5", title: "Органично съдържание", duration: "20:00", bunnyId: "" },
     ],
   },
@@ -93,7 +93,7 @@ const COURSE: Module[] = [
   },
   {
     id: 6,
-    title: "Машината за клиенти",
+    title: "Машината за клиенти (бонус)",
     emoji: "💰",
     lessons: [
       { id: "6-1", title: "Как намираш клиенти — фитнеси · зъболекари · локален бизнес", duration: "13:00", bunnyId: "" },
