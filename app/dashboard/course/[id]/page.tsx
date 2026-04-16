@@ -232,7 +232,7 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
   }
 
   return (
-    <div className="flex h-screen bg-[#080808] text-white overflow-hidden">
+    <div className="flex h-dvh bg-[#080808] text-white overflow-hidden">
 
       {/* ── SIDEBAR ── */}
       <aside className={`flex-shrink-0 flex flex-col bg-[#0a0a0a] border-r border-white/8 transition-all duration-300 hidden md:flex ${sidebarOpen ? "w-72" : "w-0 overflow-hidden border-0"}`}>

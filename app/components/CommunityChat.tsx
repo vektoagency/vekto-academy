@@ -454,7 +454,7 @@ export default function CommunityChat() {
       {mobileSidebar && (
         <div className="fixed inset-0 z-50 md:hidden" onClick={() => setMobileSidebar(false)}>
           <div className="absolute inset-0 bg-black/60" />
-          <div className="absolute left-0 top-0 bottom-0 w-64 bg-[#0d0d0d] border-r border-white/6 flex flex-col" onClick={(e) => e.stopPropagation()}>
+          <div className="absolute left-0 top-0 bottom-0 w-64 max-w-[85vw] bg-[#0d0d0d] border-r border-white/6 flex flex-col" onClick={(e) => e.stopPropagation()}>
             <div className="h-12 px-4 flex items-center justify-between border-b border-white/6 flex-shrink-0">
               <div>
                 <p className="font-black text-sm leading-tight">Vekto Academy</p>

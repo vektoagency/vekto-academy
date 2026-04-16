@@ -140,7 +140,7 @@ export default async function DashboardPage({
   const activeKey = tab === "home" || !tab ? "home" : tab;
 
   return (
-    <div className="flex h-screen bg-[#080808] text-white overflow-hidden">
+    <div className="flex h-dvh bg-[#080808] text-white overflow-hidden">
 
       {/* ── SIDEBAR (desktop) ── */}
       <aside className="w-64 flex-shrink-0 flex flex-col bg-[#0a0a0a] border-r border-white/8 hidden md:flex">

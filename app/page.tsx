@@ -42,7 +42,7 @@ function MobileNav() {
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/vekto-logo.png" alt="Vekto Academy" className="h-28 w-auto" />
+        <img src="/vekto-logo.png" alt="Vekto Academy" className="h-20 sm:h-28 w-auto" />
 
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-10">
@@ -213,11 +213,11 @@ function PlatformPreview() {
   const [active, setActive] = useState(0);
   const tab = platformTabs[active];
   return (
-    <section className="py-24 px-6 bg-[#080808] border-t border-white/10">
+    <section className="py-16 sm:py-24 px-4 sm:px-6 bg-[#080808] border-t border-white/10">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-12">
           <span className="text-[#c8ff00] text-sm font-semibold uppercase tracking-widest mb-3 block">Платформата</span>
-          <h2 className="text-3xl md:text-5xl font-black tracking-tight">Виж как изглежда отвътре</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-tight">Виж как изглежда отвътре</h2>
           <p className="text-white/40 text-sm mt-3">Влизаш с един акаунт — всичко е тук.</p>
         </div>
 
@@ -271,16 +271,16 @@ function PipelineSection() {
   const s = pipelineSteps[active];
 
   return (
-    <section className="py-32 px-6 relative overflow-hidden">
+    <section className="py-20 sm:py-32 px-4 sm:px-6 relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#c8ff00]/3 rounded-full blur-[140px]" />
       </div>
       <div className="max-w-5xl mx-auto relative z-10">
 
         {/* Header */}
-        <div className="mb-16">
+        <div className="mb-10 sm:mb-16">
           <span className="text-[#c8ff00] text-sm font-semibold uppercase tracking-widest mb-4 block">Уникалното</span>
-          <h2 className="text-4xl md:text-6xl font-black tracking-tight leading-[1.05]">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-black tracking-tight leading-[1.05]">
             Плащаш да учиш.<br />
             <span className="text-[#c8ff00]">После ние ти плащаме.</span>
           </h2>
@@ -433,12 +433,12 @@ export default function HomePage() {
       </section>
 
       {/* What's inside — тъмен bg, 2+4 grid layout */}
-      <section id="features" className="py-24 px-6 bg-[#0a0a0a]">
+      <section id="features" className="py-16 sm:py-24 px-4 sm:px-6 bg-[#0a0a0a]">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
             <div>
               <span className="text-[#c8ff00] text-sm font-semibold uppercase tracking-widest mb-3 block">Вътре в Academy-то</span>
-              <h2 className="text-3xl md:text-5xl font-black tracking-tight">Всичко на едно място</h2>
+              <h2 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-tight">Всичко на едно място</h2>
               <p className="text-white/40 text-sm mt-3 max-w-sm leading-relaxed">Един акаунт. Всичко точно тук — без Discord, без Telegram, без разхвърляни линкове.</p>
             </div>
             <div className="flex flex-col gap-1 md:items-end">
@@ -462,14 +462,14 @@ export default function HomePage() {
       <PlatformPreview />
 
       {/* For who — full width split, светъл акцент вляво */}
-      <section id="for-who" className="py-24 px-6">
+      <section id="for-who" className="py-16 sm:py-24 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
             <span className="text-[#c8ff00] text-sm font-semibold uppercase tracking-widest mb-3 block">За кого е</span>
-            <h2 className="text-3xl md:text-5xl font-black tracking-tight">Подходящо ли е за теб?</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-tight">Подходящо ли е за теб?</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0 rounded-2xl overflow-hidden border border-white/10">
-            <div className="p-8 md:p-12 bg-[#c8ff00]/5 border-b md:border-b-0 md:border-r border-white/10">
+            <div className="p-6 sm:p-8 md:p-12 bg-[#c8ff00]/5 border-b md:border-b-0 md:border-r border-white/10">
               <p className="text-[#c8ff00] font-bold text-sm uppercase tracking-widest mb-6">Това е за теб ако...</p>
               <ul className="space-y-4">
                 {["Искаш да правиш пари с AI съдържание", "Търсиш реална общност, не YouTube видеа", "Искаш да работиш freelance или remote", "Готов си да се докажеш и да получиш работа", "Нямаш опит но имаш желание да учиш"].map((t) => (
@@ -479,7 +479,7 @@ export default function HomePage() {
                 ))}
               </ul>
             </div>
-            <div className="p-8 md:p-12 bg-[#0a0a0a]">
+            <div className="p-6 sm:p-8 md:p-12 bg-[#0a0a0a]">
               <p className="text-white/30 font-bold text-sm uppercase tracking-widest mb-6">Не е за теб ако...</p>
               <ul className="space-y-4">
                 {["Търсиш бърз и лесен начин да забогатееш", "Не си готов да отделяш време и усилия", "Очакваш гарантирана работа без да се докажеш", "Искаш само да гледаш видеа без да практикуваш"].map((t) => (
@@ -494,13 +494,13 @@ export default function HomePage() {
       </section>
 
       {/* Instructor — premium split layout */}
-      <section id="about" className="py-24 bg-[#0d0d0d] border-y border-white/10 overflow-hidden">
-        <div className="max-w-6xl mx-auto px-6">
+      <section id="about" className="py-16 sm:py-24 bg-[#0d0d0d] border-y border-white/10 overflow-hidden">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
           {/* Label */}
           <span className="text-[#c8ff00] text-sm font-semibold uppercase tracking-widest mb-12 block">Кои сме ние</span>
 
           {/* Main content */}
-          <div className="flex flex-col md:flex-row gap-12 md:gap-24 items-start">
+          <div className="flex flex-col md:flex-row gap-8 sm:gap-12 md:gap-24 items-start">
             {/* Left — headline + logo */}
             <div className="flex-1 flex flex-col gap-6">
               <div className="flex items-start gap-5 md:block">
@@ -508,7 +508,7 @@ export default function HomePage() {
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src="/vekto-logo.png" alt="Vekto" className="w-full h-auto" />
                 </div>
-                <h2 className="text-4xl md:text-7xl font-black tracking-tight leading-[1.0]">
+                <h2 className="text-2xl sm:text-4xl md:text-7xl font-black tracking-tight leading-[1.0]">
                   Учиш от хора,<br />
                   <span className="text-white/30">които правят.</span>
                 </h2>
@@ -551,12 +551,12 @@ export default function HomePage() {
       <PipelineSection />
 
       {/* Testimonials — brutal, big photo */}
-      <section id="testimonials" className="py-24 px-6 bg-[#0a0a0a] border-t border-white/10">
+      <section id="testimonials" className="py-16 sm:py-24 px-4 sm:px-6 bg-[#0a0a0a] border-t border-white/10">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
             <div>
               <span className="text-[#c8ff00] text-sm font-semibold uppercase tracking-widest mb-3 block">Какво казват</span>
-              <h2 className="text-3xl md:text-5xl font-black tracking-tight">Реални хора.<br />Реални резултати.</h2>
+              <h2 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-tight">Реални хора.<br />Реални резултати.</h2>
             </div>
             <p className="text-white/30 text-sm max-w-xs md:text-right">Тези трима вече са част от Vekto екипа. Влязоха като членове — останаха като колеги.</p>
           </div>
@@ -594,10 +594,10 @@ export default function HomePage() {
       </section>
 
       {/* Pricing — тъмен фон, lifetime highlighted */}
-      <section id="pricing" className="py-24 px-6 border-t border-white/10">
+      <section id="pricing" className="py-16 sm:py-24 px-4 sm:px-6 border-t border-white/10">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-3">Избери своя план</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-tight mb-3">Избери своя план</h2>
             <p className="text-white/40">Всичко включено. Без изненади.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -658,7 +658,7 @@ export default function HomePage() {
       </section>
 
       {/* FAQ — compact без карти */}
-      <section id="faq" className="py-24 px-6 bg-[#0a0a0a] border-t border-white/10">
+      <section id="faq" className="py-16 sm:py-24 px-4 sm:px-6 bg-[#0a0a0a] border-t border-white/10">
         <div className="max-w-3xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-start gap-12">
             <div className="md:w-48 flex-shrink-0">
@@ -675,7 +675,7 @@ export default function HomePage() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-32 px-6 relative overflow-hidden">
+      <section className="py-20 sm:py-32 px-4 sm:px-6 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#c8ff00]/5 rounded-full blur-[100px]" />
         </div>
@@ -684,7 +684,7 @@ export default function HomePage() {
             <span className="w-2 h-2 rounded-full bg-[#c8ff00] animate-pulse" />
             <span className="text-white/50 text-xs tracking-wide">LIFETIME ЗА €199 — ОФЕРТАТА ИЗТИЧА НА 1 МАЙ</span>
           </div>
-          <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-5">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-black tracking-tight mb-5">
             Времето е сега.
           </h2>
           <p className="text-white/50 text-base md:text-lg mb-8 max-w-sm md:max-w-md mx-auto">
@@ -692,7 +692,7 @@ export default function HomePage() {
           </p>
           <Link
             href="/sign-up"
-            className="inline-block bg-[#c8ff00] text-black font-black px-10 md:px-14 py-4 md:py-5 rounded-full text-lg md:text-xl hover:bg-[#d4ff1a] transition-all hover:scale-105 shadow-[0_0_80px_rgba(200,255,0,0.3)]"
+            className="inline-block bg-[#c8ff00] text-black font-black px-8 sm:px-10 md:px-14 py-3.5 sm:py-4 md:py-5 rounded-full text-base sm:text-lg md:text-xl hover:bg-[#d4ff1a] transition-all hover:scale-105 shadow-[0_0_80px_rgba(200,255,0,0.3)]"
           >
             Присъедини се сега
           </Link>
@@ -747,16 +747,16 @@ function Countdown({ target }: { target: Date }) {
   }, [target]);
 
   return (
-    <div className="flex justify-center gap-4">
+    <div className="flex justify-center gap-3 sm:gap-4">
       {[
         { value: time.days, label: "дни" },
         { value: time.hours, label: "часа" },
-        { value: time.minutes, label: "минути" },
-        { value: time.seconds, label: "секунди" },
+        { value: time.minutes, label: "мин" },
+        { value: time.seconds, label: "сек" },
       ].map((t) => (
         <div key={t.label} className="text-center">
-          <div className="text-3xl font-black text-[#c8ff00] tabular-nums w-16">{String(t.value).padStart(2, "0")}</div>
-          <div className="text-white/30 text-xs">{t.label}</div>
+          <div className="text-2xl sm:text-3xl font-black text-[#c8ff00] tabular-nums w-12 sm:w-16">{String(t.value).padStart(2, "0")}</div>
+          <div className="text-white/30 text-[10px] sm:text-xs">{t.label}</div>
         </div>
       ))}
     </div>
