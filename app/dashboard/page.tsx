@@ -108,7 +108,7 @@ export default async function DashboardPage({
   const isAdmin = (user.publicMetadata as Record<string, string>)?.role === "admin";
   const completedLessons = (progressRows ?? []).filter((p: { completed: boolean }) => p.completed).length;
   const hasStarted = completedLessons > 0;
-  const totalLessonsCount = 21; // 3+4+4+3+4+3 across 6 modules
+  const totalLessonsCount = 26; // 2+2+5+7+5+3+2 across 7 modules
   const courseProgressPct = Math.round((completedLessons / totalLessonsCount) * 100);
   const initials = `${user?.firstName?.[0] ?? ""}${user?.lastName?.[0] ?? ""}`.toUpperCase() || "VA";
   const fullName = [user?.firstName, user?.lastName].filter(Boolean).join(" ");
@@ -131,7 +131,7 @@ export default async function DashboardPage({
 
   const navItems = [
     { href: "/dashboard", icon: <IconHome />, label: "Home", key: "home" },
-    { href: "/dashboard?tab=course", icon: <IconPlay />, label: "Masterclass", key: "course" },
+    { href: "/dashboard?tab=course", icon: <IconPlay />, label: "Обучение", key: "course" },
     { href: "/dashboard?tab=community", icon: <IconUsers />, label: "Community", key: "community" },
     { href: "/dashboard?tab=jobs", icon: <IconArena />, label: "Arena", key: "jobs" },
     { href: "/dashboard?tab=arena", icon: <IconBriefcase />, label: "Jobs", key: "arena" },
@@ -182,7 +182,7 @@ export default async function DashboardPage({
             <p className="text-white/20 text-[10px] uppercase tracking-widest px-3 mb-2 font-semibold">Прогрес</p>
             <div className="mx-3 rounded-xl bg-white/4 border border-white/6 p-3">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs text-white/40">Masterclass</span>
+                <span className="text-xs text-white/40">Обучение</span>
                 <span className="text-xs font-bold text-[#c8ff00]">{completedLessons} / {totalLessonsCount}</span>
               </div>
               <div className="h-1.5 bg-white/8 rounded-full overflow-hidden mb-3">
@@ -190,7 +190,7 @@ export default async function DashboardPage({
               </div>
               <Link href="/dashboard?tab=course" className="flex items-center gap-2 text-xs text-white/40 hover:text-white transition-colors">
                 <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                Продължи курса
+                Продължи обучението
               </Link>
             </div>
           </div>
@@ -269,7 +269,7 @@ export default async function DashboardPage({
             <img src="/vekto-logo.png" alt="" className="h-8 w-auto md:hidden" />
             <p className="font-black text-base leading-tight hidden md:block">
               {activeKey === "home" && "Home"}
-              {activeKey === "course" && "Masterclass"}
+              {activeKey === "course" && "Обучение"}
               {activeKey === "community" && "Community"}
               {activeKey === "jobs" && "Arena"}
               {activeKey === "arena" && "Job Pipeline"}
@@ -336,7 +336,7 @@ export default async function DashboardPage({
                 {/* Continue course — spans 2 cols */}
                 <div className="lg:col-span-2 rounded-2xl bg-[#111] border border-white/8 overflow-hidden">
                   <div className="flex items-center justify-between px-5 pt-5 pb-4">
-                    <p className="font-black text-sm uppercase tracking-widest text-white/40">Продължи курса</p>
+                    <p className="font-black text-sm uppercase tracking-widest text-white/40">Продължи обучението</p>
                     <Link href="/dashboard/course/1" className="text-[#c8ff00] text-xs font-bold hover:underline">Влез →</Link>
                   </div>
                   <Link href="/dashboard/course/1" className="block group mx-5 mb-4">
@@ -447,7 +447,7 @@ export default async function DashboardPage({
                 <div className="rounded-2xl bg-[#111] border border-white/8 p-5">
                   <div className="flex items-center justify-between mb-4">
                     <p className="font-black text-xs uppercase tracking-widest text-white/40">Модули</p>
-                    <Link href="/dashboard/course/1" className="text-[#c8ff00] text-xs font-bold hover:underline">Към курса →</Link>
+                    <Link href="/dashboard/course/1" className="text-[#c8ff00] text-xs font-bold hover:underline">Към обучението →</Link>
                   </div>
                   <div className="flex flex-col gap-2">
                     {modules.map((m, i) => (
@@ -476,9 +476,9 @@ export default async function DashboardPage({
                 <div className="p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-6">
                   <div className="flex-1">
                     <p className="text-[#c8ff00] text-[10px] font-black uppercase tracking-[0.2em] mb-2">Vekto Academy</p>
-                    <h2 className="text-2xl md:text-3xl font-black mb-2">Vekto Masterclass</h2>
+                    <h2 className="text-2xl md:text-3xl font-black mb-2">AI Видео Реклами</h2>
                     <p className="text-white/40 text-sm leading-relaxed mb-5 max-w-lg">
-                      AI видео от нулата до реален клиентски проект. 6 модула, {totalLessonsCount} урока, lifetime достъп.
+                      AI видео от нулата до реален клиентски проект. 7 модула, {totalLessonsCount} урока, lifetime достъп.
                     </p>
                     <div className="flex items-center gap-3 mb-5">
                       <div className="flex-1 h-2 bg-white/6 rounded-full overflow-hidden">
@@ -491,7 +491,7 @@ export default async function DashboardPage({
                       className="inline-flex items-center gap-2 bg-[#c8ff00] text-black font-black px-6 py-3 rounded-xl hover:bg-[#d4ff1a] transition-all text-sm"
                     >
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                      {completedLessons > 0 ? "Продължи курса" : "Влез в курса"}
+                      {completedLessons > 0 ? "Продължи обучението" : "Влез в обучението"}
                     </Link>
                   </div>
                   <div className="grid grid-cols-2 gap-3 flex-shrink-0">
@@ -580,7 +580,7 @@ export default async function DashboardPage({
                         </div>
                         <div className="text-center px-6">
                           <p className="text-white font-bold mb-1">Заключено</p>
-                          <p className="text-white/40 text-sm">Започни курса за да участваш</p>
+                          <p className="text-white/40 text-sm">Започни обучението за да участваш</p>
                         </div>
                         <Link href="/dashboard/course/1" className="bg-[#c8ff00] text-black font-black px-5 py-2 rounded-full text-sm hover:bg-[#d4ff1a] transition-colors">
                           Започни сега →
@@ -786,7 +786,7 @@ export default async function DashboardPage({
                     <p className="text-white/25 text-[10px] uppercase tracking-widest font-semibold mb-3">FAQ</p>
                     <div className="space-y-3">
                       {[
-                        { q: "Трябва ли да съм завършил курса?", a: "Не — достатъчно е да си започнал." },
+                        { q: "Трябва ли да съм завършил обучението?", a: "Не — достатъчно е да си започнал." },
                         { q: "Как се плаща?", a: "По проект, по банков път или PayPal." },
                         { q: "Мога ли да кандидатствам повторно?", a: "Да, след 30 дни с обновен профил." },
                       ].map((item, i) => (

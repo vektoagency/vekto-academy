@@ -26,66 +26,78 @@ type Module = {
 
 const COURSE: Module[] = [
   {
-    id: 1,
-    title: "Въведение в AI видео",
-    emoji: "🎬",
+    id: 0,
+    title: "Старт",
+    emoji: "🚀",
     lessons: [
-      { id: "1-1", title: "Добре дошли в Vekto Masterclass", duration: "5:12", bunnyId: "dbc5a2c0-7b9e-48d4-a916-bfa313e9c9a8" },
-      { id: "1-2", title: "Какво е AI видео и защо сега", duration: "12:34", bunnyId: "" },
-      { id: "1-3", title: "Как ще изглежда курсът", duration: "8:00", bunnyId: "" },
+      { id: "0-1", title: "Как се ползва платформата", duration: "3:00", bunnyId: "" },
+      { id: "0-2", title: "Добре дошли в обучението", duration: "5:12", bunnyId: "dbc5a2c0-7b9e-48d4-a916-bfa313e9c9a8" },
+    ],
+  },
+  {
+    id: 1,
+    title: "Майндсет",
+    emoji: "🧠",
+    lessons: [
+      { id: "1-1", title: "Мисли като маркетолог, виждай като режисьор", duration: "13:00", bunnyId: "" },
+      { id: "1-2", title: "Пускай. Учи. Повтаряй.", duration: "12:00", bunnyId: "" },
     ],
   },
   {
     id: 2,
-    title: "Инструменти и setup",
-    emoji: "🛠",
+    title: "Психология и стратегия",
+    emoji: "🎯",
     lessons: [
-      { id: "2-1", title: "Преглед на AI video инструментите", duration: "18:20", bunnyId: "" },
-      { id: "2-2", title: "Sora, Kling и Runway — кога да ползваш кой", duration: "24:10", bunnyId: "" },
-      { id: "2-3", title: "HeyGen за аватари и voiceover", duration: "15:45", bunnyId: "" },
-      { id: "2-4", title: "Setup на работното място", duration: "10:30", bunnyId: "" },
+      { id: "2-1", title: "Hook / Body / CTA анатомия", duration: "12:00", bunnyId: "" },
+      { id: "2-2", title: "Голямата рамка — най-добрата рамка за платена реклама", duration: "10:00", bunnyId: "" },
+      { id: "2-3", title: "TOF MOF BOF", duration: "11:00", bunnyId: "" },
+      { id: "2-4", title: "Матрицата на ъглите — как генерираш 10 ъгъла за всеки продукт", duration: "12:00", bunnyId: "" },
+      { id: "2-5", title: "Органик vs Платено — различна логика, различни метрики", duration: "10:00", bunnyId: "" },
     ],
   },
   {
     id: 3,
-    title: "Prompting за видео",
-    emoji: "✍️",
+    title: "Инструментите",
+    emoji: "🛠",
     lessons: [
-      { id: "3-1", title: "Как работи video prompting", duration: "14:00", bunnyId: "" },
-      { id: "3-2", title: "Структура на добрия prompt", duration: "20:15", bunnyId: "" },
-      { id: "3-3", title: "Camera motion и стил", duration: "18:40", bunnyId: "" },
-      { id: "3-4", title: "Итерация и refinement", duration: "22:05", bunnyId: "" },
+      { id: "3-1", title: "Промптинг основи", duration: "14:00", bunnyId: "" },
+      { id: "3-2", title: "Инструментите — регистрация и setup", duration: "10:00", bunnyId: "" },
+      { id: "3-3", title: "Генериране на изображения", duration: "18:00", bunnyId: "" },
+      { id: "3-4", title: "От снимка към видео", duration: "15:00", bunnyId: "" },
+      { id: "3-5", title: "Глас и аудио", duration: "12:00", bunnyId: "" },
+      { id: "3-6", title: "HeyGen — аватари и дигитален близнак", duration: "16:00", bunnyId: "" },
+      { id: "3-7", title: "CapCut — workflow от А до Я", duration: "20:00", bunnyId: "" },
     ],
   },
   {
     id: 4,
-    title: "Production workflow",
-    emoji: "⚡",
+    title: "The Playbooks",
+    emoji: "⭐",
     lessons: [
-      { id: "4-1", title: "Pipeline от идея до доставка", duration: "25:00", bunnyId: "" },
-      { id: "4-2", title: "Editing и post-production с AI", duration: "31:05", bunnyId: "" },
-      { id: "4-3", title: "Sound design и музика", duration: "16:30", bunnyId: "" },
+      { id: "4-1", title: "AI UGC реклами — Онлайн магазини · TOF и BOF", duration: "25:00", bunnyId: "" },
+      { id: "4-2", title: "Faceless viral TikTok / Reels — без да се показваш", duration: "25:00", bunnyId: "" },
+      { id: "4-3", title: "Говорещи глави / VSL — Коучове и услуги", duration: "25:00", bunnyId: "" },
+      { id: "4-4", title: "Кинематографски / Brand Film — Луксозни брандове", duration: "25:00", bunnyId: "" },
+      { id: "4-5", title: "Органично съдържание", duration: "20:00", bunnyId: "" },
     ],
   },
   {
     id: 5,
-    title: "Клиентска работа",
-    emoji: "💼",
+    title: "Монтаж за задържане на внимание",
+    emoji: "✂️",
     lessons: [
-      { id: "5-1", title: "Как да намираш клиенти", duration: "20:00", bunnyId: "" },
-      { id: "5-2", title: "Ценообразуване и оферти", duration: "18:15", bunnyId: "" },
-      { id: "5-3", title: "Реален проект от A до Z", duration: "45:22", bunnyId: "" },
-      { id: "5-4", title: "Feedback и ревизии", duration: "12:00", bunnyId: "" },
+      { id: "5-1", title: "Retention editing — смяна на кадър на всеки 3 секунди", duration: "12:00", bunnyId: "" },
+      { id: "5-2", title: "Субтитри които продават — Hormozi стил с 1 клик", duration: "11:00", bunnyId: "" },
+      { id: "5-3", title: "Sound design — swoosh · pop · riser ефекти", duration: "12:00", bunnyId: "" },
     ],
   },
   {
     id: 6,
-    title: "Скалиране на бизнеса",
-    emoji: "🚀",
+    title: "Машината за клиенти",
+    emoji: "💰",
     lessons: [
-      { id: "6-1", title: "Изграждане на портфолио", duration: "15:00", bunnyId: "" },
-      { id: "6-2", title: "Автоматизация и системи", duration: "28:00", bunnyId: "" },
-      { id: "6-3", title: "Следващи стъпки", duration: "1:02:00", bunnyId: "" },
+      { id: "6-1", title: "Как намираш клиенти — фитнеси · зъболекари · локален бизнес", duration: "13:00", bunnyId: "" },
+      { id: "6-2", title: "Офертата — пакет от ъгли, не просто видеа", duration: "12:00", bunnyId: "" },
     ],
   },
 ];
@@ -118,7 +130,7 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [expandedModules, setExpandedModules] = useState<Record<number, boolean>>({ 1: true });
-  const [overviewOpen, setOverviewOpen] = useState<Record<number, boolean>>({});
+  // overviewOpen removed — overview now shows simple module cards instead of duplicating sidebar accordion
   const [search, setSearch] = useState("");
   const notesTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -443,7 +455,7 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
               </svg>
             </button>
             <p className="font-semibold text-sm truncate text-white/60">
-              {lesson ? lesson.title : "Vekto Masterclass"}
+              {lesson ? lesson.title : "AI Видео Реклами"}
             </p>
           </div>
 
@@ -471,9 +483,10 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
                   <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff00]" />
                   <span className="text-[#c8ff00] text-xs font-semibold">Vekto Academy</span>
                 </div>
-                <h1 className="text-2xl sm:text-4xl font-black leading-tight">Vekto Masterclass</h1>
-                <p className="text-white/45 text-base leading-relaxed">
-                  Научи се да правиш professional AI видео от нулата — от prompting и инструменти до реални клиентски проекти. Всичко, което ползваме в агенцията, в едно практично обучение.
+                <h1 className="text-2xl sm:text-4xl font-black leading-tight">AI Видео Реклами</h1>
+                <p className="text-white/30 text-xs sm:text-sm tracking-wide">Нагласа → Стратегия → Инструменти → Правиш → Продаваш</p>
+                <p className="text-white/45 text-sm sm:text-base leading-relaxed">
+                  Научи се да правиш AI видео реклами от нулата — от психология и стратегия, през инструменти и playbooks, до реални клиенти. Всичко, което ползваме в агенцията, в едно практично обучение.
                 </p>
                 <div className="flex flex-wrap items-center gap-5 text-sm text-white/30">
                   <span className="flex items-center gap-1.5">
@@ -495,7 +508,7 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
                   className="mt-2 self-start flex items-center gap-2.5 bg-[#c8ff00] text-black font-black px-6 py-3 rounded-xl hover:bg-[#d4ff1a] transition-all text-sm"
                 >
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                  {completedCount > 0 ? "Продължи от там, където спря" : "Започни курса"}
+                  {completedCount > 0 ? "Продължи от там, където спря" : "Започни обучението"}
                 </button>
               </div>
 
@@ -518,12 +531,12 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
                 <h2 className="font-black text-lg mb-4">Какво ще научиш</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   {[
-                    "AI video pipeline от идея до финален продукт",
-                    "Prompting за Sora, Kling, Runway и HeyGen",
-                    "Как да намираш и затваряш клиенти",
-                    "Реален workflow от Vekto Agency",
-                    "Ценообразуване на AI видео услуги",
-                    "Изграждане на портфолио и скалиране",
+                    "Психология на рекламата — Hook, Body, CTA",
+                    "5 готови playbook-а за различни типове видеа",
+                    "Промптинг, генериране на визии и видео",
+                    "HeyGen аватари и дигитален близнак",
+                    "Монтаж за задържане на внимание",
+                    "Как намираш и затваряш клиенти",
                   ].map((item, i) => (
                     <div key={i} className="flex items-start gap-3 bg-white/3 border border-white/6 rounded-xl p-3.5">
                       <span className="text-[#c8ff00] mt-0.5 flex-shrink-0">✓</span>
@@ -533,55 +546,37 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
                 </div>
               </div>
 
-              {/* Module list */}
+              {/* Module list — simple cards, sidebar handles detailed nav */}
               <div>
-                <h2 className="font-black text-lg mb-4">Съдържание на курса</h2>
-                <div className="space-y-2">
+                <h2 className="font-black text-lg mb-4">Съдържание на обучението</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {COURSE.map((mod) => {
                     const modDone = mod.lessons.every((l) => progress[l.id]);
                     const modProgress = mod.lessons.filter((l) => progress[l.id]).length;
-                    const open = !!overviewOpen[mod.id];
+                    const firstIncompleteInMod = mod.lessons.find((l) => !progress[l.id]) ?? mod.lessons[0];
                     return (
-                      <div key={mod.id} className="border border-white/6 rounded-xl overflow-hidden">
-                        <button
-                          onClick={() => setOverviewOpen((o) => ({ ...o, [mod.id]: !o[mod.id] }))}
-                          className="w-full flex items-center gap-4 px-4 py-3.5 bg-white/3 hover:bg-white/5 transition-all text-left"
-                        >
-                          <span className="text-xl flex-shrink-0">{mod.emoji}</span>
-                          <div className="flex-1 min-w-0">
-                            <p className={`text-sm font-bold truncate ${modDone ? "text-white/50" : "text-white/85"}`}>{mod.title}</p>
-                            <p className="text-white/25 text-xs">{mod.lessons.length} урока · {formatDuration(totalMinutes(mod.lessons))}</p>
+                      <button
+                        key={mod.id}
+                        onClick={() => { goToLesson(firstIncompleteInMod); setExpandedModules((e) => ({ ...e, [mod.id]: true })); }}
+                        className={`flex items-center gap-4 px-4 py-4 rounded-xl border text-left transition-all ${modDone ? "border-[#c8ff00]/20 bg-[#c8ff00]/[0.03]" : "border-white/6 bg-white/3 hover:bg-white/5"}`}
+                      >
+                        <span className="text-2xl flex-shrink-0">{mod.emoji}</span>
+                        <div className="flex-1 min-w-0">
+                          <p className={`text-sm font-bold truncate ${modDone ? "text-[#c8ff00]/70" : "text-white/85"}`}>
+                            Модул {mod.id}: {mod.title}
+                          </p>
+                          <p className="text-white/25 text-xs mt-0.5">{mod.lessons.length} урока · {formatDuration(totalMinutes(mod.lessons))}</p>
+                          {/* Mini progress bar */}
+                          <div className="h-1 bg-white/8 rounded-full overflow-hidden mt-2">
+                            <div className="h-full bg-[#c8ff00] rounded-full transition-all duration-500" style={{ width: `${mod.lessons.length > 0 ? Math.round((modProgress / mod.lessons.length) * 100) : 0}%` }} />
                           </div>
-                          <div className="flex items-center gap-3 flex-shrink-0">
-                            {modProgress > 0 && (
-                              <span className="text-[#c8ff00] text-xs font-bold">{modProgress}/{mod.lessons.length}</span>
-                            )}
-                            <svg className={`w-4 h-4 text-white/20 transition-transform duration-200 ${open ? "rotate-180" : ""}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
-                          </div>
-                        </button>
-                        {open && (
-                          <div className="border-t border-white/6">
-                            {mod.lessons.map((l, i) => {
-                              const done = progress[l.id];
-                              return (
-                                <button
-                                  key={l.id}
-                                  onClick={() => goToLesson(l)}
-                                  className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-white/3 transition-colors border-b border-white/4 last:border-0"
-                                >
-                                  <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-[10px] font-bold ${done ? "bg-[#c8ff00] text-black" : "bg-white/8 text-white/30"}`}>
-                                    {done ? "✓" : i + 1}
-                                  </div>
-                                  <div className="flex-1 min-w-0">
-                                    <p className={`text-sm truncate ${done ? "text-white/40" : "text-white/70"}`}>{l.title}</p>
-                                  </div>
-                                  <span className="text-white/20 text-xs flex-shrink-0">{l.duration}</span>
-                                </button>
-                              );
-                            })}
-                          </div>
-                        )}
-                      </div>
+                        </div>
+                        {modDone ? (
+                          <span className="text-[#c8ff00] text-sm flex-shrink-0">✓</span>
+                        ) : modProgress > 0 ? (
+                          <span className="text-[#c8ff00] text-xs font-bold flex-shrink-0">{modProgress}/{mod.lessons.length}</span>
+                        ) : null}
+                      </button>
                     );
                   })}
                 </div>
@@ -619,7 +614,7 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
                 {/* Breadcrumb + title */}
                 <div>
                   <div className="flex items-center gap-2 mb-3 text-xs text-white/25">
-                    <button onClick={() => setLessonId(null)} className="hover:text-white/60 transition-colors">Vekto Masterclass</button>
+                    <button onClick={() => setLessonId(null)} className="hover:text-white/60 transition-colors">AI Видео Реклами</button>
                     <span>›</span>
                     <span>{lessonModule?.title}</span>
                   </div>
@@ -651,7 +646,7 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
                     </button>
                   ) : (
                     <div className="ml-auto flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#c8ff00]/10 text-[#c8ff00] font-bold text-sm border border-[#c8ff00]/20">
-                      ✓ Курсът е завършен
+                      ✓ Обучението е завършено
                     </div>
                   )}
                 </div>
@@ -684,7 +679,7 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
           </Link>
           <button onClick={() => setLessonId(null)} className="flex-1 flex flex-col items-center gap-1 py-3 text-[#c8ff00] transition-colors">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-            <span className="text-[9px] font-semibold">Masterclass</span>
+            <span className="text-[9px] font-semibold">Обучение</span>
           </button>
           <Link href="/dashboard?tab=community" className="flex-1 flex flex-col items-center gap-1 py-3 text-white/25 hover:text-white/60 transition-colors">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
