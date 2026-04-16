@@ -185,34 +185,65 @@ const platformTabs = [
   },
   {
     id: "jobs",
-    label: "Работа",
-    title: "Платени проекти",
-    desc: "Реални briefs от Vekto Agency директно в профила ти. Приемаш, изпълняваш, получаваш плащане.",
+    label: "Арена",
+    title: "Предизвикателства с награди",
+    desc: "Реални briefs със срок и награда. Предаваш проект, получаваш feedback от Vekto. Най-добрият печели.",
     ui: (
       <div className="w-full bg-[#0d0d0d] rounded-xl border border-white/10 overflow-hidden">
         <div className="flex items-center gap-2 px-4 py-3 border-b border-white/8 bg-[#111]">
           <div className="w-2 h-2 rounded-full bg-red-500/50" />
           <div className="w-2 h-2 rounded-full bg-yellow-500/50" />
           <div className="w-2 h-2 rounded-full bg-green-500/50" />
-          <span className="text-white/20 text-xs ml-2">vektoacademy.com/dashboard?tab=arena</span>
+          <span className="text-white/20 text-xs ml-2">vektoacademy.com/dashboard?tab=jobs</span>
         </div>
-        <div className="p-4 h-52 sm:h-64 flex flex-col gap-3 overflow-hidden">
-          {[
-            { title: "AI product видео — 60 сек", budget: "€80", tag: "Отворен", accent: true },
-            { title: "UGC-style ad за Instagram", budget: "€60", tag: "Отворен", accent: false },
-            { title: "Explainer видео — SaaS продукт", budget: "€120", tag: "Затворен", accent: false },
-          ].map((j) => (
-            <div key={j.title} className={`flex items-center justify-between rounded-xl px-4 py-3 border ${j.accent ? "border-[#c8ff00]/20 bg-[#c8ff00]/5" : "border-white/8 bg-white/3"}`}>
-              <div>
-                <p className={`text-sm font-semibold ${j.accent ? "text-white" : "text-white/50"}`}>{j.title}</p>
-                <p className={`text-xs mt-0.5 ${j.accent ? "text-white/40" : "text-white/25"}`}>Vekto Agency · deadline 3 дни</p>
+        <div className="p-3 sm:p-4 h-52 sm:h-64 grid grid-cols-5 gap-3 overflow-hidden">
+          {/* Active challenge */}
+          <div className="col-span-3 rounded-xl border border-white/8 overflow-hidden flex flex-col">
+            <div className="bg-[#111] px-3 py-2 flex items-center justify-between border-b border-white/6">
+              <div className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff00] animate-pulse" />
+                <p className="font-black text-[10px] tracking-widest uppercase">Live</p>
               </div>
-              <div className="flex items-center gap-3 flex-shrink-0">
-                <span className={`font-black text-sm ${j.accent ? "text-[#c8ff00]" : "text-white/30"}`}>{j.budget}</span>
-                <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${j.tag === "Отворен" ? "bg-[#c8ff00]/15 text-[#c8ff00]" : "bg-white/8 text-white/30"}`}>{j.tag}</span>
-              </div>
+              <span className="bg-[#c8ff00] text-black text-[10px] font-black px-2 py-0.5 rounded-full">€150</span>
             </div>
-          ))}
+            <div className="p-3 flex-1 flex flex-col">
+              <p className="text-white/25 text-[9px] uppercase tracking-widest mb-1">Brief #001</p>
+              <p className="font-black text-xs sm:text-sm leading-tight mb-2">Product Launch — AI Tool</p>
+              <div className="grid grid-cols-3 gap-1.5 mb-2">
+                {[
+                  { l: "Срок", v: "4 дни" },
+                  { l: "Формат", v: "16:9" },
+                  { l: "Участ.", v: "12" },
+                ].map((d) => (
+                  <div key={d.l} className="bg-white/3 border border-white/6 rounded-md py-1 text-center">
+                    <p className="text-white/20 text-[8px] uppercase">{d.l}</p>
+                    <p className="font-black text-[10px]">{d.v}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-auto bg-[#c8ff00] text-black text-[10px] font-black py-1.5 rounded-md text-center">Предай проект →</div>
+            </div>
+          </div>
+          {/* Scoreboard */}
+          <div className="col-span-2 rounded-xl border border-white/6 overflow-hidden flex flex-col">
+            <div className="px-2.5 py-2 bg-[#111] border-b border-white/6">
+              <p className="text-[9px] font-black uppercase tracking-widest text-white/40">🏆 Scoreboard</p>
+            </div>
+            <div className="divide-y divide-white/5 flex-1">
+              {[
+                { n: 1, w: "М. Георгиев", p: "€150" },
+                { n: 2, w: "И. Петров", p: "€200" },
+              ].map((c) => (
+                <div key={c.n} className="px-2.5 py-2 flex items-center gap-1.5">
+                  <p className="text-white/10 font-black text-xs w-3 flex-shrink-0">#{c.n}</p>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[10px] font-semibold truncate">🥇 {c.w}</p>
+                  </div>
+                  <span className="text-[#c8ff00] text-[10px] font-black flex-shrink-0">{c.p}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     ),
