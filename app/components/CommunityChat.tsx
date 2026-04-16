@@ -60,6 +60,42 @@ function initials(name: string) {
   return name.split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2);
 }
 
+// Render message text with @mentions highlighted
+function renderMessageText(
+  text: string,
+  mentionedUsers: { id: string; name?: string }[] | undefined,
+  currentUserId: string | undefined
+): React.ReactNode {
+  if (!mentionedUsers?.length) return text;
+  const names = mentionedUsers
+    .map((u) => u.name)
+    .filter((n): n is string => !!n)
+    .sort((a, b) => b.length - a.length);
+  if (!names.length) return text;
+  const escaped = names.map((n) => n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+  const re = new RegExp(`@(${escaped.join("|")})`, "g");
+  const parts: React.ReactNode[] = [];
+  let lastIdx = 0;
+  let match: RegExpExecArray | null;
+  while ((match = re.exec(text)) !== null) {
+    if (match.index > lastIdx) parts.push(text.slice(lastIdx, match.index));
+    const matchedName = match[1];
+    const mentioned = mentionedUsers.find((u) => u.name === matchedName);
+    const isMe = mentioned?.id === currentUserId;
+    parts.push(
+      <span
+        key={match.index}
+        className={`font-bold px-1 py-0.5 rounded ${isMe ? "bg-[#c8ff00]/20 text-[#c8ff00]" : "text-[#c8ff00]/80 bg-[#c8ff00]/8"}`}
+      >
+        @{matchedName}
+      </span>
+    );
+    lastIdx = match.index + match[0].length;
+  }
+  if (lastIdx < text.length) parts.push(text.slice(lastIdx));
+  return parts;
+}
+
 // ── Avatar ─────────────────────────────────────────────
 function Avatar({ user, size = 38 }: { user: { name?: string; image?: string }; size?: number }) {
   const style = { width: size, height: size, minWidth: size };
@@ -79,6 +115,8 @@ function MessageItem({ msg, showHeader }: { msg: FormatMessageResponse; showHead
   const { channel } = useChannelStateContext();
   const isMe = msg.user?.id === client.userID;
   const isDeleted = msg.type === "deleted";
+  const mentionedUsers = (msg as unknown as { mentioned_users?: { id: string; name?: string }[] }).mentioned_users;
+  const iAmMentioned = !!mentionedUsers?.some((u) => u.id === client.userID);
   const [hovered, setHovered] = useState(false);
   const [showModMenu, setShowModMenu] = useState(false);
   const canModerate = _isAdmin && !isMe && !isDeleted;
@@ -126,7 +164,7 @@ function MessageItem({ msg, showHeader }: { msg: FormatMessageResponse; showHead
 
   return (
     <div
-      className="group flex items-start gap-3 px-4 py-0.5 hover:bg-white/[0.02] transition-colors relative"
+      className={`group flex items-start gap-3 px-4 py-0.5 transition-colors relative ${iAmMentioned ? "bg-[#c8ff00]/[0.05] border-l-2 border-[#c8ff00] hover:bg-[#c8ff00]/[0.08]" : "hover:bg-white/[0.02]"}`}
       style={{ paddingTop: showHeader ? "12px" : "2px" }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => { setHovered(false); setShowModMenu(false); }}
@@ -155,7 +193,9 @@ function MessageItem({ msg, showHeader }: { msg: FormatMessageResponse; showHead
         {isDeleted ? (
           <p className="text-white/20 text-sm italic">Съобщението е изтрито</p>
         ) : (
-          <p className="text-white/82 text-sm leading-relaxed break-words">{msg.text}</p>
+          <p className="text-white/82 text-sm leading-relaxed break-words">
+            {renderMessageText(msg.text ?? "", mentionedUsers, client.userID)}
+          </p>
         )}
         {/* Attachments */}
         {msg.attachments && msg.attachments.length > 0 && (
@@ -392,14 +432,25 @@ function ChatInner({ active, sidebarOpen, onToggle }: {
 }
 
 // ── Main Component ─────────────────────────────────────
+function initialActive(): ActiveView {
+  if (typeof window === "undefined") return { type: "channel", id: "general" };
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("dm") === "1") return { type: "dm" };
+  const ch = params.get("ch");
+  if (ch && CHANNELS.some((c) => c.id === ch)) return { type: "channel", id: ch };
+  return { type: "channel", id: "general" };
+}
+
 export default function CommunityChat() {
   const { user } = useUser();
-  const [active, setActive] = useState<ActiveView>({ type: "channel", id: "general" });
+  const [active, setActive] = useState<ActiveView>(initialActive);
   const [channel, setChannel] = useState<StreamChannel | null>(null);
   const [ready, setReady] = useState(false);
   const [connected, setConnected] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [mobileSidebar, setMobileSidebar] = useState(false);
+  const [unread, setUnread] = useState<Record<string, number>>({});
+  const [dmUnread, setDmUnread] = useState(0);
 
   // Expose for ChatInner hamburger button
   useEffect(() => {
@@ -423,6 +474,61 @@ export default function CommunityChat() {
     return () => { client.disconnectUser(); };
   }, [user?.id]);
 
+  // Watch all channels in background for unread counts
+  useEffect(() => {
+    if (!connected || !user) return;
+    let cancelled = false;
+
+    async function watchAll() {
+      // Query & watch all vekto-* channels the user is a member of
+      const chans = await client.queryChannels(
+        { type: "messaging", members: { $in: [user!.id] } },
+        { last_message_at: -1 },
+        { state: true, watch: true, limit: 30 }
+      );
+      if (cancelled) return;
+
+      const map: Record<string, number> = {};
+      let dm = 0;
+      for (const ch of chans) {
+        const id = ch.id ?? "";
+        const count = ch.countUnread();
+        if (id.startsWith("vekto-")) {
+          map[id.slice("vekto-".length)] = count;
+        } else {
+          dm += count;
+        }
+      }
+      setUnread(map);
+      setDmUnread(dm);
+    }
+    watchAll();
+
+    function onNewMessage(event: Event) {
+      const cid = event.cid ?? "";
+      const channelId = cid.split(":")[1] ?? "";
+      // Don't increment if sender is current user or it's the active channel
+      if (event.user?.id === user!.id) return;
+      const isActiveChannel =
+        active.type === "channel" && `vekto-${active.id}` === channelId;
+      const isActiveDm = active.type === "dm" && !channelId.startsWith("vekto-");
+      if (isActiveChannel || isActiveDm) return;
+
+      if (channelId.startsWith("vekto-")) {
+        const shortId = channelId.slice("vekto-".length);
+        setUnread((prev) => ({ ...prev, [shortId]: (prev[shortId] ?? 0) + 1 }));
+      } else {
+        setDmUnread((d) => d + 1);
+      }
+    }
+
+    client.on("message.new", onNewMessage);
+    return () => {
+      cancelled = true;
+      client.off("message.new", onNewMessage);
+    };
+  }, [connected, user?.id, active.type, active.type === "channel" ? active.id : "dm"]);
+
   useEffect(() => {
     if (!connected || !user) return;
     setReady(false);
@@ -439,8 +545,15 @@ export default function CommunityChat() {
         } as Record<string, unknown>);
       }
       await ch.watch();
+      await ch.markRead();
       setChannel(ch);
       setReady(true);
+      // Clear local unread for this channel
+      if (active.type === "channel") {
+        setUnread((prev) => ({ ...prev, [active.id]: 0 }));
+      } else {
+        setDmUnread(0);
+      }
     }
     switchChannel();
   }, [connected, active.type, active.type === "channel" ? active.id : "dm"]);
@@ -470,11 +583,15 @@ export default function CommunityChat() {
               <p className="text-white/18 text-[10px] uppercase tracking-widest px-2 mb-1.5 font-semibold">Channels</p>
               {CHANNELS.map((ch) => {
                 const isActive = active.type === "channel" && active.id === ch.id;
+                const count = unread[ch.id] ?? 0;
                 return (
                   <button key={ch.id} onClick={() => { setActive({ type: "channel", id: ch.id }); setMobileSidebar(false); }}
-                    className={`w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-left transition-all mb-0.5 ${isActive ? "bg-white/10 text-white" : "text-white/30 hover:text-white/70 hover:bg-white/5"}`}>
+                    className={`w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-left transition-all mb-0.5 ${isActive ? "bg-white/10 text-white" : count > 0 ? "text-white/80 hover:bg-white/5" : "text-white/30 hover:text-white/70 hover:bg-white/5"}`}>
                     <span className="text-sm">{ch.emoji}</span>
-                    <span className="truncate text-xs font-medium">{ch.name}</span>
+                    <span className={`truncate text-xs flex-1 ${count > 0 ? "font-bold" : "font-medium"}`}>{ch.name}</span>
+                    {count > 0 && !isActive && (
+                      <span className="min-w-[16px] h-4 flex items-center justify-center bg-[#c8ff00] text-black text-[9px] font-black rounded-full px-1 leading-none flex-shrink-0">{count > 9 ? "9+" : count}</span>
+                    )}
                   </button>
                 );
               })}
@@ -483,7 +600,10 @@ export default function CommunityChat() {
                 <button onClick={() => { setActive({ type: "dm" }); setMobileSidebar(false); }}
                   className={`w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-left transition-all ${active.type === "dm" ? "bg-white/10 text-white" : "text-white/30 hover:text-white/70 hover:bg-white/5"}`}>
                   <div className="w-6 h-6 rounded-full bg-[#c8ff00] flex items-center justify-center text-black text-[9px] font-black">V</div>
-                  <span className="text-xs font-medium">Vekto Team</span>
+                  <span className="text-xs font-medium flex-1">Vekto Team</span>
+                  {dmUnread > 0 && active.type !== "dm" && (
+                    <span className="min-w-[16px] h-4 flex items-center justify-center bg-[#c8ff00] text-black text-[9px] font-black rounded-full px-1 leading-none flex-shrink-0">{dmUnread > 9 ? "9+" : dmUnread}</span>
+                  )}
                 </button>
               </div>
             </nav>
@@ -504,12 +624,17 @@ export default function CommunityChat() {
           <p className="text-white/18 text-[10px] uppercase tracking-widest px-2 mb-1.5 font-semibold">Channels</p>
           {CHANNELS.map((ch) => {
             const isActive = isChannelView && active.id === ch.id;
+            const count = unread[ch.id] ?? 0;
             return (
               <button key={ch.id} onClick={() => setActive({ type: "channel", id: ch.id })}
-                className={`w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-left transition-all mb-0.5 group ${isActive ? "bg-white/10 text-white" : "text-white/30 hover:text-white/70 hover:bg-white/5"}`}>
-                <span className={`text-sm leading-none flex-shrink-0 transition-opacity ${isActive ? "opacity-100" : "opacity-50 group-hover:opacity-100"}`}>{ch.emoji}</span>
-                <span className="truncate text-xs font-medium">{ch.name}</span>
-                {isActive && <span className="ml-auto w-1.5 h-1.5 rounded-full bg-[#c8ff00] flex-shrink-0" />}
+                className={`w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-left transition-all mb-0.5 group ${isActive ? "bg-white/10 text-white" : count > 0 ? "text-white/85 hover:bg-white/5" : "text-white/30 hover:text-white/70 hover:bg-white/5"}`}>
+                <span className={`text-sm leading-none flex-shrink-0 transition-opacity ${isActive || count > 0 ? "opacity-100" : "opacity-50 group-hover:opacity-100"}`}>{ch.emoji}</span>
+                <span className={`truncate text-xs flex-1 ${count > 0 && !isActive ? "font-bold" : "font-medium"}`}>{ch.name}</span>
+                {isActive ? (
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff00] flex-shrink-0" />
+                ) : count > 0 ? (
+                  <span className="min-w-[16px] h-4 flex items-center justify-center bg-[#c8ff00] text-black text-[9px] font-black rounded-full px-1 leading-none flex-shrink-0">{count > 9 ? "9+" : count}</span>
+                ) : null}
               </button>
             );
           })}
@@ -517,12 +642,15 @@ export default function CommunityChat() {
           <div className="pt-3 mt-2 border-t border-white/6">
             <p className="text-white/18 text-[10px] uppercase tracking-widest px-2 mb-1.5 font-semibold">Direct</p>
             <button onClick={() => setActive({ type: "dm" })}
-              className={`w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-left transition-all ${active.type === "dm" ? "bg-white/10 text-white" : "text-white/30 hover:text-white/70 hover:bg-white/5"}`}>
+              className={`w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-left transition-all ${active.type === "dm" ? "bg-white/10 text-white" : dmUnread > 0 ? "text-white/85 hover:bg-white/5" : "text-white/30 hover:text-white/70 hover:bg-white/5"}`}>
               <div className="relative flex-shrink-0">
                 <div className="w-6 h-6 rounded-full bg-[#c8ff00] flex items-center justify-center text-black text-[9px] font-black">V</div>
                 <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-green-400 border border-[#0d0d0d]" />
               </div>
-              <span className="text-xs font-medium">Vekto Team</span>
+              <span className={`text-xs flex-1 ${dmUnread > 0 && active.type !== "dm" ? "font-bold" : "font-medium"}`}>Vekto Team</span>
+              {dmUnread > 0 && active.type !== "dm" && (
+                <span className="min-w-[16px] h-4 flex items-center justify-center bg-[#c8ff00] text-black text-[9px] font-black rounded-full px-1 leading-none flex-shrink-0">{dmUnread > 9 ? "9+" : dmUnread}</span>
+              )}
             </button>
           </div>
         </nav>

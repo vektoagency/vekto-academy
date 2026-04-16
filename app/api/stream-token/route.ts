@@ -7,6 +7,15 @@ const serverClient = StreamChat.getInstance(
   process.env.STREAM_SECRET!
 );
 
+const PUBLIC_CHANNELS = [
+  "general",
+  "intro",
+  "projects",
+  "tools",
+  "questions",
+  "work",
+];
+
 export async function GET() {
   const { userId } = await auth();
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -23,6 +32,22 @@ export async function GET() {
     image: user.imageUrl,
     role: isAdmin ? "admin" : "user",
   });
+
+  // Ensure user is a member of every public channel so @mention autocomplete
+  // can surface them. Runs idempotently on each token fetch.
+  await Promise.all(
+    PUBLIC_CHANNELS.map(async (id) => {
+      const channel = serverClient.channel("messaging", `vekto-${id}`, {
+        created_by_id: userId,
+      });
+      try {
+        await channel.create();
+      } catch { /* already exists */ }
+      try {
+        await channel.addMembers([userId]);
+      } catch { /* already a member */ }
+    })
+  );
 
   const token = serverClient.createToken(userId);
   return NextResponse.json({ token, isAdmin });
