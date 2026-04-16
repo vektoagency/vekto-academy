@@ -4,6 +4,7 @@
   --color-accent: #c8ff00;
   --color-bg: #080808;
   --font-sans: var(--font-geist);
+  --font-display: var(--font-display);
 }
 
 html {

@@ -472,17 +472,17 @@ export default function HomePage() {
         </div>
 
         {/* Headline */}
-        <h1 className="relative z-10 mb-5 text-center font-black tracking-tight leading-[1.02]">
+        <h1 className="font-display relative z-10 mb-5 text-center font-extrabold tracking-[-0.03em] leading-[0.98]">
           <span className="block text-[2.8rem] sm:text-5xl md:text-[5.5rem] text-white">
-            3 месеца до
+            Правиш AI видео.
           </span>
           <span className="block text-[2.8rem] sm:text-5xl md:text-[5.5rem] text-[#c8ff00] drop-shadow-[0_0_60px_rgba(200,255,0,0.3)]">
-            първия ти платен клиент.
+            Ние ти даваме клиентите.
           </span>
         </h1>
 
         <p className="text-white/50 text-sm sm:text-base md:text-lg max-w-xl mb-8 relative z-10 leading-relaxed text-center">
-          Ние сме <span className="text-white/80 font-semibold">Vekto</span>. Правим AI видео за реални брандове, възлагаме ти задачи, наемаме най-добрите.
+          3 месеца структурирано обучение. Реални брифове от Vekto. Наемане на най-добрите.
         </p>
 
         {/* CTA with plan toggle */}

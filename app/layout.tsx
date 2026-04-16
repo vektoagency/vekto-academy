@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Geist, Bricolage_Grotesque } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 
 const geist = Geist({
   variable: "--font-geist",
-  subsets: ["latin"],
+  subsets: ["latin", "cyrillic"],
+});
+
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-display",
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -49,7 +55,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="bg" className={`${geist.variable} h-full antialiased`}>
+      <html lang="bg" className={`${geist.variable} ${bricolage.variable} h-full antialiased`}>
         <body className="min-h-full flex flex-col bg-[#080808] text-white">
           {children}
         </body>
