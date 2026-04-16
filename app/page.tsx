@@ -459,20 +459,31 @@ export default function HomePage() {
           <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#c8ff00]/6 rounded-full blur-[80px]" />
         </div>
 
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-3 py-1.5 mb-6 relative z-10">
-          <span className="w-2 h-2 rounded-full bg-[#c8ff00] animate-pulse flex-shrink-0" />
-          <span className="text-white/60 text-[10px] sm:text-xs font-medium tracking-wide">ДОЖИВОТЕН ДОСТЪП €349 — ОФЕРТАТА ИЗТИЧА НА 1 ЮНИ</span>
+        {/* Promo banner — Lifetime offer */}
+        <div className="inline-flex flex-col sm:flex-row items-center gap-1.5 sm:gap-3 bg-[#c8ff00] text-black rounded-full px-4 sm:px-5 py-2 mb-6 relative z-10 shadow-[0_0_30px_rgba(200,255,0,0.25)]">
+          <span className="flex items-center gap-1.5 text-[11px] sm:text-xs font-black uppercase tracking-wider">
+            <span>⚡</span>
+            <span>Доживотен достъп €349</span>
+          </span>
+          <span className="hidden sm:block w-1 h-1 rounded-full bg-black/30" />
+          <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider">Всичко отворено веднага</span>
+          <span className="hidden sm:block w-1 h-1 rounded-full bg-black/30" />
+          <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider">До 1 юни</span>
         </div>
 
         {/* Headline */}
         <h1 className="text-[2.4rem] sm:text-5xl md:text-6xl font-black leading-[1.1] mb-4 relative z-10 tracking-tight text-center">
-          Научи се на AI контент.<br />
-          <span className="text-[#c8ff00]">Получи реална работа.</span>
+          3 месеца до твоя<br />
+          <span className="text-[#c8ff00]">първи платен клиент</span><br />
+          от AI видео.
         </h1>
 
-        <p className="text-white/50 text-sm sm:text-base md:text-lg max-w-sm md:max-w-md mb-8 relative z-10 leading-relaxed text-center">
-          Учиш от агенция с реални клиенти. Докажи се —<span className="text-white/80"> и те плащаме.</span>
+        <p className="text-white/50 text-sm sm:text-base md:text-lg max-w-xl mb-4 relative z-10 leading-relaxed text-center">
+          Ние сме <span className="text-white/80 font-semibold">Vekto Agency</span> — 200+ AI видео проекта за реални брандове. Учим те как работим, даваме ти реални задачи, наемаме най-добрите.
+        </p>
+
+        <p className="text-white/30 text-xs sm:text-sm mb-8 relative z-10">
+          Видеа за: <span className="text-white/60 font-medium">Mens Care · Isosport · Krista G</span>
         </p>
 
         {/* CTA with plan toggle */}
