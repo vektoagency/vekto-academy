@@ -472,10 +472,16 @@ export default function HomePage() {
         </div>
 
         {/* Headline */}
-        <h1 className="text-[2.4rem] sm:text-5xl md:text-6xl font-black leading-[1.1] mb-4 relative z-10 tracking-tight text-center">
-          3 месеца до твоя<br />
-          <span className="text-[#c8ff00]">първи платен клиент</span><br />
-          от AI видео.
+        <h1 className="relative z-10 mb-4 text-center font-black tracking-tight">
+          <span className="block text-[3.8rem] sm:text-7xl md:text-[7.5rem] leading-[0.9] bg-gradient-to-br from-[#e8ff6b] via-[#c8ff00] to-[#7a9e00] bg-clip-text text-transparent drop-shadow-[0_0_50px_rgba(200,255,0,0.35)]">
+            3 месеца
+          </span>
+          <span className="block text-[1.7rem] sm:text-3xl md:text-5xl text-white leading-[1.1] mt-3">
+            до твоя първи платен клиент
+          </span>
+          <span className="block text-base sm:text-lg md:text-xl text-white/40 font-bold mt-2 uppercase tracking-[0.2em]">
+            от AI видео
+          </span>
         </h1>
 
         <p className="text-white/50 text-sm sm:text-base md:text-lg max-w-xl mb-8 relative z-10 leading-relaxed text-center">
