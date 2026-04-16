@@ -20,7 +20,7 @@ const pipelineSteps = [
   {
     step: "03",
     title: "Работи",
-    desc: "Получи платени briefs от Vekto",
+    desc: "Получи платени задачи от Vekto",
     detail: "Реални платени проекти директно от Vekto Agency. Работиш с реални брандове, изграждаш портфолио и ставаш част от екипа.",
   },
 ];
@@ -187,7 +187,7 @@ const platformTabs = [
     id: "jobs",
     label: "Арена",
     title: "Предизвикателства с награди",
-    desc: "Реални briefs със срок и награда. Предаваш проект, получаваш feedback от Vekto. Най-добрият печели.",
+    desc: "Реални задачи със срок и награда. Предаваш проект, получаваш обратна връзка от Vekto. Най-добрият печели.",
     ui: (
       <div className="w-full bg-[#0d0d0d] rounded-xl border border-white/10 overflow-hidden">
         <div className="flex items-center gap-2 px-4 py-3 border-b border-white/8 bg-[#111]">
@@ -766,7 +766,7 @@ export default function HomePage() {
               <ul className="space-y-2.5 text-sm text-white/60 mb-6">
                 <li className="flex items-center gap-2"><span className="text-[#c8ff00]">✓</span> Пълно обучение</li>
                 <li className="flex items-center gap-2"><span className="text-[#c8ff00]">✓</span> Общност + Weekly Q&A</li>
-                <li className="flex items-center gap-2"><span className="text-[#c8ff00]">✓</span> Реални брифове от Vekto</li>
+                <li className="flex items-center gap-2"><span className="text-[#c8ff00]">✓</span> Реални задачи от Vekto</li>
                 <li className="flex items-center gap-2"><span className="text-[#c8ff00]">✓</span> Ревю на работата ти</li>
                 <li className="flex items-center gap-2"><span className="text-[#c8ff00]">✓</span> Pipeline към наемане</li>
               </ul>
@@ -1093,7 +1093,7 @@ const faq = [
   },
   {
     q: "Как реално мога да стана част от Vekto екипа?",
-    a: "Завършваш модулите, предаваш тестов проект и ако качеството е на ниво — влизаш в пула за платени проекти. Нямаме гаранция, но активните членове получават реални briefs от нашите клиенти.",
+    a: "Завършваш модулите, предаваш тестов проект и ако качеството е на ниво — влизаш в пула за платени проекти. Нямаме гаранция, но активните членове получават реални задачи от нашите клиенти.",
   },
   {
     q: "Какво точно включва обучението?",
