@@ -525,59 +525,67 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
                 </div>
               )}
 
-              {/* What you'll learn */}
+              {/* Roadmap */}
               <div>
-                <h2 className="font-black text-lg mb-4">Какво ще научиш</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                  {[
-                    "Психология на рекламата — Hook, Body, CTA",
-                    "5 готови playbook-а за различни типове видеа",
-                    "Промптинг, генериране на визии и видео",
-                    "HeyGen аватари и дигитален близнак",
-                    "Монтаж за задържане на внимание",
-                    "Как намираш и затваряш клиенти",
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-start gap-3 bg-white/3 border border-white/6 rounded-xl p-3.5">
-                      <span className="text-[#c8ff00] mt-0.5 flex-shrink-0">✓</span>
-                      <p className="text-white/65 text-sm leading-snug">{item}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
+                <h2 className="font-black text-lg mb-6">Пътят</h2>
+                <div className="relative">
+                  {/* Vertical line */}
+                  <div className="absolute left-[19px] top-6 bottom-6 w-px bg-white/8" />
 
-              {/* Module list — simple cards, sidebar handles detailed nav */}
-              <div>
-                <h2 className="font-black text-lg mb-4">Съдържание на обучението</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {COURSE.map((mod) => {
-                    const modDone = mod.lessons.every((l) => progress[l.id]);
-                    const modProgress = mod.lessons.filter((l) => progress[l.id]).length;
-                    const firstIncompleteInMod = mod.lessons.find((l) => !progress[l.id]) ?? mod.lessons[0];
-                    return (
-                      <button
-                        key={mod.id}
-                        onClick={() => { goToLesson(firstIncompleteInMod); setExpandedModules((e) => ({ ...e, [mod.id]: true })); }}
-                        className={`flex items-center gap-4 px-4 py-4 rounded-xl border text-left transition-all ${modDone ? "border-[#c8ff00]/20 bg-[#c8ff00]/[0.03]" : "border-white/6 bg-white/3 hover:bg-white/5"}`}
-                      >
-                        <span className="text-2xl flex-shrink-0">{mod.emoji}</span>
-                        <div className="flex-1 min-w-0">
-                          <p className={`text-sm font-bold truncate ${modDone ? "text-[#c8ff00]/70" : "text-white/85"}`}>
-                            Модул {mod.id}: {mod.title}
-                          </p>
-                          <p className="text-white/25 text-xs mt-0.5">{mod.lessons.length} урока · {formatDuration(totalMinutes(mod.lessons))}</p>
-                          {/* Mini progress bar */}
-                          <div className="h-1 bg-white/8 rounded-full overflow-hidden mt-2">
-                            <div className="h-full bg-[#c8ff00] rounded-full transition-all duration-500" style={{ width: `${mod.lessons.length > 0 ? Math.round((modProgress / mod.lessons.length) * 100) : 0}%` }} />
+                  <div className="space-y-1">
+                    {COURSE.map((mod) => {
+                      const modDone = mod.lessons.every((l) => progress[l.id]);
+                      const modProgress = mod.lessons.filter((l) => progress[l.id]).length;
+                      const firstIncompleteInMod = mod.lessons.find((l) => !progress[l.id]) ?? mod.lessons[0];
+                      const desc: Record<number, string> = {
+                        0: "Запознай се с платформата и как работи всичко.",
+                        1: "Правилната нагласа преди да хванеш инструментите.",
+                        2: "Hook, CTA, фунии, ъгли — стратегията зад всяка реклама.",
+                        3: "Промптинг, генериране, глас, аватари, монтаж — целият арсенал.",
+                        4: "Избираш типа видео, следваш рецептата, получаваш резултат.",
+                        5: "Кадър на 3 секунди, субтитри, sound design — задръж вниманието.",
+                        6: "Как намираш клиенти и как пакетираш офертата си.",
+                      };
+
+                      return (
+                        <button
+                          key={mod.id}
+                          onClick={() => { goToLesson(firstIncompleteInMod); setExpandedModules((e) => ({ ...e, [mod.id]: true })); }}
+                          className="relative flex items-start gap-4 w-full text-left px-2 py-4 rounded-xl hover:bg-white/3 transition-all group"
+                        >
+                          {/* Step circle */}
+                          <div className={`relative z-10 w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 text-sm font-black transition-all ${
+                            modDone
+                              ? "bg-[#c8ff00] text-black"
+                              : modProgress > 0
+                                ? "bg-[#c8ff00]/20 text-[#c8ff00] border-2 border-[#c8ff00]/40"
+                                : "bg-[#151515] border border-white/10 text-white/30"
+                          }`}>
+                            {modDone ? "✓" : mod.id}
                           </div>
-                        </div>
-                        {modDone ? (
-                          <span className="text-[#c8ff00] text-sm flex-shrink-0">✓</span>
-                        ) : modProgress > 0 ? (
-                          <span className="text-[#c8ff00] text-xs font-bold flex-shrink-0">{modProgress}/{mod.lessons.length}</span>
-                        ) : null}
-                      </button>
-                    );
-                  })}
+
+                          {/* Content */}
+                          <div className="flex-1 min-w-0 pt-0.5">
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="text-base">{mod.emoji}</span>
+                              <p className={`text-sm font-bold ${modDone ? "text-[#c8ff00]/80" : "text-white/85"}`}>{mod.title}</p>
+                            </div>
+                            <p className="text-white/30 text-xs leading-relaxed">{desc[mod.id]}</p>
+                            <div className="flex items-center gap-3 mt-2">
+                              <span className="text-white/20 text-[11px]">{mod.lessons.length} урока · {formatDuration(totalMinutes(mod.lessons))}</span>
+                              {modDone && <span className="text-[#c8ff00] text-[10px] font-bold">Завършен</span>}
+                              {!modDone && modProgress > 0 && <span className="text-[#c8ff00] text-[10px] font-bold">{modProgress}/{mod.lessons.length}</span>}
+                            </div>
+                          </div>
+
+                          {/* Arrow on hover */}
+                          <span className="text-white/10 group-hover:text-[#c8ff00] transition-colors pt-2.5 flex-shrink-0">
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
 
