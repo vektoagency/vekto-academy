@@ -4,24 +4,46 @@ import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { createCheckout } from "./actions/checkout";
 
-const pipelineSteps = [
+const arenaBriefs = [
   {
-    step: "01",
-    title: "Учи",
-    desc: "Завърши модулите и усвои workflow-а",
-    detail: "Структурирано обучение от реална AI видео агенция. Научаваш инструментите, промптинга и workflow-а, които използваме за реални клиенти — стъпка по стъпка.",
+    id: "01",
+    client: "Tech SaaS",
+    title: "Product Launch — AI Tool",
+    budget: 150,
+    deadline: "4 дни",
+    format: "16:9",
+    participants: 12,
+    brief: "UGC-style видео представящо нов AI продукт. Benefit-driven, 20-30 секунди, модерна естетика. Submit на 3 варианта за A/B тест.",
   },
   {
-    step: "02",
-    title: "Докажи се",
-    desc: "Предай тестов проект за оценка",
-    detail: "Когато си готов, предаваш тестов проект. Екипът на Vekto го оценява лично. Ако отговаря на нашия стандарт — минаваш на следващото ниво.",
+    id: "02",
+    client: "Fashion Brand",
+    title: "Summer Campaign — Social",
+    budget: 130,
+    deadline: "6 дни",
+    format: "9:16 + 1:1",
+    participants: 8,
+    brief: "3 варианта за TikTok/Reels — summer vibe, dynamic cuts, hook в първите 2 секунди. Без voiceover, само music-driven.",
   },
   {
-    step: "03",
-    title: "Работи",
-    desc: "Получи платени задачи от Vekto",
-    detail: "Реални платени проекти директно от Vekto Agency. Работиш с реални брандове, изграждаш портфолио и ставаш част от екипа.",
+    id: "03",
+    client: "B2B Startup",
+    title: "Explainer — SaaS Platform",
+    budget: 120,
+    deadline: "5 дни",
+    format: "16:9",
+    participants: 15,
+    brief: "Explainer обясняващ B2B SaaS платформа. Ясен скрипт, професионален feel, 45-60 секунди, английски voiceover.",
+  },
+  {
+    id: "04",
+    client: "F&B",
+    title: "Restaurant Quick Promo",
+    budget: 100,
+    deadline: "3 дни",
+    format: "9:16",
+    participants: 6,
+    brief: "Кратко промо за ресторант — food shots, апетитни ъгли, music-driven. 15-20 сек, TikTok-ready.",
   },
 ];
 
@@ -352,7 +374,7 @@ function PlatformPreview() {
   );
 }
 
-function PipelineSection() {
+function ArenaSection() {
   const [active, setActive] = useState(0);
   const [autoPlay, setAutoPlay] = useState(true);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -360,8 +382,8 @@ function PipelineSection() {
   useEffect(() => {
     if (!autoPlay) return;
     intervalRef.current = setInterval(() => {
-      setActive((prev) => (prev + 1) % pipelineSteps.length);
-    }, 3000);
+      setActive((prev) => (prev + 1) % arenaBriefs.length);
+    }, 4500);
     return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
   }, [autoPlay]);
 
@@ -371,7 +393,8 @@ function PipelineSection() {
     if (intervalRef.current) clearInterval(intervalRef.current);
   }
 
-  const s = pipelineSteps[active];
+  const b = arenaBriefs[active];
+  const totalPool = arenaBriefs.reduce((s, x) => s + x.budget, 0);
 
   return (
     <section className="py-20 sm:py-32 px-4 sm:px-6 relative overflow-hidden">
@@ -381,63 +404,115 @@ function PipelineSection() {
       <div className="max-w-5xl mx-auto relative z-10">
 
         {/* Header */}
-        <div className="mb-10 sm:mb-16">
-          <span className="text-[#c8ff00] text-sm font-semibold uppercase tracking-widest mb-4 block">Уникалното</span>
-          <h2 className="text-3xl sm:text-4xl md:text-6xl font-black tracking-tight leading-[1.05]">
+        <div className="mb-10 sm:mb-14">
+          <span className="text-[#c8ff00] text-sm font-semibold uppercase tracking-widest mb-4 block">Арена · Уникалното</span>
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-black tracking-tight leading-[1.05] mb-6 sm:mb-8">
             Плащаш да учиш.<br />
-            <span className="text-[#c8ff00]">После ние ти плащаме.</span>
+            <span className="text-[#c8ff00]">Ние ти плащаме.</span>
           </h2>
+          <div className="flex flex-col sm:flex-row sm:items-end gap-4 sm:gap-10">
+            <div className="flex items-baseline gap-2 sm:gap-3 leading-none">
+              <span className="text-white/20 text-sm sm:text-base font-semibold">+</span>
+              <span className="text-5xl sm:text-7xl md:text-8xl font-black text-white tracking-tight drop-shadow-[0_0_40px_rgba(200,255,0,0.15)]">€500</span>
+              <span className="text-white/40 text-xs sm:text-sm uppercase tracking-widest font-semibold">/мес</span>
+            </div>
+            <p className="text-white/50 text-sm sm:text-base max-w-md leading-relaxed sm:pb-2">
+              Реални платени brief-ове от Vekto клиенти. Предаваш видео, получаваш ревю, най-добрите печелят — всеки месец.
+            </p>
+          </div>
         </div>
 
-        {/* Main interactive block */}
-        <div className="rounded-3xl border border-white/10 bg-[#0e0e0e] overflow-hidden">
+        {/* Stats bar */}
+        <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-6 sm:mb-8">
+          {[
+            { v: "€500", l: "пул/месец" },
+            { v: `${arenaBriefs.length}`, l: "активни brief-а" },
+            { v: "∞", l: "опити/участник" },
+          ].map((stat) => (
+            <div key={stat.l} className="rounded-xl border border-white/10 bg-[#0e0e0e] p-3 sm:p-5">
+              <p className="text-[#c8ff00] font-black text-2xl sm:text-3xl leading-none">{stat.v}</p>
+              <p className="text-white/40 text-[10px] sm:text-xs mt-1.5 sm:mt-2 uppercase tracking-widest">{stat.l}</p>
+            </div>
+          ))}
+        </div>
 
-          {/* Step selector — top bar (desktop) / стacked (mobile) */}
-          <div className="flex flex-col sm:flex-row border-b border-white/10">
-            {pipelineSteps.map((step, i) => {
+        {/* Interactive brief board */}
+        <div className="rounded-2xl sm:rounded-3xl border border-white/10 bg-[#0e0e0e] overflow-hidden">
+
+          {/* Header bar */}
+          <div className="px-4 sm:px-6 py-3 sm:py-4 bg-[#111] border-b border-white/10 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff00] animate-pulse" />
+              <p className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-white/80">
+                Live Brief Board
+              </p>
+            </div>
+            <p className="text-[10px] sm:text-xs text-white/30">
+              Общо: <span className="text-[#c8ff00] font-bold">€{totalPool}</span>
+            </p>
+          </div>
+
+          {/* Brief selector tabs */}
+          <div className="grid grid-cols-4 border-b border-white/10">
+            {arenaBriefs.map((brief, i) => {
               const isActive = active === i;
               return (
                 <button
-                  key={step.step}
+                  key={brief.id}
                   onClick={() => handleClick(i)}
-                  className={`relative flex-1 py-4 px-5 text-left transition-all duration-300 ${isActive ? "bg-[#c8ff00]/5" : "hover:bg-white/3"} ${i < pipelineSteps.length - 1 ? "border-b sm:border-b-0 border-white/10" : ""}`}
+                  className={`relative py-3 sm:py-4 px-1 sm:px-4 text-center transition-all duration-300 ${isActive ? "bg-[#c8ff00]/5" : "hover:bg-white/[0.03]"} ${i < arenaBriefs.length - 1 ? "border-r border-white/10" : ""}`}
                 >
-                  <span className={`block text-xs font-bold uppercase tracking-widest mb-1 transition-colors duration-300 ${isActive ? "text-[#c8ff00]" : "text-white/25"}`}>{step.step}</span>
-                  <span className={`block font-black text-sm sm:text-base transition-colors duration-300 ${isActive ? "text-white" : "text-white/40"}`}>{step.title}</span>
-                  {/* active underline */}
-                  <div className={`absolute bottom-0 left-0 right-0 h-[2px] transition-all duration-300 ${isActive ? "bg-[#c8ff00]" : "bg-transparent"}`}>
-                    {isActive && autoPlay && <div className="h-full bg-[#c8ff00] animate-[progress_3s_linear_forwards]" />}
+                  <span className={`block text-[9px] sm:text-xs font-bold uppercase tracking-widest mb-0.5 transition-colors ${isActive ? "text-[#c8ff00]" : "text-white/25"}`}>
+                    #{brief.id}
+                  </span>
+                  <span className={`block font-black text-sm sm:text-lg transition-colors ${isActive ? "text-white" : "text-white/40"}`}>
+                    €{brief.budget}
+                  </span>
+                  <div className={`absolute bottom-0 left-0 right-0 h-[2px] ${isActive ? "bg-[#c8ff00]" : "bg-transparent"}`}>
+                    {isActive && autoPlay && <div className="h-full bg-[#c8ff00] animate-[progress_4.5s_linear_forwards]" />}
                   </div>
-                  {/* desktop divider */}
-                  {i < pipelineSteps.length - 1 && <div className="absolute right-0 top-4 bottom-4 w-px bg-white/10 hidden sm:block" />}
                 </button>
               );
             })}
           </div>
 
-          {/* Content area */}
-          <div className="flex flex-row min-h-[180px] sm:min-h-[280px]">
-            {/* Giant number — hidden on mobile */}
-            <div className="hidden sm:flex items-center justify-center md:w-56 sm:w-36 border-r border-white/10 flex-shrink-0">
-              <span key={active} className="text-[#c8ff00]/15 font-black leading-none select-none animate-[fadeIn_0.3s_ease]" style={{fontSize: "clamp(5rem,12vw,9rem)"}}>
-                {s.step}
-              </span>
+          {/* Active brief detail */}
+          <div className="p-5 sm:p-8 md:p-10" key={active}>
+            <div className="flex items-center gap-2 mb-3 animate-[fadeIn_0.3s_ease]">
+              <span className="text-[#c8ff00]/70 text-[10px] sm:text-xs font-bold uppercase tracking-widest">Brief #{b.id}</span>
+              <span className="w-1 h-1 rounded-full bg-white/20" />
+              <span className="text-white/30 text-[10px] sm:text-xs uppercase tracking-wider">{b.client}</span>
+            </div>
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-black mb-4 animate-[fadeIn_0.3s_ease] tracking-tight leading-tight">{b.title}</h3>
+            <p className="text-white/60 text-sm sm:text-base leading-relaxed max-w-2xl mb-6 animate-[fadeIn_0.35s_ease]">{b.brief}</p>
+
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mb-6 animate-[fadeIn_0.4s_ease]">
+              {[
+                { l: "Награда", v: `€${b.budget}`, accent: true },
+                { l: "Deadline", v: b.deadline },
+                { l: "Формат", v: b.format },
+                { l: "Участници", v: String(b.participants) },
+              ].map((m) => (
+                <div key={m.l} className={`rounded-lg border p-2.5 sm:p-3 ${m.accent ? "border-[#c8ff00]/30 bg-[#c8ff00]/5" : "border-white/10 bg-[#0a0a0a]"}`}>
+                  <p className="text-white/30 text-[9px] sm:text-[10px] uppercase tracking-widest mb-1">{m.l}</p>
+                  <p className={`font-black text-sm sm:text-base ${m.accent ? "text-[#c8ff00]" : "text-white"}`}>{m.v}</p>
+                </div>
+              ))}
             </div>
 
-            {/* Text */}
-            <div className="flex-1 p-6 sm:p-10 flex flex-col justify-center gap-3">
-              <span className="text-[#c8ff00]/40 font-black text-2xl sm:hidden leading-none">{s.step}</span>
-              <h3 key={`title-${active}`} className="text-2xl sm:text-3xl md:text-4xl font-black animate-[fadeIn_0.3s_ease]">{s.title}</h3>
-              <p key={`desc-${active}`} className="text-white/40 text-sm sm:text-base font-medium animate-[fadeIn_0.3s_ease]">{s.desc}</p>
-              <p key={`detail-${active}`} className="text-white/60 text-sm leading-relaxed max-w-lg animate-[fadeIn_0.35s_ease]">{s.detail}</p>
+            <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center animate-[fadeIn_0.45s_ease]">
+              <Link href="/sign-up" className="bg-[#c8ff00] text-black font-black px-6 py-3 rounded-full text-sm text-center hover:bg-[#d4ff1a] transition-colors">
+                Участвай в Арена →
+              </Link>
+              <p className="text-white/40 text-xs text-center sm:text-left">Отключваш с активен план · Без ограничение в опитите</p>
             </div>
           </div>
         </div>
 
-        <div className="border-l-4 border-[#c8ff00] pl-6 py-2 mt-8">
+        <div className="border-l-4 border-[#c8ff00] pl-5 sm:pl-6 py-2 mt-8">
           <p className="text-white/50 leading-relaxed text-sm">
-            Ако се докажеш — вратата е отворена.{" "}
-            <span className="text-white">Най-активните членове получават реални проекти от Vekto и стават част от екипа.</span>
+            Награди се изплащат директно от Vekto след одобрение на проекта.{" "}
+            <span className="text-white">Най-добрите участници получават дългосрочни Vekto задачи и стават част от екипа.</span>
           </p>
         </div>
       </div>
@@ -748,8 +823,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Job pipeline — интерактивен stepper */}
-      <PipelineSection />
+      {/* Arena — €500/мес в изплащания, live brief board */}
+      <ArenaSection />
 
       {/* Testimonials — brutal, big photo */}
       <section id="testimonials" className="py-16 sm:py-24 px-4 sm:px-6 bg-[#0a0a0a] border-t border-white/10">
