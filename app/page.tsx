@@ -1004,55 +1004,103 @@ export default function HomePage() {
       </section>
 
 
-      {/* Instructor — moved up: trust anchor right after client logos */}
-      <section id="about" className="py-16 sm:py-24 bg-[#0d0d0d] border-y border-white/10 overflow-hidden">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          {/* Label */}
-          <span className="text-[#c8ff00] text-sm font-semibold uppercase tracking-widest mb-12 block">Кои сме ние</span>
+      {/* Instructor — trust anchor right after client logos */}
+      <section id="about" className="py-16 sm:py-24 bg-[#0d0d0d] border-y border-white/10 overflow-hidden relative">
+        {/* Background accent */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[#c8ff00]/3 rounded-full blur-[140px]" />
+        </div>
 
-          {/* Main content */}
-          <div className="flex flex-col md:flex-row gap-8 sm:gap-12 md:gap-24 items-start">
-            {/* Left — headline + logo */}
-            <div className="flex-1 flex flex-col gap-6">
-              <div className="flex items-start gap-5 md:block">
-                <div className="w-20 h-20 md:hidden rounded-xl bg-[#111] border border-white/10 flex items-center justify-center p-4 flex-shrink-0">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/vekto-logo.png" alt="Vekto" className="w-full h-auto" />
-                </div>
-                <h2 className="text-2xl sm:text-4xl md:text-7xl font-black tracking-tight leading-[1.0]">
-                  Учиш от хора,<br />
-                  <span className="text-white/30">които правят.</span>
-                </h2>
-              </div>
-              <div className="w-32 h-32 rounded-2xl bg-[#111] border border-white/10 hidden md:flex items-center justify-center p-6">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/vekto-logo.png" alt="Vekto" className="w-full h-auto" />
-              </div>
-            </div>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+          <span className="text-[#c8ff00] text-sm font-semibold uppercase tracking-widest mb-10 sm:mb-14 block">Кои сме ние</span>
 
-            {/* Right — text + stats */}
-            <div className="flex-1 flex flex-col gap-8 md:pt-2">
-              <p className="text-white/60 text-lg md:text-xl leading-relaxed border-l-2 border-[#c8ff00] pl-5">
-                Vekto прави AI видеа за реални брандове всеки месец. Всичко което преподаваме е тествано на реални клиенти — не теория.
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-12 items-start">
+            {/* Left — 3/5 identity */}
+            <div className="md:col-span-3 flex flex-col gap-8">
+              <h2 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight leading-[1.0]">
+                Учиш от хора,<br />
+                <span className="text-white/30 italic font-light">които правят.</span>
+              </h2>
+
+              <p className="text-white/60 text-base md:text-lg leading-relaxed border-l-2 border-[#c8ff00] pl-5 max-w-xl">
+                Vekto прави AI видеа за реални брандове всеки месец. Всичко което преподаваме е минало през реален production — не теория от туториали.
               </p>
-              <a href="https://vektoagency.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-white/30 hover:text-white transition-colors group w-fit">
-                <span>vektoagency.com</span>
-                <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
-              </a>
+
+              {/* Signature */}
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-[#111] border border-white/10 flex items-center justify-center flex-shrink-0">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/vekto-logo.png" alt="Vekto" className="w-5 h-auto" />
+                </div>
+                <div>
+                  <p className="font-black text-sm">Екипът на Vekto</p>
+                  <p className="text-white/40 text-xs">AI видео агенция · София</p>
+                </div>
+              </div>
+
+              {/* Stats — moved to left, tighter */}
               <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/10">
                 <div>
                   <p className="text-[#c8ff00] font-black text-3xl md:text-4xl leading-none">200+</p>
-                  <p className="text-white/40 text-xs sm:text-sm mt-2">проекта</p>
+                  <p className="text-white/40 text-xs sm:text-sm mt-2">завършени проекта</p>
                 </div>
                 <div>
                   <p className="text-[#c8ff00] font-black text-3xl md:text-4xl leading-none">20+</p>
-                  <p className="text-white/40 text-xs sm:text-sm mt-2">клиента</p>
+                  <p className="text-white/40 text-xs sm:text-sm mt-2">бранда в production</p>
                 </div>
                 <div>
-                  <p className="text-[#c8ff00] font-black text-3xl md:text-4xl leading-none">100%</p>
-                  <p className="text-white/40 text-xs sm:text-sm mt-2">AI-базирано</p>
+                  <p className="text-[#c8ff00] font-black text-3xl md:text-4xl leading-none">3 г.</p>
+                  <p className="text-white/40 text-xs sm:text-sm mt-2">AI видео опит</p>
                 </div>
               </div>
+            </div>
+
+            {/* Right — 2/5 showreel CTA card */}
+            <div className="md:col-span-2">
+              <a
+                href="https://vektoagency.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block relative rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-[#c8ff00]/10 via-[#0d0d0d] to-[#0d0d0d] aspect-[4/5] p-6 sm:p-8 hover:border-[#c8ff00]/40 transition-all duration-300"
+              >
+                {/* Vekto watermark */}
+                <div className="absolute -right-8 -bottom-8 w-60 h-60 opacity-[0.06] pointer-events-none">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/vekto-logo.png" alt="" className="w-full h-auto" />
+                </div>
+
+                {/* Gradient sheen on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#c8ff00]/0 via-[#c8ff00]/5 to-[#c8ff00]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+                <div className="relative z-10 flex flex-col justify-between h-full">
+                  {/* Top — live badge */}
+                  <div className="flex items-center justify-between">
+                    <div className="inline-flex items-center gap-2 bg-black/60 border border-white/10 rounded-full px-3 py-1.5 backdrop-blur">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff00] animate-pulse" />
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-white/70">Нашата работа</span>
+                    </div>
+
+                    {/* Play icon */}
+                    <div className="w-12 h-12 rounded-full bg-[#c8ff00] flex items-center justify-center shadow-[0_0_30px_rgba(200,255,0,0.3)] group-hover:scale-110 transition-transform">
+                      <svg className="w-5 h-5 text-black ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </div>
+                  </div>
+
+                  {/* Bottom — CTA */}
+                  <div>
+                    <p className="text-white/40 text-xs uppercase tracking-widest mb-2 font-semibold">Showreel · vektoagency.com</p>
+                    <h3 className="text-2xl sm:text-3xl font-black leading-tight mb-3">
+                      Виж как правим <span className="text-[#c8ff00]">AI видеа</span> за реални брандове.
+                    </h3>
+                    <span className="inline-flex items-center gap-1.5 text-white/60 group-hover:text-[#c8ff00] transition-colors text-sm font-semibold">
+                      <span>Отвори портфолио</span>
+                      <span className="group-hover:translate-x-1 transition-transform">→</span>
+                    </span>
+                  </div>
+                </div>
+              </a>
             </div>
           </div>
         </div>
