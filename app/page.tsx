@@ -659,11 +659,6 @@ function JourneySection() {
 
         {/* Timeline strip */}
         <div className="mb-8 sm:mb-10">
-          <p className="text-center text-[10px] sm:text-xs text-white/35 mb-5 sm:mb-6 uppercase tracking-[0.25em] flex items-center justify-center gap-2">
-            <span className="hidden sm:inline-block w-6 h-px bg-white/15" />
-            <span>👆 Цъкни месец, за да видиш какво отключваш</span>
-            <span className="hidden sm:inline-block w-6 h-px bg-white/15" />
-          </p>
           <div className="relative flex items-center justify-between max-w-3xl mx-auto px-2">
             {/* Progress line bg */}
             <div className="absolute top-6 sm:top-[30px] left-6 right-6 h-[2px] bg-white/10 -translate-y-1/2" />
