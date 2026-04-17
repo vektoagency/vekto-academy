@@ -51,13 +51,155 @@ const tierMeta: Record<BriefTier, { label: string; color: string; dot: string }>
 };
 
 const navLinks = [
-  { href: "#features", label: "Обучение" },
+  { href: "#curriculum", label: "Програма" },
   { href: "#for-who", label: "За кого" },
   { href: "#path", label: "Път" },
   { href: "#about", label: "За нас" },
   { href: "#testimonials", label: "Резултати" },
   { href: "#pricing", label: "Цени" },
   { href: "#faq", label: "FAQ" },
+];
+
+const curriculumModules = [
+  {
+    n: "00",
+    emoji: "🚀",
+    title: "Старт",
+    subtitle: "Онбординг и setup",
+    lessons: 5,
+    duration: "45 мин",
+    topics: [
+      "Добре дошъл — какво те очаква в Academy",
+      "Как работи платформата и общността",
+      "Setup на работна среда и инструменти",
+      "Community правила и как да получаваш помощ",
+      "Първи стъпки към Арена",
+    ],
+  },
+  {
+    n: "01",
+    emoji: "🧠",
+    title: "Майндсет",
+    subtitle: "Мислене като AI creator",
+    lessons: 8,
+    duration: "2 часа",
+    topics: [
+      "Защо AI видео е различно от традиционното",
+      "От идея до финален клип — mental model",
+      "Как да мислиш като creative director",
+      "Workflow принципи на Vekto",
+      "Ограничения на AI и как да ги преодолееш",
+      "Creative iteration — кога да спреш",
+      "Референции и вдъхновение",
+      "Критическа оценка на своя работа",
+    ],
+  },
+  {
+    n: "02",
+    emoji: "🎯",
+    title: "Стратегия",
+    subtitle: "Планиране и концепция",
+    lessons: 10,
+    duration: "3 часа",
+    topics: [
+      "Разчитане на brief — какво иска клиентът",
+      "Conceptual planning и proposals",
+      "Moodboards и visual references",
+      "Storytelling с AI ограничения",
+      "Структура на short-form видео",
+      "Hook-ове и first 3 seconds",
+      "Sound-first vs visual-first подход",
+      "Timeline и production planning",
+      "Budget estimation",
+      "Client-ready презентация",
+    ],
+  },
+  {
+    n: "03",
+    emoji: "🛠️",
+    title: "Инструменти",
+    subtitle: "AI stack — от A до Я",
+    lessons: 25,
+    duration: "8 часа",
+    topics: [
+      "Runway Gen-3 & Gen-4 — advanced workflows",
+      "Kling AI — motion и camera control",
+      "Higgsfield DoP — cinematic shots",
+      "Hedra — lip sync и talking avatars",
+      "Arcads — UGC AI actors",
+      "Midjourney & Flux — image generation",
+      "ElevenLabs & Suno — voice и music",
+      "Topaz — upscaling и frame interpolation",
+      "Промптинг — advanced techniques",
+      "Character consistency между shots",
+      "Style transfer и look-dev",
+      "VFX plates и compositing",
+    ],
+  },
+  {
+    n: "04",
+    emoji: "⭐",
+    title: "Playbooks",
+    subtitle: "Готови workflow-и за 10+ формата",
+    lessons: 12,
+    duration: "5 часа",
+    topics: [
+      "UGC ad workflow — от brief до final",
+      "Product launch hero — premium feel",
+      "Explainer video pipeline",
+      "Fashion & beauty — cinematic aesthetics",
+      "Music video workflow",
+      "Restaurant / F&B promo",
+      "Real estate property tour",
+      "SaaS demo video",
+      "Social media ads — формат-специфично",
+      "Podcast & interview clips",
+      "Trailer & teaser structure",
+      "Personal brand content",
+    ],
+  },
+  {
+    n: "05",
+    emoji: "✂️",
+    title: "Монтаж",
+    subtitle: "Post-production на AI content",
+    lessons: 15,
+    duration: "4 часа",
+    topics: [
+      "Premiere Pro / DaVinci Resolve basics",
+      "Color grading за AI content",
+      "Работа с нестандартни framerate-и",
+      "Sound design и music integration",
+      "Pacing, rhythm и emotional beats",
+      "Motion graphics и typography",
+      "Transitions и cuts",
+      "Compositing с AI generations",
+      "Audio cleanup и ducking",
+      "Stabilization и interpolation",
+      "Export settings за всеки формат",
+      "Deliverables structure",
+    ],
+  },
+  {
+    n: "06",
+    emoji: "💼",
+    title: "Клиенти",
+    subtitle: "Бизнес страната на работата",
+    lessons: 10,
+    duration: "3 часа",
+    topics: [
+      "Как да намериш първи клиент",
+      "Pricing — оценка на работата си",
+      "Pitch и proposals на английски",
+      "Contracts и deposits",
+      "Brief management и expectations",
+      "Revisions — колко, кога, защо",
+      "Delivery workflow",
+      "Long-term client relationships",
+      "Portfolio и reputation building",
+      "Scaling — от freelance до агенция",
+    ],
+  },
 ];
 
 function MobileNav() {
@@ -372,6 +514,104 @@ function PlatformPreview() {
           <h3 className="font-black text-xl mb-2">{tab.title}</h3>
           <p className="text-white/50 text-sm max-w-md mx-auto">{tab.desc}</p>
         </div>
+      </div>
+    </section>
+  );
+}
+
+function CurriculumSection() {
+  const [open, setOpen] = useState<number | null>(0);
+
+  const totalLessons = curriculumModules.reduce((s, m) => s + m.lessons, 0);
+
+  return (
+    <section id="curriculum" className="py-16 sm:py-24 px-4 sm:px-6 bg-[#0a0a0a] border-y border-white/10">
+      <div className="max-w-5xl mx-auto">
+        {/* Header */}
+        <div className="mb-10 sm:mb-14">
+          <span className="text-[#c8ff00] text-sm font-semibold uppercase tracking-widest mb-3 block">Учебна програма</span>
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-[1.05]">
+              {curriculumModules.length} модула.<br />
+              <span className="text-white/40">{totalLessons}+ урока. 25+ часа.</span>
+            </h2>
+            <p className="text-white/50 text-sm sm:text-base max-w-sm">
+              Структурирано съдържание от реална практика. Всичко, което научаваш, е тествано на реални клиенти на Vekto — без теория.
+            </p>
+          </div>
+        </div>
+
+        {/* Module accordion */}
+        <div className="rounded-2xl border border-white/10 bg-[#0d0d0d] overflow-hidden">
+          {curriculumModules.map((m, i) => {
+            const isOpen = open === i;
+            return (
+              <div key={m.n} className={`${i > 0 ? "border-t border-white/10" : ""} ${isOpen ? "bg-[#c8ff00]/[0.03]" : ""} transition-colors`}>
+                <button
+                  onClick={() => setOpen(isOpen ? null : i)}
+                  className="w-full px-4 sm:px-6 py-4 sm:py-5 flex items-center gap-3 sm:gap-5 text-left hover:bg-white/[0.02] transition-colors"
+                >
+                  <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+                    <span className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-black text-xs sm:text-sm border transition-colors ${isOpen ? "bg-[#c8ff00] text-black border-[#c8ff00]" : "bg-white/5 text-white/40 border-white/10"}`}>
+                      {m.n}
+                    </span>
+                    <span className="text-xl sm:text-2xl">{m.emoji}</span>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-black text-sm sm:text-lg truncate">{m.title}</p>
+                    <p className="text-white/40 text-[11px] sm:text-sm truncate">{m.subtitle}</p>
+                  </div>
+                  <div className="hidden md:flex items-center gap-4 text-xs text-white/40 flex-shrink-0">
+                    <span><span className="text-white/80 font-bold">{m.lessons}</span> урока</span>
+                    <span className="w-px h-3 bg-white/10" />
+                    <span className="text-white/80 font-bold">{m.duration}</span>
+                  </div>
+                  <span className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full border flex items-center justify-center flex-shrink-0 transition-all duration-200 text-lg ${isOpen ? "border-[#c8ff00] text-[#c8ff00] rotate-45" : "border-white/20 text-white/40"}`}>
+                    +
+                  </span>
+                </button>
+
+                {/* Content */}
+                <div className="overflow-hidden transition-all duration-300" style={{ maxHeight: isOpen ? "800px" : "0px" }}>
+                  <div className="px-4 sm:px-6 pb-5 sm:pb-8 pl-[72px] sm:pl-[104px]">
+                    <div className="flex md:hidden gap-3 text-[11px] text-white/40 mb-4">
+                      <span><span className="text-white/80 font-bold">{m.lessons}</span> урока</span>
+                      <span>·</span>
+                      <span className="text-white/80 font-bold">{m.duration}</span>
+                    </div>
+                    <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2 sm:gap-y-2.5">
+                      {m.topics.map((t) => (
+                        <li key={t} className="flex items-start gap-2 text-[13px] sm:text-sm text-white/70">
+                          <span className="text-[#c8ff00] mt-0.5 flex-shrink-0">✓</span>
+                          <span>{t}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Summary stats */}
+        <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
+          {[
+            { v: `${totalLessons}+`, l: "урока" },
+            { v: "25+", l: "часа" },
+            { v: `${curriculumModules.length}`, l: "модула" },
+            { v: "∞", l: "достъп" },
+          ].map((s) => (
+            <div key={s.l} className="rounded-xl border border-white/10 p-3 sm:p-4 bg-[#0a0a0a]">
+              <p className="text-[#c8ff00] font-black text-xl sm:text-2xl leading-none">{s.v}</p>
+              <p className="text-white/40 text-[10px] sm:text-xs mt-1.5 uppercase tracking-widest">{s.l}</p>
+            </div>
+          ))}
+        </div>
+
+        <p className="text-center text-white/40 text-xs sm:text-sm mt-6 max-w-2xl mx-auto">
+          Нови уроци всяка седмица. Когато излезе нов AI инструмент, го добавяме. <span className="text-white">С Доживотен достъп получаваш всички бъдещи модули без допълнително плащане.</span>
+        </p>
       </div>
     </section>
   );
@@ -824,6 +1064,9 @@ export default function HomePage() {
           </p>
         </div>
       </section>
+
+      {/* Curriculum — 7 модула accordion */}
+      <CurriculumSection />
 
       {/* Instructor — premium split layout */}
       <section id="about" className="py-16 sm:py-24 bg-[#0d0d0d] border-y border-white/10 overflow-hidden">
