@@ -645,7 +645,7 @@ function JourneySection() {
   return (
     <section id="jobs" className="py-16 sm:py-24 px-4 sm:px-6 relative overflow-hidden scroll-mt-20" style={{ background: "linear-gradient(to bottom, #080808, #0a0a0f, #080808)" }}>
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-[#c8ff00]/3 rounded-full blur-[140px]" />
+        <div className="hidden sm:block absolute bottom-0 right-0 w-[600px] h-[600px] bg-[#c8ff00]/3 rounded-full blur-[140px]" />
       </div>
       <div className="max-w-5xl mx-auto relative z-10">
         {/* Header */}
@@ -909,9 +909,10 @@ function ArenaSection() {
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
+    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     intervalRef.current = setInterval(() => {
       setActive((prev) => (prev + 1) % arenaBriefs.length);
-    }, 2500);
+    }, 5000);
     return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
   }, []);
 
@@ -932,7 +933,7 @@ function ArenaSection() {
   return (
     <section id="arena" className="py-20 sm:py-32 px-4 sm:px-6 relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#c8ff00]/3 rounded-full blur-[140px]" />
+        <div className="hidden sm:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#c8ff00]/3 rounded-full blur-[140px]" />
       </div>
       <div className="max-w-5xl mx-auto relative z-10">
 
@@ -1140,8 +1141,8 @@ export default function HomePage() {
       <section className="relative flex flex-col items-center text-center px-4 sm:px-5 pt-16 sm:pt-24 pb-8 sm:pb-12">
         {/* Background glows */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#c8ff00]/4 rounded-full blur-[140px]" />
-          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#c8ff00]/6 rounded-full blur-[80px]" />
+          <div className="hidden sm:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#c8ff00]/4 rounded-full blur-[140px]" />
+          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] bg-[#c8ff00]/6 rounded-full blur-[60px] sm:blur-[80px]" />
         </div>
 
         {/* Promo banner — Lifetime offer */}
@@ -1258,7 +1259,7 @@ export default function HomePage() {
             {[...clients, ...clients, ...clients, ...clients].map((c, i) => (
               <div key={i} className="flex-shrink-0 px-2 md:px-8 opacity-70 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center md:h-[100px] h-[60px]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={c.logo} alt={c.name} style={{ height: c.circular ? "60px" : "36px", width: c.circular ? "60px" : "auto", maxWidth: "160px", objectFit: "contain" }} />
+                <img src={c.logo} alt={c.name} loading="lazy" decoding="async" style={{ height: c.circular ? "60px" : "36px", width: c.circular ? "60px" : "auto", maxWidth: "160px", objectFit: "contain" }} />
               </div>
             ))}
           </div>
@@ -1270,7 +1271,7 @@ export default function HomePage() {
       <section id="about" className="py-16 sm:py-24 overflow-hidden relative" style={{ background: "linear-gradient(to bottom, #080808, #0d0d0d, #080808)" }}>
         {/* Background accent */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[#c8ff00]/3 rounded-full blur-[140px]" />
+          <div className="hidden sm:block absolute top-1/2 left-0 w-[500px] h-[500px] bg-[#c8ff00]/3 rounded-full blur-[140px]" />
         </div>
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
@@ -1417,7 +1418,7 @@ export default function HomePage() {
                 <div className="relative aspect-[4/3] bg-[#1a1a1a] overflow-hidden">
                   {t.photo ? (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={t.photo} alt={t.name} className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500" />
+                    <img src={t.photo} alt={t.name} loading="lazy" decoding="async" className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500" />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
                       <span className="text-white/10 text-6xl font-black">{t.name[0]}</span>
@@ -1446,7 +1447,7 @@ export default function HomePage() {
       {/* Pricing — asymmetric, lifetime dominant */}
       <section id="pricing" className="py-16 sm:py-24 px-4 sm:px-6 relative overflow-hidden" style={{ background: "linear-gradient(to bottom, #080808, #0a0a0f, #080808)" }}>
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-[#c8ff00]/4 rounded-full blur-[120px]" />
+          <div className="hidden sm:block absolute top-1/2 right-0 w-[500px] h-[500px] bg-[#c8ff00]/4 rounded-full blur-[120px]" />
         </div>
         <div className="max-w-5xl mx-auto relative z-10">
           <div className="text-center mb-10">
@@ -1557,7 +1558,7 @@ export default function HomePage() {
       {/* Final CTA */}
       <section className="py-20 sm:py-32 px-4 sm:px-6 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#c8ff00]/5 rounded-full blur-[100px]" />
+          <div className="hidden sm:block absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#c8ff00]/5 rounded-full blur-[100px]" />
         </div>
         <div className="max-w-2xl mx-auto text-center relative z-10">
           <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 mb-8">
@@ -1601,7 +1602,7 @@ export default function HomePage() {
             {/* Brand */}
             <div>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/vekto-logo.png" alt="Vekto Academy" className="h-16 w-auto mb-4 -ml-1" />
+              <img src="/vekto-logo.png" alt="Vekto Academy" loading="lazy" decoding="async" className="h-16 w-auto mb-4 -ml-1" />
               <p className="text-sm text-white/50 leading-relaxed max-w-sm mb-5">
                 Платформа за AI видео съдържание от Vekto Agency. Обучение, общност и реални клиенти — на едно място.
               </p>
@@ -1707,9 +1708,19 @@ function StickyBar() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 600);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        setVisible(window.scrollY > 600);
+        raf = 0;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
   if (!visible) return null;

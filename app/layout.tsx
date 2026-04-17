@@ -6,12 +6,14 @@ import "./globals.css";
 const geist = Geist({
   variable: "--font-geist",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const display = Unbounded({
   variable: "--font-display",
   subsets: ["latin", "cyrillic"],
-  weight: ["400", "600", "700", "800"],
+  weight: ["800"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
