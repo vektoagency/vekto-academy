@@ -8,6 +8,7 @@ import BillingPortalButton from "../components/BillingPortalButton";
 import NotificationBell from "../components/NotificationBell";
 import ProfileNameForm from "../components/ProfileNameForm";
 import JobProfileForm from "../components/JobProfileForm";
+import ArenaSubmission from "../components/ArenaSubmission";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -565,10 +566,6 @@ export default async function DashboardPage({
                     Всяка седмица пускаме реална задача от агенцията. Участваш, предаваш и Vekto избира победител. Всеки получава feedback и badge. Победителят получава плащане.
                   </p>
                 </div>
-                <div className="bg-[#0d0d0d] border border-white/8 rounded-xl px-5 py-3 text-center flex-shrink-0">
-                  <p className="text-white/20 text-[10px] uppercase tracking-widest">Предизвикателство</p>
-                  <p className="text-[#c8ff00] font-black text-2xl">#001</p>
-                </div>
               </div>
 
               {/* Main 2-col layout */}
@@ -576,11 +573,11 @@ export default async function DashboardPage({
 
                 {/* LEFT — Active challenge (wider) */}
                 <div className="lg:col-span-3">
-                  <div className="relative rounded-2xl overflow-hidden border border-white/8">
+                  <div className="relative">
 
                     {/* Lock overlay */}
                     {!hasStarted && (
-                      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-[#080808]/90 backdrop-blur-sm">
+                      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-[#080808]/90 backdrop-blur-sm rounded-2xl">
                         <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
                           <IconLock />
                         </div>
@@ -595,50 +592,7 @@ export default async function DashboardPage({
                     )}
 
                     <div className={!hasStarted ? "blur-sm pointer-events-none select-none" : ""}>
-                      <div className="bg-[#0d0d0d] px-5 py-3.5 flex items-center justify-between border-b border-white/6">
-                        <div className="flex items-center gap-2">
-                          <span className="w-2 h-2 rounded-full bg-[#c8ff00] animate-pulse" />
-                          <p className="font-black text-sm tracking-wide uppercase">Live</p>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <span className="text-white/30 text-xs">⏱ 4 дни останали</span>
-                          <span className="bg-[#c8ff00] text-black text-xs font-black px-3 py-1 rounded-full">€30</span>
-                        </div>
-                      </div>
-                      <div className="bg-[#111] p-5">
-                        <p className="text-white/25 text-[10px] uppercase tracking-widest mb-2">Brief</p>
-                        <h3 className="font-black text-xl mb-2">Product Launch — AI Tool</h3>
-                        <p className="text-white/50 text-sm leading-relaxed mb-5">
-                          Създай 30–60 сек промо видео за нов AI инструмент. Модерен, динамичен стил, без voiceover.
-                        </p>
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-5">
-                          {[
-                            { label: "Награда", value: "€30" },
-                            { label: "Краен срок", value: "4 дни" },
-                            { label: "Формат", value: "16:9" },
-                            { label: "Участници", value: "12" },
-                          ].map((d) => (
-                            <div key={d.label} className="bg-white/3 border border-white/6 rounded-xl p-2.5 text-center">
-                              <p className="text-white/20 text-[9px] uppercase tracking-widest mb-1">{d.label}</p>
-                              <p className="font-black text-sm">{d.value}</p>
-                            </div>
-                          ))}
-                        </div>
-                        <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-5">
-                          {[
-                            { icon: "🎖️", label: "Badge", sub: "за всеки" },
-                            { icon: "💬", label: "Feedback", sub: "личен от Vekto" },
-                            { icon: "💰", label: "Плащане", sub: "само победителя" },
-                          ].map((r) => (
-                            <div key={r.label} className="bg-white/3 border border-white/6 rounded-xl p-3 text-center">
-                              <p className="text-lg mb-0.5">{r.icon}</p>
-                              <p className="font-bold text-xs">{r.label}</p>
-                              <p className="text-white/25 text-[10px]">{r.sub}</p>
-                            </div>
-                          ))}
-                        </div>
-                        <button className="w-full bg-[#c8ff00] text-black font-black py-3 rounded-xl text-sm">Предай проект →</button>
-                      </div>
+                      <ArenaSubmission />
                     </div>
                   </div>
                 </div>

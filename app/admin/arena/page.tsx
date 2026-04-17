@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 type Challenge = {
   id: number;
@@ -10,6 +10,19 @@ type Challenge = {
   prize: string | null;
   status: string;
   created_at: string;
+  winner_submission_id?: number | null;
+};
+
+type Submission = {
+  id: number;
+  challenge_id: number;
+  user_id: string;
+  bunny_video_id: string;
+  notes: string;
+  status: string;
+  feedback: string | null;
+  created_at: string;
+  reviewed_at: string | null;
 };
 
 const emptyChallenge = {
@@ -31,6 +44,43 @@ export default function AdminArena() {
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<Partial<Challenge> | null>(null);
   const [saving, setSaving] = useState(false);
+  const [expandedId, setExpandedId] = useState<number | null>(null);
+  const [submissions, setSubmissions] = useState<Submission[]>([]);
+  const [loadingSubs, setLoadingSubs] = useState(false);
+  const [bunnyLibraryId] = useState(process.env.NEXT_PUBLIC_BUNNY_LIBRARY_ID ?? "");
+
+  async function loadSubmissions(challengeId: number) {
+    setLoadingSubs(true);
+    try {
+      const res = await fetch(`/api/admin/arena/submissions?challenge_id=${challengeId}`);
+      const { data } = await res.json();
+      setSubmissions(data ?? []);
+    } finally {
+      setLoadingSubs(false);
+    }
+  }
+
+  async function toggleExpand(id: number) {
+    if (expandedId === id) {
+      setExpandedId(null);
+      setSubmissions([]);
+      return;
+    }
+    setExpandedId(id);
+    await loadSubmissions(id);
+  }
+
+  async function handleSubmissionAction(submissionId: number, action: "winner" | "reviewed" | "rejected") {
+    if (action === "winner" && !confirm("Маркирай като победител? Това ще запише наградата към този участник.")) return;
+    const feedback = action !== "winner" ? prompt("Обратна връзка (по избор):") ?? null : null;
+    await fetch("/api/admin/arena/submissions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ submission_id: submissionId, action, feedback }),
+    });
+    if (expandedId) await loadSubmissions(expandedId);
+    if (action === "winner") await loadChallenges();
+  }
 
   async function loadChallenges() {
     const res = await fetch("/api/admin/arena");
@@ -189,39 +239,136 @@ export default function AdminArena() {
           </thead>
           <tbody>
             {challenges.map((c) => (
-              <tr key={c.id} className="border-b border-white/4 hover:bg-white/[0.02] transition-colors">
-                <td className="px-5 py-3">
-                  <p className="text-white/70 font-medium">{c.title}</p>
-                  {c.description && (
-                    <p className="text-[11px] text-white/25 truncate max-w-xs mt-0.5">{c.description}</p>
-                  )}
-                </td>
-                <td className="px-5 py-3 text-white/50">{c.prize ?? "—"}</td>
-                <td className="px-5 py-3 text-white/40">
-                  {c.deadline ? new Date(c.deadline).toLocaleDateString("bg-BG") : "—"}
-                </td>
-                <td className="px-5 py-3">
-                  <span className={`px-2 py-0.5 rounded-full text-[11px] font-bold ${statusBadge[c.status] ?? "bg-white/10 text-white/30"}`}>
-                    {c.status}
-                  </span>
-                </td>
-                <td className="px-5 py-3 text-right">
-                  <div className="flex items-center justify-end gap-2">
-                    <button
-                      onClick={() => setEditing(c)}
-                      className="px-3 py-1 text-[11px] rounded-lg bg-white/5 text-white/40 hover:text-white/70 hover:bg-white/10 transition-colors"
-                    >
-                      Редактирай
-                    </button>
-                    <button
-                      onClick={() => handleDelete(c.id)}
-                      className="px-3 py-1 text-[11px] rounded-lg bg-red-500/10 text-red-400/60 hover:text-red-400 hover:bg-red-500/20 transition-colors"
-                    >
-                      Изтрий
-                    </button>
-                  </div>
-                </td>
-              </tr>
+              <Fragment key={c.id}>
+                <tr className="border-b border-white/4 hover:bg-white/[0.02] transition-colors">
+                  <td className="px-5 py-3">
+                    <p className="text-white/70 font-medium">{c.title}</p>
+                    {c.description && (
+                      <p className="text-[11px] text-white/25 truncate max-w-xs mt-0.5">{c.description}</p>
+                    )}
+                  </td>
+                  <td className="px-5 py-3 text-white/50">{c.prize ?? "—"}</td>
+                  <td className="px-5 py-3 text-white/40">
+                    {c.deadline ? new Date(c.deadline).toLocaleDateString("bg-BG") : "—"}
+                  </td>
+                  <td className="px-5 py-3">
+                    <span className={`px-2 py-0.5 rounded-full text-[11px] font-bold ${statusBadge[c.status] ?? "bg-white/10 text-white/30"}`}>
+                      {c.status}
+                    </span>
+                  </td>
+                  <td className="px-5 py-3 text-right">
+                    <div className="flex items-center justify-end gap-2">
+                      <button
+                        onClick={() => toggleExpand(c.id)}
+                        className="px-3 py-1 text-[11px] rounded-lg bg-[#c8ff00]/10 text-[#c8ff00]/80 hover:text-[#c8ff00] hover:bg-[#c8ff00]/20 transition-colors"
+                      >
+                        {expandedId === c.id ? "Скрий" : "Предложби"}
+                      </button>
+                      <button
+                        onClick={() => setEditing(c)}
+                        className="px-3 py-1 text-[11px] rounded-lg bg-white/5 text-white/40 hover:text-white/70 hover:bg-white/10 transition-colors"
+                      >
+                        Редактирай
+                      </button>
+                      <button
+                        onClick={() => handleDelete(c.id)}
+                        className="px-3 py-1 text-[11px] rounded-lg bg-red-500/10 text-red-400/60 hover:text-red-400 hover:bg-red-500/20 transition-colors"
+                      >
+                        Изтрий
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                {expandedId === c.id && (
+                  <tr className="bg-[#0a0a0a] border-b border-white/6">
+                    <td colSpan={5} className="px-5 py-4">
+                      {loadingSubs ? (
+                        <div className="flex items-center justify-center py-8">
+                          <div className="w-5 h-5 border-2 border-white/10 border-t-[#c8ff00] rounded-full animate-spin" />
+                        </div>
+                      ) : submissions.length === 0 ? (
+                        <p className="text-center py-6 text-white/20 text-xs">Няма предложби за тази задача.</p>
+                      ) : (
+                        <div className="space-y-3">
+                          <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-2">
+                            {submissions.length} предложби
+                          </p>
+                          {submissions.map((s) => {
+                            const isWinner = c.winner_submission_id === s.id;
+                            return (
+                              <div
+                                key={s.id}
+                                className={`bg-[#111] border rounded-xl p-4 ${isWinner ? "border-[#c8ff00]/40" : "border-white/6"}`}
+                              >
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                  <div className="md:col-span-1">
+                                    <div className="aspect-video bg-black rounded-lg overflow-hidden">
+                                      <iframe
+                                        src={`https://iframe.mediadelivery.net/embed/${bunnyLibraryId}/${s.bunny_video_id}`}
+                                        loading="lazy"
+                                        className="w-full h-full"
+                                        allow="accelerometer; gyroscope; encrypted-media; picture-in-picture"
+                                        allowFullScreen
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="md:col-span-2 flex flex-col">
+                                    <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">
+                                      <p className="text-xs font-mono text-white/40 truncate">{s.user_id}</p>
+                                      <div className="flex items-center gap-2">
+                                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${statusBadge[s.status] ?? "bg-white/10 text-white/40"}`}>
+                                          {s.status}
+                                        </span>
+                                        {isWinner && (
+                                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#c8ff00]/20 text-[#c8ff00]">🏆 Победител</span>
+                                        )}
+                                      </div>
+                                    </div>
+                                    {s.notes && (
+                                      <p className="text-xs text-white/55 leading-relaxed mb-2 whitespace-pre-line">{s.notes}</p>
+                                    )}
+                                    {s.feedback && (
+                                      <div className="bg-white/3 border border-white/6 rounded-lg p-2 mb-2">
+                                        <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-1">Обратна връзка</p>
+                                        <p className="text-[11px] text-white/60 whitespace-pre-line">{s.feedback}</p>
+                                      </div>
+                                    )}
+                                    <p className="text-[10px] text-white/25 mb-3">
+                                      {new Date(s.created_at).toLocaleString("bg-BG")}
+                                    </p>
+                                    <div className="flex items-center gap-2 mt-auto flex-wrap">
+                                      {!isWinner && (
+                                        <button
+                                          onClick={() => handleSubmissionAction(s.id, "winner")}
+                                          className="px-3 py-1.5 text-[11px] rounded-lg bg-[#c8ff00] text-black font-bold hover:bg-[#d4ff33] transition-colors"
+                                        >
+                                          🏆 Победител
+                                        </button>
+                                      )}
+                                      <button
+                                        onClick={() => handleSubmissionAction(s.id, "reviewed")}
+                                        className="px-3 py-1.5 text-[11px] rounded-lg bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 transition-colors"
+                                      >
+                                        Прегледай
+                                      </button>
+                                      <button
+                                        onClick={() => handleSubmissionAction(s.id, "rejected")}
+                                        className="px-3 py-1.5 text-[11px] rounded-lg bg-red-500/10 text-red-400/70 hover:bg-red-500/20 hover:text-red-400 transition-colors"
+                                      >
+                                        Отхвърли
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </td>
+                  </tr>
+                )}
+              </Fragment>
             ))}
             {challenges.length === 0 && (
               <tr>
