@@ -119,8 +119,8 @@ const curriculumModules = [
     emoji: "🛠️",
     title: "Инструменти",
     subtitle: "AI stack — от A до Я",
-    lessons: 25,
-    duration: "8 часа",
+    lessons: 12,
+    duration: "4 часа",
     topics: [
       "Runway Gen-3 & Gen-4 — advanced workflows",
       "Kling AI — motion и camera control",
@@ -163,7 +163,7 @@ const curriculumModules = [
     emoji: "✂️",
     title: "Монтаж",
     subtitle: "Post-production на AI content",
-    lessons: 15,
+    lessons: 12,
     duration: "4 часа",
     topics: [
       "Premiere Pro / DaVinci Resolve basics",
@@ -533,7 +533,7 @@ function CurriculumSection() {
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-[1.05]">
               {curriculumModules.length} модула.<br />
-              <span className="text-white/40">{totalLessons}+ урока. 25+ часа.</span>
+              <span className="text-white/40">{totalLessons} урока. 22 часа.</span>
             </h2>
             <p className="text-white/50 text-sm sm:text-base max-w-sm">
               Структурирано съдържание от реална практика. Всичко, което научаваш, е тествано на реални клиенти на Vekto — без теория.
@@ -597,8 +597,8 @@ function CurriculumSection() {
         {/* Summary stats */}
         <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
           {[
-            { v: `${totalLessons}+`, l: "урока" },
-            { v: "25+", l: "часа" },
+            { v: `${totalLessons}`, l: "урока" },
+            { v: "22", l: "часа" },
             { v: `${curriculumModules.length}`, l: "модула" },
             { v: "∞", l: "достъп" },
           ].map((s) => (
