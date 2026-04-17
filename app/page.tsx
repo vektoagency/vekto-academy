@@ -1252,39 +1252,48 @@ export default function HomePage() {
                   <div className="flex items-center justify-between mb-6">
                     <div className="inline-flex items-center gap-2 bg-black/60 border border-white/10 rounded-full px-3 py-1.5 backdrop-blur">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff00] animate-pulse" />
-                      <span className="text-[10px] font-bold uppercase tracking-widest text-white/70">Какво правим</span>
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-white/70">Защо с нас</span>
                     </div>
                     <span className="text-white/30 text-xs group-hover:text-[#c8ff00] group-hover:translate-x-1 transition-all">→</span>
                   </div>
 
-                  {/* Services list */}
-                  <div className="flex flex-col gap-2.5 flex-1">
+                  {/* 3 differentiators */}
+                  <div className="flex flex-col gap-4 flex-1">
                     {[
-                      { num: "01", title: "Short-form реклами", desc: "TikTok · Reels · Shorts" },
-                      { num: "02", title: "UGC-стил видеа", desc: "Scripted + AI avatars" },
-                      { num: "03", title: "Продуктови ролки", desc: "E-commerce · B2B" },
-                      { num: "04", title: "Brand storytelling", desc: "Кампании + серии" },
-                    ].map((s) => (
-                      <div
-                        key={s.num}
-                        className="rounded-xl bg-black/30 border border-white/10 p-3 sm:p-4 flex items-center gap-3 hover:border-[#c8ff00]/30 transition-colors"
-                      >
-                        <span className="text-[#c8ff00]/60 font-black text-xs flex-shrink-0">{s.num}</span>
-                        <div className="flex-1 min-w-0">
-                          <p className="font-black text-sm leading-tight">{s.title}</p>
-                          <p className="text-white/40 text-[11px] mt-0.5">{s.desc}</p>
+                      {
+                        tag: "vs YouTube туториали",
+                        title: "Учим това, което наистина продава",
+                        desc: "Материалът идва от активен production — не от безплатни видеа в интернет.",
+                      },
+                      {
+                        tag: "vs статични курсове",
+                        title: "Обновяваме всеки месец",
+                        desc: "AI се развива всяка седмица. Програмата ни също.",
+                      },
+                      {
+                        tag: "vs самообучение",
+                        title: "Не си сам в процеса",
+                        desc: "Директен достъп до работеща агенция, общност и ревю на твоята работа.",
+                      },
+                    ].map((d, i) => (
+                      <div key={i} className="relative">
+                        <div className="flex items-start gap-3">
+                          <span className="text-[#c8ff00] font-black text-xs mt-0.5 flex-shrink-0 w-6">0{i + 1}</span>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-1">{d.tag}</p>
+                            <p className="font-black text-sm sm:text-base leading-tight mb-1">{d.title}</p>
+                            <p className="text-white/50 text-xs leading-relaxed">{d.desc}</p>
+                          </div>
                         </div>
+                        {i < 2 && <div className="ml-9 mt-4 h-px bg-white/5" />}
                       </div>
                     ))}
                   </div>
 
                   {/* Bottom CTA */}
                   <div className="mt-6 pt-5 border-t border-white/10">
-                    <p className="text-white/50 text-sm leading-snug mb-2">
-                      Всичко което учим е от <span className="text-white font-semibold">реален production</span>.
-                    </p>
                     <span className="inline-flex items-center gap-1.5 text-white/60 group-hover:text-[#c8ff00] transition-colors text-xs font-semibold uppercase tracking-widest">
-                      <span>Виж портфолио · vektoagency.com</span>
+                      <span>Виж агенцията · vektoagency.com</span>
                       <span className="group-hover:translate-x-1 transition-transform">→</span>
                     </span>
                   </div>
