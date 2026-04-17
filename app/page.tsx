@@ -586,6 +586,7 @@ function JourneySection() {
     {
       month: "Месец 1",
       label: "Основи",
+      tagline: "AI инструменти + темпо",
       title: "Овладяваш AI инструментите и работния процес.",
       unlocks: [
         { icon: "▸", text: "Работа с AI · от идея до готов кадър" },
@@ -598,6 +599,7 @@ function JourneySection() {
     {
       month: "Месец 2",
       label: "Арена",
+      tagline: "Работа под срок · първи приходи",
       title: "Работиш под срок. Изграждаш продукционно темпо.",
       unlocks: [
         { icon: "★", text: "Постоянство под натиск" },
@@ -610,6 +612,7 @@ function JourneySection() {
     {
       month: "Месец 3",
       label: "Портфолио + клиенти",
+      tagline: "Ролка · преговори · собствени клиенти",
       title: "Правиш готова ролка и се учиш да намираш собствени клиенти.",
       unlocks: [
         { icon: "●", text: "Представяне · как се продава твоят подход" },
@@ -668,7 +671,7 @@ function JourneySection() {
               <button
                 key={i}
                 onClick={() => setActive(i)}
-                className="relative z-10 flex flex-col items-center gap-3 group"
+                className="relative z-10 flex flex-col items-center gap-3 group flex-1"
               >
                 <span
                   className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-black text-sm transition-all duration-300 ${
@@ -679,9 +682,14 @@ function JourneySection() {
                 >
                   0{i + 1}
                 </span>
-                <span className={`text-[10px] sm:text-xs font-bold uppercase tracking-widest transition-colors ${i === active ? "text-[#c8ff00]" : "text-white/30"}`}>
-                  {s.month}
-                </span>
+                <div className="flex flex-col items-center gap-1 text-center">
+                  <span className={`text-[10px] sm:text-xs font-bold uppercase tracking-widest transition-colors ${i === active ? "text-[#c8ff00]" : "text-white/30"}`}>
+                    {s.month} · {s.label}
+                  </span>
+                  <span className={`text-[10px] sm:text-[11px] leading-tight transition-colors hidden sm:block max-w-[160px] ${i === active ? "text-white/70" : "text-white/30"}`}>
+                    {s.tagline}
+                  </span>
+                </div>
               </button>
             ))}
           </div>
