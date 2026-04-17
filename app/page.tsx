@@ -1247,45 +1247,45 @@ export default function HomePage() {
                 {/* Gradient sheen on hover */}
                 <div className="absolute inset-0 bg-gradient-to-br from-[#c8ff00]/0 via-[#c8ff00]/5 to-[#c8ff00]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-                <div className="relative z-10 flex flex-col h-full">
+                <div className="relative z-10 flex flex-col h-full p-5 sm:p-6">
                   {/* Top badge */}
-                  <div className="p-5 sm:p-6 flex items-center justify-between">
+                  <div className="flex items-center justify-between mb-6">
                     <div className="inline-flex items-center gap-2 bg-black/60 border border-white/10 rounded-full px-3 py-1.5 backdrop-blur">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff00] animate-pulse" />
-                      <span className="text-[10px] font-bold uppercase tracking-widest text-white/70">Нашите клиенти</span>
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-white/70">Какво правим</span>
                     </div>
                     <span className="text-white/30 text-xs group-hover:text-[#c8ff00] group-hover:translate-x-1 transition-all">→</span>
                   </div>
 
-                  {/* Client logo mosaic — 2x2 grid, fills middle */}
-                  <div className="flex-1 grid grid-cols-2 gap-px bg-white/5 mx-5 sm:mx-6 rounded-2xl overflow-hidden border border-white/10">
+                  {/* Services list */}
+                  <div className="flex flex-col gap-2.5 flex-1">
                     {[
-                      { logo: "/logo-adventuresbg.png", name: "Adventures", circular: false },
-                      { logo: "/logo-menscare.png", name: "MensCare", circular: true },
-                      { logo: "/logo-gifto2.png", name: "Gifto", circular: false },
-                      { logo: "/logo-isosport.png", name: "Isosport", circular: false },
-                    ].map((c) => (
-                      <div key={c.name} className="bg-[#0a0a0a] flex items-center justify-center p-6 aspect-square opacity-80 group-hover:opacity-100 transition-opacity">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={c.logo}
-                          alt={c.name}
-                          style={c.circular
-                            ? { width: "56px", height: "56px", objectFit: "contain" }
-                            : { maxHeight: "32px", maxWidth: "80%", width: "auto", height: "auto", objectFit: "contain" }
-                          }
-                        />
+                      { num: "01", title: "Short-form реклами", desc: "TikTok · Reels · Shorts" },
+                      { num: "02", title: "UGC-стил видеа", desc: "Scripted + AI avatars" },
+                      { num: "03", title: "Продуктови ролки", desc: "E-commerce · B2B" },
+                      { num: "04", title: "Brand storytelling", desc: "Кампании + серии" },
+                    ].map((s) => (
+                      <div
+                        key={s.num}
+                        className="rounded-xl bg-black/30 border border-white/10 p-3 sm:p-4 flex items-center gap-3 hover:border-[#c8ff00]/30 transition-colors"
+                      >
+                        <span className="text-[#c8ff00]/60 font-black text-xs flex-shrink-0">{s.num}</span>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-black text-sm leading-tight">{s.title}</p>
+                          <p className="text-white/40 text-[11px] mt-0.5">{s.desc}</p>
+                        </div>
                       </div>
                     ))}
                   </div>
 
                   {/* Bottom CTA */}
-                  <div className="p-5 sm:p-6">
-                    <h3 className="text-xl sm:text-2xl font-black leading-tight mb-2">
-                      Правим <span className="text-[#c8ff00]">AI видеа</span> за реални брандове.
-                    </h3>
+                  <div className="mt-6 pt-5 border-t border-white/10">
+                    <p className="text-white/50 text-sm leading-snug mb-2">
+                      Всичко което учим е от <span className="text-white font-semibold">реален production</span>.
+                    </p>
                     <span className="inline-flex items-center gap-1.5 text-white/60 group-hover:text-[#c8ff00] transition-colors text-xs font-semibold uppercase tracking-widest">
-                      <span>Отвори портфолио · vektoagency.com</span>
+                      <span>Виж портфолио · vektoagency.com</span>
+                      <span className="group-hover:translate-x-1 transition-transform">→</span>
                     </span>
                   </div>
                 </div>
