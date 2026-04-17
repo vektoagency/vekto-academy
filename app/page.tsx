@@ -1514,12 +1514,79 @@ export default function HomePage() {
       <StickyBar />
 
       {/* Footer */}
-      <footer className="border-t border-white/10 py-8 px-6 pb-20 md:pb-8">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-white/30 text-sm">
-          <span>© 2025 Vekto Academy</span>
-          <Link href="https://vektoagency.com" className="hover:text-white transition-colors">
-            vektoagency.com
-          </Link>
+      <footer className="border-t border-white/10 px-6 pt-14 pb-24 md:pb-10" style={{ background: "linear-gradient(to bottom, #080808, #060606)" }}>
+        <div className="max-w-6xl mx-auto">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr] gap-10 lg:gap-12 mb-10">
+            {/* Brand */}
+            <div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/vekto-logo.png" alt="Vekto Academy" className="h-16 w-auto mb-4 -ml-1" />
+              <p className="text-sm text-white/50 leading-relaxed max-w-sm mb-5">
+                Платформа за AI видео съдържание от Vekto Agency. Обучение, общност и реални клиенти — на едно място.
+              </p>
+              <div className="flex items-center gap-2 text-xs text-white/35">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff00] animate-pulse" />
+                София · България · работим глобално
+              </div>
+            </div>
+
+            {/* Навигация */}
+            <div>
+              <h4 className="text-xs text-white/30 uppercase tracking-widest mb-4 font-semibold">Навигация</h4>
+              <ul className="space-y-2.5 text-sm text-white/60">
+                {navLinks.map((l) => (
+                  <li key={l.href}>
+                    <Link href={l.href} className="hover:text-[#c8ff00] transition-colors">
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Акаунт */}
+            <div>
+              <h4 className="text-xs text-white/30 uppercase tracking-widest mb-4 font-semibold">Акаунт</h4>
+              <ul className="space-y-2.5 text-sm text-white/60">
+                <li><Link href="/sign-in" className="hover:text-[#c8ff00] transition-colors">Вход</Link></li>
+                <li><Link href="/sign-up" className="hover:text-[#c8ff00] transition-colors">Регистрация</Link></li>
+                <li><Link href="/dashboard" className="hover:text-[#c8ff00] transition-colors">Dashboard</Link></li>
+                <li><Link href="#pricing" className="hover:text-[#c8ff00] transition-colors">Присъедини се</Link></li>
+              </ul>
+            </div>
+
+            {/* Vekto Agency */}
+            <div>
+              <h4 className="text-xs text-white/30 uppercase tracking-widest mb-4 font-semibold">Vekto Agency</h4>
+              <ul className="space-y-2.5 text-sm text-white/60 mb-5">
+                <li>
+                  <Link href="https://vektoagency.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#c8ff00] transition-colors">
+                    vektoagency.com
+                  </Link>
+                </li>
+                <li>
+                  <a href="mailto:hello@vektoagency.com" className="hover:text-[#c8ff00] transition-colors">
+                    hello@vektoagency.com
+                  </a>
+                </li>
+              </ul>
+              <Link
+                href="#pricing"
+                className="inline-flex items-center gap-2 text-xs font-bold text-[#c8ff00] hover:gap-3 transition-all"
+              >
+                Започни сега
+                <span aria-hidden>→</span>
+              </Link>
+            </div>
+          </div>
+
+          {/* Bottom bar */}
+          <div className="border-t border-white/8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <p className="text-xs text-white/30">© {new Date().getFullYear()} Vekto Academy · Всички права запазени.</p>
+            <p className="text-xs text-white/30">
+              Продукт на <Link href="https://vektoagency.com" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-[#c8ff00] transition-colors">Vekto Agency</Link>
+            </p>
+          </div>
         </div>
       </footer>
     </main>
