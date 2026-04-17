@@ -1148,7 +1148,7 @@ export default function HomePage() {
 
       {/* Logos — клиенти на Vekto */}
       <section className="py-8 md:py-16 px-0" style={{ background: "linear-gradient(to bottom, #080808, #070707, #080808)" }}>
-        <p className="text-center text-xs text-white/30 uppercase tracking-widest mb-12">Реални клиенти. Реален опит. Това преподаваме.</p>
+        <p className="text-center text-[10px] sm:text-xs text-white/30 uppercase tracking-wider sm:tracking-widest mb-8 sm:mb-12 px-4">Реални клиенти. Реален опит. Това преподаваме.</p>
         <div className="overflow-hidden relative">
           <div className="scroll-left flex gap-12 md:gap-24 items-center" style={{ width: "max-content" }}>
             {[...clients, ...clients, ...clients, ...clients].map((c, i) => (
