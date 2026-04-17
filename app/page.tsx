@@ -896,8 +896,6 @@ function ArenaSection() {
   const [filter, setFilter] = useState<"all" | BriefTier>("all");
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const visibleBriefs = filter === "all" ? arenaBriefs : arenaBriefs.filter((b) => b.tier === filter);
-
   useEffect(() => {
     intervalRef.current = setInterval(() => {
       setActive((prev) => (prev + 1) % arenaBriefs.length);
@@ -996,41 +994,71 @@ function ArenaSection() {
             })}
           </div>
 
-          {/* 20 brief grid */}
-          <div className="p-3 sm:p-5 border-b border-white/10">
-            <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-10 gap-1.5 sm:gap-2">
+          {/* Compact brief ribbon — 20 tier-colored bars */}
+          <div className="px-4 sm:px-6 pt-4 pb-5 border-b border-white/10">
+            <div className="flex items-center justify-between mb-3 gap-3">
+              <span className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-white/50">
+                Brief <span className="text-[#c8ff00]">#{b.id}</span> <span className="text-white/20">/ {arenaBriefs.length}</span>
+              </span>
+              <div className="flex items-center gap-1.5">
+                <button
+                  onClick={() => handleClick(Math.max(0, active - 1))}
+                  disabled={active === 0}
+                  aria-label="Предишен brief"
+                  className="w-7 h-7 rounded-full border border-white/15 flex items-center justify-center text-white/60 hover:border-[#c8ff00]/50 hover:text-[#c8ff00] transition-colors disabled:opacity-25 disabled:cursor-not-allowed text-xs"
+                >
+                  ←
+                </button>
+                <button
+                  onClick={() => handleClick(Math.min(arenaBriefs.length - 1, active + 1))}
+                  disabled={active === arenaBriefs.length - 1}
+                  aria-label="Следващ brief"
+                  className="w-7 h-7 rounded-full border border-white/15 flex items-center justify-center text-white/60 hover:border-[#c8ff00]/50 hover:text-[#c8ff00] transition-colors disabled:opacity-25 disabled:cursor-not-allowed text-xs"
+                >
+                  →
+                </button>
+              </div>
+            </div>
+            <div className="flex gap-1 sm:gap-1.5 items-end h-10 sm:h-12">
               {arenaBriefs.map((brief, i) => {
                 const isActive = active === i;
                 const visible = filter === "all" || brief.tier === filter;
+                const heightClass = brief.tier === "premium" ? "h-full" : brief.tier === "standard" ? "h-[70%]" : "h-[45%]";
                 const tm = tierMeta[brief.tier];
                 return (
                   <button
                     key={brief.id}
                     onClick={() => handleClick(i)}
-                    className={`relative aspect-square rounded-lg border transition-all duration-300 flex flex-col items-center justify-center gap-0.5 ${
+                    aria-label={`Brief #${brief.id} — €${brief.budget}`}
+                    className={`group relative flex-1 ${heightClass} rounded-sm transition-all duration-300 ${
                       isActive
-                        ? "border-[#c8ff00] bg-[#c8ff00]/10 scale-105 shadow-[0_0_20px_rgba(200,255,0,0.25)] z-10"
+                        ? `${tm.dot} shadow-[0_0_16px_rgba(200,255,0,0.5)] z-10`
                         : visible
-                          ? "border-white/10 bg-[#0a0a0a] hover:border-white/25 hover:bg-white/[0.03]"
-                          : "border-white/5 bg-[#0a0a0a]/50 opacity-25"
+                          ? `${tm.dot} opacity-50 hover:opacity-90`
+                          : `${tm.dot} opacity-10`
                     }`}
                   >
-                    <span className={`w-1 h-1 rounded-full ${tm.dot} absolute top-1.5 right-1.5`} />
-                    <span className={`text-[8px] sm:text-[9px] font-bold uppercase tracking-widest ${isActive ? "text-[#c8ff00]" : "text-white/25"}`}>
-                      #{brief.id}
-                    </span>
-                    <span className={`font-black text-[11px] sm:text-sm leading-none ${isActive ? "text-white" : "text-white/60"}`}>
-                      €{brief.budget}
+                    {isActive && (
+                      <span className="absolute -top-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#c8ff00] shadow-[0_0_8px_rgba(200,255,0,0.8)]" />
+                    )}
+                    <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 text-[9px] font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap bg-black/90 border border-white/10 px-2 py-0.5 rounded">
+                      #{brief.id} · €{brief.budget}
                     </span>
                   </button>
                 );
               })}
             </div>
-            {visibleBriefs.length < arenaBriefs.length && (
-              <p className="text-white/30 text-[10px] sm:text-xs mt-3 text-center">
-                Показани {visibleBriefs.length} от {arenaBriefs.length}
-              </p>
-            )}
+            <div className="flex items-center justify-between mt-3 text-[10px] text-white/30">
+              <span className="flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-sm bg-[#c8ff00]" /> Premium €50
+              </span>
+              <span className="flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-sm bg-white/70" /> Standard €20
+              </span>
+              <span className="flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-sm bg-white/30" /> Quick €10
+              </span>
+            </div>
           </div>
 
           {/* Active brief detail */}
