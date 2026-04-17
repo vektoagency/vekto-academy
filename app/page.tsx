@@ -581,123 +581,6 @@ function CommunitySection() {
   );
 }
 
-function JobPipelineSection() {
-  const stages = [
-    {
-      n: "01",
-      label: "Shortlist",
-      title: "Попадаш в радара",
-      entry: "3+ Premium победи в Арена",
-      pay: "€50-150/мес",
-      desc: "Vekto преглежда твоя профил и те добавя в shortlist-а за реални клиентски проекти извън Арена.",
-    },
-    {
-      n: "02",
-      label: "Freelance",
-      title: "Първи клиентски brief-ове",
-      entry: "Одобрение от shortlist",
-      pay: "€200-800/brief",
-      desc: "Директно се включваш в реални Vekto проекти — работиш по brief-ове от истински клиенти със стандартни агенционни бюджети.",
-    },
-    {
-      n: "03",
-      label: "Contractor",
-      title: "Постоянен приход",
-      entry: "3+ успешни brief-а",
-      pay: "€1k-3k/мес",
-      desc: "Vekto те задържа като regular contractor. Получаваш постоянен поток от задачи, предвидим приход.",
-    },
-    {
-      n: "04",
-      label: "Team",
-      title: "Част от Vekto",
-      entry: "Top 5% + fit с екипа",
-      pay: "Заплата + бонуси",
-      desc: "Влизаш постоянно в екипа на Vekto. Full-time или strategic partner — работиш с реални brand-ове в production.",
-      highlight: true,
-    },
-  ];
-
-  return (
-    <section id="jobs" className="py-20 sm:py-32 px-4 sm:px-6 relative overflow-hidden border-t border-white/10">
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-[#c8ff00]/3 rounded-full blur-[140px]" />
-      </div>
-      <div className="max-w-6xl mx-auto relative z-10">
-        {/* Header */}
-        <div className="mb-10 sm:mb-16">
-          <span className="text-[#c8ff00] text-sm font-semibold uppercase tracking-widest mb-3 block">Работа · Pipeline</span>
-          <h2 className="text-3xl sm:text-4xl md:text-6xl font-black tracking-tight leading-[1.05] mb-5">
-            От Академия до<br />
-            <span className="text-[#c8ff00]">Vekto екип.</span>
-          </h2>
-          <p className="text-white/50 text-sm sm:text-base max-w-xl leading-relaxed">
-            Реалният път, по който creators в общността минават — от първи Premium победи до постоянна работа с Vekto.
-          </p>
-        </div>
-
-        {/* 4-stage pipeline */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-3 sm:gap-4 mb-10 relative">
-          {stages.map((s, i) => (
-            <div key={s.n} className="relative">
-              <div className={`rounded-2xl p-5 sm:p-6 h-full flex flex-col ${s.highlight ? "bg-[#c8ff00]/[0.06] border-2 border-[#c8ff00]/40 shadow-[0_0_40px_rgba(200,255,0,0.08)]" : "bg-[#0d0d0d] border border-white/10"}`}>
-                {s.highlight && (
-                  <span className="absolute -top-3 left-5 bg-[#c8ff00] text-black text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider">Целта</span>
-                )}
-                <div className="flex items-center justify-between mb-4">
-                  <span className={`w-9 h-9 rounded-full flex items-center justify-center font-black text-xs border ${s.highlight ? "bg-[#c8ff00] text-black border-[#c8ff00]" : "bg-white/5 text-[#c8ff00] border-white/10"}`}>
-                    {s.n}
-                  </span>
-                  <span className={`text-[10px] font-bold uppercase tracking-widest ${s.highlight ? "text-[#c8ff00]" : "text-white/40"}`}>
-                    {s.label}
-                  </span>
-                </div>
-                <h3 className="font-black text-lg mb-3 leading-tight">{s.title}</h3>
-                <p className="text-white/50 text-sm leading-relaxed mb-5 flex-1">{s.desc}</p>
-                <div className="space-y-2.5 pt-4 border-t border-white/10 mt-auto">
-                  <div>
-                    <p className="text-white/30 text-[10px] uppercase tracking-widest mb-0.5">Условие</p>
-                    <p className="text-white/70 text-xs font-semibold">{s.entry}</p>
-                  </div>
-                  <div>
-                    <p className="text-white/30 text-[10px] uppercase tracking-widest mb-0.5">Приход</p>
-                    <p className={`text-sm font-black ${s.highlight ? "text-[#c8ff00]" : "text-white"}`}>{s.pay}</p>
-                  </div>
-                </div>
-              </div>
-              {/* Arrow connector — desktop only */}
-              {i < stages.length - 1 && (
-                <div className="hidden md:flex absolute top-1/2 -right-2 -translate-y-1/2 z-10 items-center justify-center w-6 h-6 rounded-full bg-[#080808] border border-white/10 text-[#c8ff00] text-xs">
-                  →
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-
-        {/* Reality check note */}
-        <div className="rounded-2xl border border-white/10 bg-[#0d0d0d] p-5 sm:p-6 mb-8 flex items-start gap-4">
-          <span className="w-10 h-10 rounded-full bg-[#c8ff00]/10 border border-[#c8ff00]/30 flex items-center justify-center text-[#c8ff00] text-lg flex-shrink-0">!</span>
-          <div>
-            <p className="font-black text-sm mb-1">Без гаранции — но пътят е ясен</p>
-            <p className="text-white/50 text-sm leading-relaxed">
-              Не обещаваме работа на всеки. Но който се доказва в Арена — Vekto го вижда. Премеждаването между етапите зависи от качеството на работата ти, не от време прекарано в платформата.
-            </p>
-          </div>
-        </div>
-
-        {/* CTA */}
-        <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-center">
-          <Link href="#pricing" className="bg-[#c8ff00] text-black font-black px-8 py-4 rounded-full text-sm sm:text-base text-center hover:bg-[#d4ff1a] transition-colors shadow-[0_0_40px_rgba(200,255,0,0.2)]">
-            Започни пътя си →
-          </Link>
-          <p className="text-white/40 text-xs sm:text-sm text-center">Стартираш с обучението. Етап 01 е на 2-3 месеца разстояние.</p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function CurriculumSection() {
   const [open, setOpen] = useState<number | null>(0);
 
@@ -1175,17 +1058,32 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Path — учебен arc (в Академията) */}
-      <section id="path" className="py-16 sm:py-24 px-4 sm:px-6 bg-[#0a0a0a] border-y border-white/10">
-        <div className="max-w-6xl mx-auto">
+      {/* Path + Jobs — обединен пълен път от обучение до Vekto екип */}
+      <section id="path" className="py-16 sm:py-24 px-4 sm:px-6 bg-[#0a0a0a] border-y border-white/10 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-[#c8ff00]/3 rounded-full blur-[140px]" />
+        </div>
+        <div className="max-w-6xl mx-auto relative z-10">
+          {/* Header */}
           <div className="text-center mb-14">
-            <span className="text-[#c8ff00] text-sm font-semibold uppercase tracking-widest mb-3 block">Учебният път</span>
-            <h2 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-tight mb-4">От нулата до готово портфолио за 3 месеца</h2>
-            <p className="text-white/50 text-sm sm:text-base max-w-2xl mx-auto">Какво строиш вътре в Академията — умения, работни навици, реални проекти. Кариерата идва след това.</p>
+            <span className="text-[#c8ff00] text-sm font-semibold uppercase tracking-widest mb-3 block">Целият път</span>
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-tight leading-[1.05] mb-4">
+              От нулата до <span className="text-[#c8ff00]">Vekto екип.</span>
+            </h2>
+            <p className="text-white/50 text-sm sm:text-base max-w-2xl mx-auto">Два етапа — първо се учиш в Академията, после се доказваш и излизаш в реалната работа с Vekto.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 relative">
-            {/* Step 1 */}
+          {/* Phase 1 label */}
+          <div className="flex items-center gap-3 mb-6">
+            <span className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff00]" />
+              <span className="text-[11px] font-bold uppercase tracking-widest text-white/70">Фаза 1 · В Академията · 3 месеца</span>
+            </span>
+            <div className="flex-1 h-px bg-white/10" />
+          </div>
+
+          {/* Learning arc — 3 cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-10">
             <div className="rounded-2xl p-6 sm:p-8 bg-[#0d0d0d] border border-white/10 flex flex-col">
               <div className="flex items-center gap-3 mb-5">
                 <span className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#c8ff00] font-black text-sm">01</span>
@@ -1200,7 +1098,6 @@ export default function HomePage() {
               </ul>
             </div>
 
-            {/* Step 2 */}
             <div className="rounded-2xl p-6 sm:p-8 bg-[#0d0d0d] border border-white/10 flex flex-col">
               <div className="flex items-center gap-3 mb-5">
                 <span className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#c8ff00] font-black text-sm">02</span>
@@ -1215,12 +1112,10 @@ export default function HomePage() {
               </ul>
             </div>
 
-            {/* Step 3 — highlighted */}
-            <div className="rounded-2xl p-6 sm:p-8 bg-[#c8ff00]/[0.06] border-2 border-[#c8ff00]/40 flex flex-col shadow-[0_0_40px_rgba(200,255,0,0.08)] relative">
-              <span className="absolute -top-3 left-6 bg-[#c8ff00] text-black text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider">Готов</span>
+            <div className="rounded-2xl p-6 sm:p-8 bg-[#0d0d0d] border border-white/10 flex flex-col">
               <div className="flex items-center gap-3 mb-5">
-                <span className="w-10 h-10 rounded-full bg-[#c8ff00] text-black flex items-center justify-center font-black text-sm">03</span>
-                <span className="text-[#c8ff00] text-[11px] font-bold uppercase tracking-widest">Месец 3 · Портфолио</span>
+                <span className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#c8ff00] font-black text-sm">03</span>
+                <span className="text-white/40 text-[11px] font-bold uppercase tracking-widest">Месец 3 · Портфолио</span>
               </div>
               <h3 className="text-xl font-black mb-2">Reel готов за клиент</h3>
               <p className="text-white/70 text-sm mb-5">Завършваш 2-3 case study проекта под менторство. Излизаш с портфолио което може да продаваш.</p>
@@ -1232,9 +1127,85 @@ export default function HomePage() {
             </div>
           </div>
 
-          <p className="text-center text-white/40 text-xs sm:text-sm mt-10 max-w-2xl mx-auto">
-            Арената и кариерният pipeline започват паралелно — виж ги по-надолу. С <span className="text-[#c8ff00] font-semibold">Доживотен достъп</span> цялата структура е отворена от ден 1.
-          </p>
+          {/* Transition arrow */}
+          <div className="flex justify-center my-8 sm:my-10">
+            <div className="flex flex-col items-center gap-2">
+              <div className="w-px h-8 bg-gradient-to-b from-transparent to-[#c8ff00]/50" />
+              <span className="text-[#c8ff00] text-xs font-bold uppercase tracking-widest">След като си готов</span>
+              <div className="w-px h-8 bg-gradient-to-b from-[#c8ff00]/50 to-transparent" />
+            </div>
+          </div>
+
+          {/* Phase 2 label */}
+          <div id="jobs" className="flex items-center gap-3 mb-6 scroll-mt-20">
+            <span className="inline-flex items-center gap-2 bg-[#c8ff00]/10 border border-[#c8ff00]/30 rounded-full px-4 py-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff00]" />
+              <span className="text-[11px] font-bold uppercase tracking-widest text-[#c8ff00]">Фаза 2 · Кариера с Vekto</span>
+            </span>
+            <div className="flex-1 h-px bg-[#c8ff00]/20" />
+          </div>
+
+          {/* Career ladder — 4 cards */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-3 sm:gap-4 mb-10 relative">
+            {[
+              { n: "04", label: "Shortlist", title: "Попадаш в радара", entry: "3+ Premium победи в Арена", pay: "€50-150/мес", desc: "Vekto преглежда твоя профил и те добавя в shortlist-а за реални клиентски проекти извън Арена." },
+              { n: "05", label: "Freelance", title: "Първи клиентски brief-ове", entry: "Одобрение от shortlist", pay: "€200-800/brief", desc: "Директно се включваш в реални Vekto проекти — работиш по brief-ове от истински клиенти със стандартни агенционни бюджети." },
+              { n: "06", label: "Contractor", title: "Постоянен приход", entry: "3+ успешни brief-а", pay: "€1k-3k/мес", desc: "Vekto те задържа като regular contractor. Получаваш постоянен поток от задачи, предвидим приход." },
+              { n: "07", label: "Team", title: "Част от Vekto", entry: "Top 5% + fit с екипа", pay: "Заплата + бонуси", desc: "Влизаш постоянно в екипа на Vekto. Full-time или strategic partner — работиш с реални brand-ове в production.", highlight: true },
+            ].map((s, i, arr) => (
+              <div key={s.n} className="relative">
+                <div className={`rounded-2xl p-5 sm:p-6 h-full flex flex-col ${s.highlight ? "bg-[#c8ff00]/[0.06] border-2 border-[#c8ff00]/40 shadow-[0_0_40px_rgba(200,255,0,0.08)]" : "bg-[#0d0d0d] border border-white/10"}`}>
+                  {s.highlight && (
+                    <span className="absolute -top-3 left-5 bg-[#c8ff00] text-black text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider">Целта</span>
+                  )}
+                  <div className="flex items-center justify-between mb-4">
+                    <span className={`w-9 h-9 rounded-full flex items-center justify-center font-black text-xs border ${s.highlight ? "bg-[#c8ff00] text-black border-[#c8ff00]" : "bg-white/5 text-[#c8ff00] border-white/10"}`}>
+                      {s.n}
+                    </span>
+                    <span className={`text-[10px] font-bold uppercase tracking-widest ${s.highlight ? "text-[#c8ff00]" : "text-white/40"}`}>
+                      {s.label}
+                    </span>
+                  </div>
+                  <h3 className="font-black text-lg mb-3 leading-tight">{s.title}</h3>
+                  <p className="text-white/50 text-sm leading-relaxed mb-5 flex-1">{s.desc}</p>
+                  <div className="space-y-2.5 pt-4 border-t border-white/10 mt-auto">
+                    <div>
+                      <p className="text-white/30 text-[10px] uppercase tracking-widest mb-0.5">Условие</p>
+                      <p className="text-white/70 text-xs font-semibold">{s.entry}</p>
+                    </div>
+                    <div>
+                      <p className="text-white/30 text-[10px] uppercase tracking-widest mb-0.5">Приход</p>
+                      <p className={`text-sm font-black ${s.highlight ? "text-[#c8ff00]" : "text-white"}`}>{s.pay}</p>
+                    </div>
+                  </div>
+                </div>
+                {i < arr.length - 1 && (
+                  <div className="hidden md:flex absolute top-1/2 -right-2 -translate-y-1/2 z-10 items-center justify-center w-6 h-6 rounded-full bg-[#0a0a0a] border border-white/10 text-[#c8ff00] text-xs">
+                    →
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Reality check */}
+          <div className="rounded-2xl border border-white/10 bg-[#0d0d0d] p-5 sm:p-6 mb-8 flex items-start gap-4">
+            <span className="w-10 h-10 rounded-full bg-[#c8ff00]/10 border border-[#c8ff00]/30 flex items-center justify-center text-[#c8ff00] text-lg flex-shrink-0">!</span>
+            <div>
+              <p className="font-black text-sm mb-1">Без гаранции — но пътят е ясен</p>
+              <p className="text-white/50 text-sm leading-relaxed">
+                Не обещаваме работа на всеки. Но който се доказва в Арена — Vekto го вижда. Премеждаването между етапите зависи от качеството на работата ти, не от време прекарано в платформата.
+              </p>
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-center">
+            <Link href="#pricing" className="bg-[#c8ff00] text-black font-black px-8 py-4 rounded-full text-sm sm:text-base text-center hover:bg-[#d4ff1a] transition-colors shadow-[0_0_40px_rgba(200,255,0,0.2)]">
+              Започни пътя си →
+            </Link>
+            <p className="text-white/40 text-xs sm:text-sm text-center">Стартираш с обучението. Фаза 2 е на 2-3 месеца разстояние.</p>
+          </div>
         </div>
       </section>
 
@@ -1244,11 +1215,8 @@ export default function HomePage() {
       {/* Community — support veднага след обучението */}
       <CommunitySection />
 
-      {/* Arena — Месец 2: плащат ти докато учиш */}
+      {/* Arena — плащат ти докато учиш */}
       <ArenaSection />
-
-      {/* Job Pipeline — Месец 3+: shortlist → Vekto екип */}
-      <JobPipelineSection />
 
       {/* Platform preview — tour of the product */}
       <PlatformPreview />
