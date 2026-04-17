@@ -1228,48 +1228,49 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Right — 2/5 showreel CTA card */}
+            {/* Right — 2/5 portfolio CTA card with client logo mosaic */}
             <div className="md:col-span-2">
               <a
                 href="https://vektoagency.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group block relative rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-[#c8ff00]/10 via-[#0d0d0d] to-[#0d0d0d] aspect-[4/5] p-6 sm:p-8 hover:border-[#c8ff00]/40 transition-all duration-300"
+                className="group block relative rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-[#c8ff00]/10 via-[#0d0d0d] to-[#0d0d0d] aspect-[4/5] hover:border-[#c8ff00]/40 transition-all duration-300"
               >
-                {/* Vekto watermark */}
-                <div className="absolute -right-8 -bottom-8 w-60 h-60 opacity-[0.06] pointer-events-none">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/vekto-logo.png" alt="" className="w-full h-auto" />
-                </div>
-
                 {/* Gradient sheen on hover */}
                 <div className="absolute inset-0 bg-gradient-to-br from-[#c8ff00]/0 via-[#c8ff00]/5 to-[#c8ff00]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-                <div className="relative z-10 flex flex-col justify-between h-full">
-                  {/* Top — live badge */}
-                  <div className="flex items-center justify-between">
+                <div className="relative z-10 flex flex-col h-full">
+                  {/* Top badge */}
+                  <div className="p-5 sm:p-6 flex items-center justify-between">
                     <div className="inline-flex items-center gap-2 bg-black/60 border border-white/10 rounded-full px-3 py-1.5 backdrop-blur">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff00] animate-pulse" />
-                      <span className="text-[10px] font-bold uppercase tracking-widest text-white/70">Нашата работа</span>
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-white/70">Нашите клиенти</span>
                     </div>
-
-                    {/* Play icon */}
-                    <div className="w-12 h-12 rounded-full bg-[#c8ff00] flex items-center justify-center shadow-[0_0_30px_rgba(200,255,0,0.3)] group-hover:scale-110 transition-transform">
-                      <svg className="w-5 h-5 text-black ml-0.5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    </div>
+                    <span className="text-white/30 text-xs group-hover:text-[#c8ff00] group-hover:translate-x-1 transition-all">→</span>
                   </div>
 
-                  {/* Bottom — CTA */}
-                  <div>
-                    <p className="text-white/40 text-xs uppercase tracking-widest mb-2 font-semibold">Showreel · vektoagency.com</p>
-                    <h3 className="text-2xl sm:text-3xl font-black leading-tight mb-3">
-                      Виж как правим <span className="text-[#c8ff00]">AI видеа</span> за реални брандове.
+                  {/* Client logo mosaic — 2x2 grid, fills middle */}
+                  <div className="flex-1 grid grid-cols-2 gap-px bg-white/5 mx-5 sm:mx-6 rounded-2xl overflow-hidden border border-white/10">
+                    {[
+                      { logo: "/logo-gifto2.png", name: "Gifto" },
+                      { logo: "/logo-menscare.png", name: "MensCare" },
+                      { logo: "/logo-adventuresbg.png", name: "Adventures" },
+                      { logo: "/logo-isosport.png", name: "Isosport" },
+                    ].map((c) => (
+                      <div key={c.name} className="bg-[#0a0a0a] flex items-center justify-center p-4 aspect-square opacity-80 group-hover:opacity-100 transition-opacity">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={c.logo} alt={c.name} className="max-w-[70%] max-h-[40px] w-auto h-auto object-contain" />
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Bottom CTA */}
+                  <div className="p-5 sm:p-6">
+                    <h3 className="text-xl sm:text-2xl font-black leading-tight mb-2">
+                      Правим <span className="text-[#c8ff00]">AI видеа</span> за реални брандове.
                     </h3>
-                    <span className="inline-flex items-center gap-1.5 text-white/60 group-hover:text-[#c8ff00] transition-colors text-sm font-semibold">
-                      <span>Отвори портфолио</span>
-                      <span className="group-hover:translate-x-1 transition-transform">→</span>
+                    <span className="inline-flex items-center gap-1.5 text-white/60 group-hover:text-[#c8ff00] transition-colors text-xs font-semibold uppercase tracking-widest">
+                      <span>Отвори портфолио · vektoagency.com</span>
                     </span>
                   </div>
                 </div>
