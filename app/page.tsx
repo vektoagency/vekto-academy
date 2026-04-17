@@ -1593,6 +1593,7 @@ const plans = [
     badge: null,
     note: "Отмяна по всяко време",
     cta: "Започни месечно — €59/мес",
+    ctaLabel: "Започни месечно",
   },
   {
     id: "lifetime",
@@ -1603,6 +1604,7 @@ const plans = [
     badge: "ДО 1 ЮНИ",
     note: "Спестяваш €359 vs годишно",
     cta: "Вземи доживотен достъп — €349",
+    ctaLabel: "Доживотен достъп",
   },
 ];
 
@@ -1659,9 +1661,24 @@ function PricingToggle() {
       <form action={createCheckout.bind(null, selected as "monthly" | "lifetime")} className="w-full">
         <button
           type="submit"
-          className="w-full text-center bg-[#c8ff00] text-black font-bold px-8 py-4 rounded-full text-base hover:bg-[#d4ff1a] hover:scale-[1.02] transition-all shadow-[0_0_40px_rgba(200,255,0,0.2)]"
+          className="group relative w-full overflow-hidden rounded-full text-black font-bold px-5 sm:px-6 py-4 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 shadow-[0_10px_30px_-8px_rgba(200,255,0,0.45),0_0_0_1px_rgba(200,255,0,0.4)] hover:shadow-[0_14px_40px_-6px_rgba(200,255,0,0.6),0_0_0_1px_rgba(200,255,0,0.55)]"
+          style={{ background: "linear-gradient(135deg, #d4ff1a 0%, #c8ff00 50%, #a8d900 100%)" }}
         >
-          {plan.cta}
+          <span className="pointer-events-none absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.35), transparent 40%)" }} />
+          <span className="relative z-10 flex items-center justify-between gap-3">
+            <span className="text-sm sm:text-base truncate">{plan.ctaLabel}</span>
+            <span className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+              <span className="h-5 w-px bg-black/25" />
+              <span className="font-black tracking-tight">
+                {plan.price}<span className="text-black/55 font-bold text-sm">{plan.sub}</span>
+              </span>
+              <span className="flex items-center justify-center w-7 h-7 rounded-full bg-black/15 group-hover:bg-black/25 transition-all group-hover:translate-x-0.5">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                  <path d="M2 6h8m0 0L6 2m4 4L6 10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+            </span>
+          </span>
         </button>
       </form>
       <p className="text-white/25 text-xs">ДДС включен · Без скрити такси · Сигурно плащане</p>
