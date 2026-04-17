@@ -7,6 +7,7 @@ import ArenaRules from "../components/ArenaRules";
 import BillingPortalButton from "../components/BillingPortalButton";
 import NotificationBell from "../components/NotificationBell";
 import ProfileNameForm from "../components/ProfileNameForm";
+import JobProfileForm from "../components/JobProfileForm";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -696,35 +697,17 @@ export default async function DashboardPage({
                       <div className="px-5 py-4 border-b border-white/6 bg-[#0d0d0d]">
                         <p className="text-xs font-black uppercase tracking-widest text-white/30">Твоят профил</p>
                       </div>
-                      <div className="p-5 space-y-3">
+                      <div className="p-5 pb-0">
                         {/* Avatar + name */}
                         <div className="flex items-center gap-3 mb-2">
                           <div className="w-12 h-12 rounded-xl bg-[#c8ff00] flex items-center justify-center text-black text-lg font-black flex-shrink-0">{initials}</div>
                           <div>
-                            <p className="font-bold text-sm">{fullName || "Твоето Ime"}</p>
+                            <p className="font-bold text-sm">{fullName || "Твоето име"}</p>
                             <p className="text-white/30 text-xs">{planLabel[member?.plan]}</p>
                           </div>
                         </div>
-                        <div>
-                          <label className="text-white/30 text-[10px] uppercase tracking-widest mb-1.5 block">Специализация</label>
-                          <input type="text" placeholder="напр. AI Video Creator, Editor..." className="w-full bg-white/4 border border-white/8 rounded-xl px-4 py-2.5 text-sm text-white/80 placeholder:text-white/20 focus:outline-none focus:border-[#c8ff00]/30 transition-colors" />
-                        </div>
-                        <div>
-                          <label className="text-white/30 text-[10px] uppercase tracking-widest mb-1.5 block">Bio</label>
-                          <textarea rows={3} placeholder="Кратко описание — кой си и какво правиш..." className="w-full bg-white/4 border border-white/8 rounded-xl px-4 py-2.5 text-sm text-white/80 placeholder:text-white/20 focus:outline-none focus:border-[#c8ff00]/30 transition-colors resize-none" />
-                        </div>
-                        <div>
-                          <label className="text-white/30 text-[10px] uppercase tracking-widest mb-1.5 block">Линк към портфолио</label>
-                          <input type="url" placeholder="https://..." className="w-full bg-white/4 border border-white/8 rounded-xl px-4 py-2.5 text-sm text-white/80 placeholder:text-white/20 focus:outline-none focus:border-[#c8ff00]/30 transition-colors" />
-                        </div>
-                        <div>
-                          <label className="text-white/30 text-[10px] uppercase tracking-widest mb-1.5 block">YouTube / Instagram</label>
-                          <input type="url" placeholder="https://..." className="w-full bg-white/4 border border-white/8 rounded-xl px-4 py-2.5 text-sm text-white/80 placeholder:text-white/20 focus:outline-none focus:border-[#c8ff00]/30 transition-colors" />
-                        </div>
-                        <button className="w-full bg-[#c8ff00] text-black font-black py-3 rounded-xl text-sm mt-1 hover:bg-[#d4ff1a] transition-colors">
-                          Изпрати за преглед →
-                        </button>
                       </div>
+                      <JobProfileForm />
                     </div>
                   </div>
                 </div>
