@@ -56,7 +56,7 @@ const curriculumModules = [
     lessons: 10,
     duration: "3 часа",
     topics: [
-      "Разчитане на brief — какво иска клиентът",
+      "Разчитане на задача — какво иска клиентът",
       "Conceptual planning и proposals",
       "Moodboards и visual references",
       "Storytelling с AI ограничения",
@@ -98,7 +98,7 @@ const curriculumModules = [
     lessons: 12,
     duration: "5 часа",
     topics: [
-      "UGC ad workflow — от brief до final",
+      "UGC ad workflow — от задача до final",
       "Product launch hero — premium feel",
       "Explainer video pipeline",
       "Fashion & beauty — cinematic aesthetics",
@@ -146,7 +146,7 @@ const curriculumModules = [
       "Pricing — оценка на работата си",
       "Pitch и proposals на английски",
       "Contracts и deposits",
-      "Brief management и expectations",
+      "Управление на задачи и очаквания",
       "Revisions — колко, кога, защо",
       "Delivery workflow",
       "Long-term client relationships",
@@ -329,7 +329,7 @@ const platformTabs = [
               <span className="bg-[#c8ff00] text-black text-[10px] font-black px-2 py-0.5 rounded-full">€30</span>
             </div>
             <div className="p-3 flex-1 flex flex-col">
-              <p className="text-white/25 text-[9px] uppercase tracking-widest mb-1">Brief #001</p>
+              <p className="text-white/25 text-[9px] uppercase tracking-widest mb-1">Задача #001</p>
               <p className="font-black text-xs sm:text-sm leading-tight mb-2">Product Launch — AI Tool</p>
               <div className="grid grid-cols-3 gap-1.5 mb-2">
                 {[
@@ -901,7 +901,7 @@ function ArenaSection() {
             <div className="flex items-center gap-2 min-w-0">
               <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff00] animate-pulse flex-shrink-0" />
               <p className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-white/80 truncate">
-                Месечен пул · €500 · 20 brief-а
+                Месечен пул · €500 · 20 задачи
               </p>
             </div>
             <p className="text-[10px] sm:text-xs text-white/30 flex-shrink-0 hidden sm:block">
@@ -919,7 +919,7 @@ function ArenaSection() {
                 {[
                   {
                     t: "Пари от Арена",
-                    s: "20 платени brief-а всеки месец. Печелиш — получаваш на IBAN.",
+                    s: "20 платени задачи всеки месец. Печелиш — получаваш на IBAN.",
                   },
                   {
                     t: "Реално портфолио",
@@ -945,7 +945,7 @@ function ArenaSection() {
               <div className="mt-6 rounded-xl border border-[#c8ff00]/25 bg-[#c8ff00]/[0.05] p-4 sm:p-5">
                 <p className="text-white/50 text-[10px] uppercase tracking-widest font-semibold mb-2">Размер на наградите</p>
                 <p className="text-white/75 text-sm leading-relaxed">
-                  Зависи от brief-а и клиента. Малки задачи → по-малки награди. Hero кампании → значително по-високи. Всеки brief обявява наградата си преди да започнеш.
+                  Зависи от задачата и клиента. Малки задачи → по-малки награди. Hero кампании → значително по-високи. Всяка задача обявява наградата си преди да започнеш.
                 </p>
               </div>
             </div>
@@ -956,7 +956,7 @@ function ArenaSection() {
 
               <ol className="space-y-3 sm:space-y-4 mb-6">
                 {[
-                  { n: "01", t: "Клиент възлага видео на Vekto", s: "Част от бюджета отива в Арена като brief." },
+                  { n: "01", t: "Клиент възлага видео на Vekto", s: "Част от бюджета отива в Арена като задача." },
                   { n: "02", t: "Предаваш своята версия", s: "Неограничени опити, без такси за участие." },
                   { n: "03", t: "Vekto избира победителя", s: "Професионално ревю + feedback за всеки опит." },
                   { n: "04", t: "Плащане на IBAN до 7 дни", s: "Директно от Vekto — без посредници." },
@@ -975,7 +975,7 @@ function ArenaSection() {
 
               {/* Client proof */}
               <div className="pt-5 border-t border-white/10">
-                <p className="text-white/35 text-[10px] uppercase tracking-widest mb-3 font-semibold">Brief-овете идват от клиенти като</p>
+                <p className="text-white/35 text-[10px] uppercase tracking-widest mb-3 font-semibold">Задачите идват от клиенти като</p>
                 <div className="flex items-center gap-4 sm:gap-6 flex-wrap opacity-70">
                   {clients.slice(0, 5).map((c) => (
                     /* eslint-disable-next-line @next/next/no-img-element */
@@ -1801,11 +1801,11 @@ const faq = [
   },
   {
     q: "Как работи Арена и кога се отключва?",
-    a: "Арена стартира от месец 2, след като завършиш основите. Всеки месец имаш 20 реални платени brief-а с общ пул €500. Предаваш видео, получаваш ревю от Vekto, най-добрите печелят. Размерът на наградата за всеки brief зависи от клиента и обема на задачата — обявява се преди да започнеш. С Доживотен достъп — Арена е отворена от ден 1.",
+    a: "Арена стартира от месец 2, след като завършиш основите. Всеки месец имаш 20 реални платени задачи с общ пул €500. Предаваш видео, получаваш ревю от Vekto, най-добрите печелят. Размерът на наградата за всяка задача зависи от клиента и обема — обявява се преди да започнеш. С Доживотен достъп — Арена е отворена от ден 1.",
   },
   {
     q: "Наистина ли се плаща за задачите в Арена?",
-    a: "Да. Наградите се превеждат директно от Vekto след одобрение на проекта. Задачите са реални brief-ове от клиенти на агенцията — не симулация. Ако за даден brief няма качествен submit, наградата се прехвърля в следващия месец.",
+    a: "Да. Наградите се превеждат директно от Vekto след одобрение на проекта. Задачите са реални от клиенти на агенцията — не симулация. Ако за дадена задача няма качествен submit, наградата се прехвърля в следващия месец.",
   },
   {
     q: "Как мога да стана част от Vekto екипа?",
@@ -1833,10 +1833,10 @@ const faq = [
   },
   {
     q: "Защо €349 е по-добра сделка от €59/мес?",
-    a: "€59 × 12 = €708 на година — €349 е под половин година. Плюс Арена работи в твоя полза: достатъчно победи в по-големи brief-ове и инвестицията се връща. И това е преди Vekto да започне да ти възлага дългосрочни задачи.",
+    a: "€59 × 12 = €708 на година — €349 е под половин година. Плюс Арена работи в твоя полза: достатъчно победи в по-големите задачи и инвестицията се връща. И това е преди Vekto да започне да ти възлага дългосрочни задачи.",
   },
   {
     q: "На какъв език е обучението?",
-    a: "Български. Всички модули, чатът и Q&A сесиите са на български. Brief-овете в Арена могат да са на английски — клиентите са международни.",
+    a: "Български. Всички модули, чатът и Q&A сесиите са на български. Задачите в Арена могат да са на английски — клиентите са международни.",
   },
 ];
