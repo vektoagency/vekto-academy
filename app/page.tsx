@@ -52,9 +52,9 @@ const tierMeta: Record<BriefTier, { label: string; color: string; dot: string }>
 
 const navLinks = [
   { href: "#about", label: "За нас" },
-  { href: "#jobs", label: "Работа" },
-  { href: "#arena", label: "Арена" },
   { href: "#curriculum", label: "Програма" },
+  { href: "#arena", label: "Арена" },
+  { href: "#jobs", label: "Работа" },
   { href: "#community", label: "Общност" },
   { href: "#pricing", label: "Цени" },
   { href: "#faq", label: "FAQ" },
@@ -1175,13 +1175,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Job Pipeline — THE outcome (you get hired/paid) */}
-      <JobPipelineSection />
-
-      {/* Arena — THE mechanism (€500/мес в изплащания) */}
-      <ArenaSection />
-
-      {/* Path — 3-month journey bridge between outcome and training */}
+      {/* Path — 3-month journey preview */}
       <section id="path" className="py-16 sm:py-24 px-4 sm:px-6 bg-[#0a0a0a] border-y border-white/10">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
@@ -1244,10 +1238,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Curriculum — training depth */}
+      {/* Curriculum — Месец 1: обучението */}
       <CurriculumSection />
 
-      {/* Community — support around the training */}
+      {/* Arena — Месец 2: плащат ти докато учиш */}
+      <ArenaSection />
+
+      {/* Job Pipeline — Месец 3+: shortlist → Vekto екип */}
+      <JobPipelineSection />
+
+      {/* Community — support orbiting всички етапи */}
       <CommunitySection />
 
       {/* Platform preview — tour of the product */}
