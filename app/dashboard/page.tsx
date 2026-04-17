@@ -115,10 +115,10 @@ export default async function DashboardPage({
     next_at: string | null;
   };
 
-  const hasPlan = member?.status === "active";
   const isAdmin = (user.publicMetadata as Record<string, string>)?.role === "admin";
+  const hasPlan = isAdmin || member?.status === "active";
   const completedLessons = (progressRows ?? []).filter((p: { completed: boolean }) => p.completed).length;
-  const hasStarted = completedLessons > 0;
+  const hasStarted = isAdmin || completedLessons > 0;
   const totalLessonsCount = 26; // 2+2+5+7+5+3+2 across 7 modules
   const courseProgressPct = Math.round((completedLessons / totalLessonsCount) * 100);
   const initials = `${user?.firstName?.[0] ?? ""}${user?.lastName?.[0] ?? ""}`.toUpperCase() || "VA";

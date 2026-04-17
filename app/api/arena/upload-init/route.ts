@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs/server";
+import { auth, clerkClient } from "@clerk/nextjs/server";
 import { createClient } from "@supabase/supabase-js";
 import crypto from "crypto";
 
@@ -15,14 +15,20 @@ export async function POST(req: Request) {
   const { userId } = await auth();
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  // Membership check
-  const { data: member } = await supabase
-    .from("members")
-    .select("status")
-    .eq("user_id", userId)
-    .single();
-  if (member?.status !== "active") {
-    return NextResponse.json({ error: "Active plan required" }, { status: 403 });
+  // Admin bypasses membership check
+  const client = await clerkClient();
+  const clerkUser = await client.users.getUser(userId);
+  const isAdmin = (clerkUser.publicMetadata as Record<string, string>)?.role === "admin";
+
+  if (!isAdmin) {
+    const { data: member } = await supabase
+      .from("members")
+      .select("status")
+      .eq("user_id", userId)
+      .single();
+    if (member?.status !== "active") {
+      return NextResponse.json({ error: "Active plan required" }, { status: 403 });
+    }
   }
 
   const { challenge_id, filename } = await req.json();
