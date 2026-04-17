@@ -19,7 +19,31 @@ export async function GET(req: Request) {
     .order("created_at", { ascending: false });
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-  return NextResponse.json({ data, libraryId: process.env.BUNNY_LIBRARY_ID ?? "" });
+
+  // Resolve Clerk user IDs → { name, email }
+  const client = adminCheck.client!;
+  const userIds = Array.from(new Set((data ?? []).map((s) => s.user_id)));
+  const users = await Promise.all(
+    userIds.map(async (uid) => {
+      try {
+        const u = await client.users.getUser(uid);
+        const name = [u.firstName, u.lastName].filter(Boolean).join(" ").trim();
+        const email = u.emailAddresses[0]?.emailAddress ?? "";
+        return [uid, { name: name || email || uid, email }] as const;
+      } catch {
+        return [uid, { name: uid, email: "" }] as const;
+      }
+    })
+  );
+  const userMap = Object.fromEntries(users);
+
+  const enriched = (data ?? []).map((s) => ({
+    ...s,
+    user_name: userMap[s.user_id]?.name ?? s.user_id,
+    user_email: userMap[s.user_id]?.email ?? "",
+  }));
+
+  return NextResponse.json({ data: enriched, libraryId: process.env.BUNNY_LIBRARY_ID ?? "" });
 }
 
 // POST — mark submission as winner / update status / set feedback

@@ -17,6 +17,8 @@ type Submission = {
   id: number;
   challenge_id: number;
   user_id: string;
+  user_name?: string;
+  user_email?: string;
   bunny_video_id: string;
   notes: string;
   status: string;
@@ -315,7 +317,12 @@ export default function AdminArena() {
                                   </div>
                                   <div className="md:col-span-2 flex flex-col">
                                     <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">
-                                      <p className="text-xs font-mono text-white/40 truncate">{s.user_id}</p>
+                                      <div className="min-w-0 flex-1">
+                                        <p className="text-sm font-bold text-white/80 truncate">{s.user_name ?? s.user_id}</p>
+                                        {s.user_email && (
+                                          <p className="text-[11px] text-white/30 truncate">{s.user_email}</p>
+                                        )}
+                                      </div>
                                       <div className="flex items-center gap-2">
                                         <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${statusBadge[s.status] ?? "bg-white/10 text-white/40"}`}>
                                           {s.status}
