@@ -463,7 +463,7 @@ export default function HomePage() {
         <div className="hero-reveal inline-flex items-center gap-2 sm:gap-3 bg-[#c8ff00] text-black rounded-full px-4 py-1.5 mb-5 relative z-10 shadow-[0_0_30px_rgba(200,255,0,0.25)]" style={{ animationDelay: "0ms" }}>
           <span className="flex items-center gap-1.5 text-[11px] sm:text-xs font-black uppercase tracking-wider">
             <span>⚡</span>
-            <span>Доживотен €349</span>
+            <span>Доживотен достъп за €349</span>
           </span>
           <span className="w-1 h-1 rounded-full bg-black/30" />
           <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider">До 1 юни</span>
