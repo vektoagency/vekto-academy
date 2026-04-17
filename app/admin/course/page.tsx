@@ -47,13 +47,23 @@ export default function AdminCoursePage() {
     setEditForm({ title: l.title, duration: l.duration, bunny_id: l.bunny_id });
   }
 
+  function extractBunnyId(input: string): string {
+    const trimmed = input.trim();
+    // Accept full embed URL: https://iframe.mediadelivery.net/embed/636246/<guid>
+    // Or play URL: https://iframe.mediadelivery.net/play/636246/<guid>
+    const match = trimmed.match(/mediadelivery\.net\/(?:embed|play)\/\d+\/([a-f0-9-]{36})/i);
+    if (match) return match[1];
+    // Otherwise return as-is (assume raw GUID)
+    return trimmed;
+  }
+
   async function handleSave() {
     if (!editingId) return;
     setSaving(true);
     await fetch("/api/admin/course", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: editingId, ...editForm }),
+      body: JSON.stringify({ id: editingId, ...editForm, bunny_id: extractBunnyId(editForm.bunny_id) }),
     });
     await load();
     setEditingId(null);
@@ -165,7 +175,7 @@ export default function AdminCoursePage() {
                             </div>
                           </div>
                           <div>
-                            <label className="block text-[10px] font-bold uppercase tracking-widest text-white/30 mb-1">Bunny Video ID</label>
+                            <label className="block text-[10px] font-bold uppercase tracking-widest text-white/30 mb-1">Bunny Video ID или embed URL</label>
                             <input
                               type="text"
                               value={editForm.bunny_id}
@@ -173,7 +183,7 @@ export default function AdminCoursePage() {
                               placeholder="dbc5a2c0-7b9e-48d4-a916-bfa313e9c9a8"
                               className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white/80 placeholder-white/15 font-mono focus:outline-none focus:border-[#c8ff00]/30"
                             />
-                            <p className="text-[10px] text-white/20 mt-1">Копирай ID-то от Bunny Stream Dashboard</p>
+                            <p className="text-[10px] text-white/20 mt-1">Поставяш или GUID-а, или цялото iframe URL — извлича се автоматично.</p>
                           </div>
                           <div className="flex items-center gap-2">
                             <button

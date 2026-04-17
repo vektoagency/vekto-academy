@@ -570,11 +570,19 @@ export default function CoursePage({ params }: { params: Promise<{ id: string }>
                     allowFullScreen
                   />
                 ) : (
-                  <div className="flex flex-col items-center gap-3 text-center px-6">
-                    <div className="w-14 h-14 rounded-full bg-white/5 flex items-center justify-center">
-                      <svg className="w-5 h-5 text-white/20" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  <div className="flex flex-col items-center gap-4 text-center px-6 py-10">
+                    <div className="relative">
+                      <div className="absolute inset-0 rounded-full bg-[#c8ff00]/10 animate-ping" />
+                      <div className="relative w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
+                        <svg className="w-6 h-6 text-white/30" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg>
+                      </div>
                     </div>
-                    <p className="text-white/30 text-sm">Видеото се качва скоро</p>
+                    <div>
+                      <p className="text-white font-bold text-base mb-1">Видеото се подготвя</p>
+                      <p className="text-white/35 text-sm max-w-xs">Ще получиш имейл веднага щом е качено. Междувременно можеш да продължиш с другите уроци.</p>
+                    </div>
                   </div>
                 )}
               </div>
