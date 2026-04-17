@@ -626,18 +626,19 @@ function JourneySection() {
   ];
 
   const [active, setActive] = useState(0);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const [paused, setPaused] = useState(false);
+  const touchStartX = useRef<number | null>(null);
 
-  useEffect(() => {
-    if (paused) return;
-    intervalRef.current = setInterval(() => {
-      setActive((a) => (a + 1) % steps.length);
-    }, 4500);
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, [paused, steps.length]);
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current == null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    touchStartX.current = null;
+    if (Math.abs(dx) < 40) return;
+    if (dx < 0) setActive((a) => Math.min(a + 1, steps.length - 1));
+    else setActive((a) => Math.max(a - 1, 0));
+  };
 
   const current = steps[active];
 
@@ -657,7 +658,7 @@ function JourneySection() {
         </div>
 
         {/* Timeline strip */}
-        <div className="mb-8 sm:mb-10" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+        <div className="mb-8 sm:mb-10">
           <div className="relative flex items-center justify-between max-w-3xl mx-auto px-2">
             {/* Progress line bg */}
             <div className="absolute top-1/2 left-6 right-6 h-[2px] bg-white/10 -translate-y-1/2" />
@@ -697,13 +698,13 @@ function JourneySection() {
 
         {/* Active step card */}
         <div
-          className={`rounded-3xl p-6 sm:p-10 transition-all duration-500 ${
+          className={`rounded-3xl p-6 sm:p-10 transition-all duration-500 select-none ${
             current.highlight
               ? "bg-[#c8ff00]/[0.06] border-2 border-[#c8ff00]/40 shadow-[0_0_60px_rgba(200,255,0,0.1)]"
               : "bg-[#0d0d0d] border border-white/10"
           }`}
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10">
             {/* Left */}
@@ -746,6 +747,36 @@ function JourneySection() {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Mobile pager — prev/next + dots */}
+        <div className="sm:hidden mt-6 flex items-center justify-between gap-3">
+          <button
+            onClick={() => setActive((a) => Math.max(a - 1, 0))}
+            disabled={active === 0}
+            aria-label="Предишна стъпка"
+            className="w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-white/70 hover:border-[#c8ff00]/50 hover:text-[#c8ff00] transition-colors disabled:opacity-25 disabled:cursor-not-allowed"
+          >
+            ←
+          </button>
+          <div className="flex items-center gap-2">
+            {steps.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setActive(i)}
+                aria-label={`Стъпка ${i + 1}`}
+                className={`h-1.5 rounded-full transition-all ${i === active ? "w-6 bg-[#c8ff00]" : "w-1.5 bg-white/20 hover:bg-white/40"}`}
+              />
+            ))}
+          </div>
+          <button
+            onClick={() => setActive((a) => Math.min(a + 1, steps.length - 1))}
+            disabled={active === steps.length - 1}
+            aria-label="Следваща стъпка"
+            className="w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-white/70 hover:border-[#c8ff00]/50 hover:text-[#c8ff00] transition-colors disabled:opacity-25 disabled:cursor-not-allowed"
+          >
+            →
+          </button>
         </div>
 
         {/* Reality check + CTA */}
