@@ -4,48 +4,51 @@ import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { createCheckout } from "./actions/checkout";
 
-const arenaBriefs = [
-  {
-    id: "01",
-    client: "Tech SaaS",
-    title: "Product Launch — AI Tool",
-    budget: 150,
-    deadline: "4 дни",
-    format: "16:9",
-    participants: 12,
-    brief: "UGC-style видео представящо нов AI продукт. Benefit-driven, 20-30 секунди, модерна естетика. Submit на 3 варианта за A/B тест.",
-  },
-  {
-    id: "02",
-    client: "Fashion Brand",
-    title: "Summer Campaign — Social",
-    budget: 130,
-    deadline: "6 дни",
-    format: "9:16 + 1:1",
-    participants: 8,
-    brief: "3 варианта за TikTok/Reels — summer vibe, dynamic cuts, hook в първите 2 секунди. Без voiceover, само music-driven.",
-  },
-  {
-    id: "03",
-    client: "B2B Startup",
-    title: "Explainer — SaaS Platform",
-    budget: 120,
-    deadline: "5 дни",
-    format: "16:9",
-    participants: 15,
-    brief: "Explainer обясняващ B2B SaaS платформа. Ясен скрипт, професионален feel, 45-60 секунди, английски voiceover.",
-  },
-  {
-    id: "04",
-    client: "F&B",
-    title: "Restaurant Quick Promo",
-    budget: 100,
-    deadline: "3 дни",
-    format: "9:16",
-    participants: 6,
-    brief: "Кратко промо за ресторант — food shots, апетитни ъгли, music-driven. 15-20 сек, TikTok-ready.",
-  },
+type BriefTier = "premium" | "standard" | "quick";
+type Brief = {
+  id: string;
+  tier: BriefTier;
+  client: string;
+  title: string;
+  budget: number;
+  deadline: string;
+  format: string;
+  brief: string;
+};
+
+const arenaBriefs: Brief[] = [
+  // Premium — 5 × €50 = €250
+  { id: "01", tier: "premium", client: "Tech SaaS", title: "Product Launch — AI Tool", budget: 50, deadline: "4 дни", format: "16:9", brief: "UGC видео представящо нов AI продукт. Benefit-driven, 20-30 секунди, 3 варианта за A/B тест." },
+  { id: "02", tier: "premium", client: "Fashion Brand", title: "Summer Hero Campaign", budget: 50, deadline: "5 дни", format: "9:16 + 1:1", brief: "Hero видео за летен лукс-дроп. Cinematic feel, slow-mo moments, professional color grade." },
+  { id: "03", tier: "premium", client: "B2B Startup", title: "Explainer — SaaS Platform", budget: 50, deadline: "6 дни", format: "16:9", brief: "45-60 сек explainer с английски voiceover. Ясен скрипт, професионален feel, product shots." },
+  { id: "04", tier: "premium", client: "Crypto Project", title: "Token Launch Teaser", budget: 50, deadline: "3 дни", format: "16:9 + 9:16", brief: "Teaser за token launch. High-energy edit, modern VFX, countdown elements, 15-30 сек." },
+  { id: "05", tier: "premium", client: "E-commerce", title: "Black Friday Hero", budget: 50, deadline: "5 дни", format: "9:16", brief: "Кампания за Black Friday sale. Product-centric, динамични cuts, ясен price reveal." },
+
+  // Standard — 10 × €20 = €200
+  { id: "06", tier: "standard", client: "F&B", title: "Restaurant Quick Promo", budget: 20, deadline: "3 дни", format: "9:16", brief: "Food shots, апетитни ъгли, music-driven. 15-20 сек TikTok-ready." },
+  { id: "07", tier: "standard", client: "Beauty Brand", title: "Skincare UGC", budget: 20, deadline: "4 дни", format: "9:16", brief: "UGC-style преди/след, close-up texture shots. Authentic feel, не pro-commercial." },
+  { id: "08", tier: "standard", client: "Fitness Studio", title: "Gym Reel Highlight", budget: 20, deadline: "3 дни", format: "9:16", brief: "Highlight reel от тренировки. Energetic cuts, beat-synced, 20 сек." },
+  { id: "09", tier: "standard", client: "Travel Agency", title: "Destination Teaser", budget: 20, deadline: "5 дни", format: "16:9", brief: "30 сек teaser за дестинация. Breathtaking visuals, music-led, subtle brand integration." },
+  { id: "10", tier: "standard", client: "Real Estate", title: "Property Tour Cut", budget: 20, deadline: "4 дни", format: "16:9", brief: "Tour montage на имот. Smooth transitions, lifestyle shots, 45 сек." },
+  { id: "11", tier: "standard", client: "Music Label", title: "Artist Promo Clip", budget: 20, deadline: "3 дни", format: "9:16", brief: "Promo clip за нов сингъл. Snippet + artist shots, beat-synced, 15 сек." },
+  { id: "12", tier: "standard", client: "Fashion", title: "Outfit Transition", budget: 20, deadline: "2 дни", format: "9:16", brief: "Outfit transition видео — 3-4 looks, smooth match-cuts, trending audio." },
+  { id: "13", tier: "standard", client: "Auto Dealer", title: "Car Review Edit", budget: 20, deadline: "4 дни", format: "16:9", brief: "Review edit от съществуващи footage. Ясни feature callouts, 60 сек." },
+  { id: "14", tier: "standard", client: "Gaming", title: "Trailer Highlight", budget: 20, deadline: "3 дни", format: "16:9", brief: "Gameplay highlight trailer. Epic music, quick cuts, logo reveal." },
+  { id: "15", tier: "standard", client: "EdTech", title: "Course Promo", budget: 20, deadline: "4 дни", format: "9:16", brief: "Promo за онлайн курс. Benefit hooks, student testimonial feel, CTA endcard." },
+
+  // Quick — 5 × €10 = €50
+  { id: "16", tier: "quick", client: "Local Biz", title: "Event Recap", budget: 10, deadline: "2 дни", format: "9:16", brief: "15 сек recap от събитие. Highlights only, caption overlays." },
+  { id: "17", tier: "quick", client: "Influencer", title: "Story Cut", budget: 10, deadline: "1 ден", format: "9:16", brief: "Story montage от raw footage. Minimal cuts, vibe-driven." },
+  { id: "18", tier: "quick", client: "Podcast", title: "Clip Highlight", budget: 10, deadline: "2 дни", format: "16:9 + 9:16", brief: "30 сек клип от подкаст епизод. Captions, branded frame." },
+  { id: "19", tier: "quick", client: "Local Ad", title: "Ad Remix", budget: 10, deadline: "1 ден", format: "1:1", brief: "Ремикс на стар реклама. Свежи cuts, нова музика, 15 сек." },
+  { id: "20", tier: "quick", client: "Creator", title: "Trend Flip", budget: 10, deadline: "1 ден", format: "9:16", brief: "Trend video с flip на концепта. Trending audio, sharp hook." },
 ];
+
+const tierMeta: Record<BriefTier, { label: string; color: string; dot: string }> = {
+  premium: { label: "Premium", color: "text-[#c8ff00]", dot: "bg-[#c8ff00]" },
+  standard: { label: "Standard", color: "text-white", dot: "bg-white/70" },
+  quick: { label: "Quick", color: "text-white/60", dot: "bg-white/30" },
+};
 
 const navLinks = [
   { href: "#features", label: "Обучение" },
@@ -376,25 +379,31 @@ function PlatformPreview() {
 
 function ArenaSection() {
   const [active, setActive] = useState(0);
-  const [autoPlay, setAutoPlay] = useState(true);
+  const [filter, setFilter] = useState<"all" | BriefTier>("all");
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
+  const visibleBriefs = filter === "all" ? arenaBriefs : arenaBriefs.filter((b) => b.tier === filter);
+
   useEffect(() => {
-    if (!autoPlay) return;
     intervalRef.current = setInterval(() => {
       setActive((prev) => (prev + 1) % arenaBriefs.length);
-    }, 4500);
+    }, 2500);
     return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
-  }, [autoPlay]);
+  }, []);
 
-  function handleClick(i: number) {
-    setActive(i);
-    setAutoPlay(false);
+  function handleClick(index: number) {
+    setActive(index);
     if (intervalRef.current) clearInterval(intervalRef.current);
   }
 
   const b = arenaBriefs[active];
   const totalPool = arenaBriefs.reduce((s, x) => s + x.budget, 0);
+  const tierCounts = {
+    all: arenaBriefs.length,
+    premium: arenaBriefs.filter((x) => x.tier === "premium").length,
+    standard: arenaBriefs.filter((x) => x.tier === "standard").length,
+    quick: arenaBriefs.filter((x) => x.tier === "quick").length,
+  };
 
   return (
     <section className="py-20 sm:py-32 px-4 sm:px-6 relative overflow-hidden">
@@ -417,7 +426,7 @@ function ArenaSection() {
               <span className="text-white/40 text-xs sm:text-sm uppercase tracking-widest font-semibold">/мес</span>
             </div>
             <p className="text-white/50 text-sm sm:text-base max-w-md leading-relaxed sm:pb-2">
-              Реални платени brief-ове от Vekto клиенти. Предаваш видео, получаваш ревю, най-добрите печелят — всеки месец.
+              <span className="text-white font-semibold">20 реални платени задачи всеки месец.</span> Предаваш видео, получаваш ревю от Vekto, най-добрите печелят.
             </p>
           </div>
         </div>
@@ -425,8 +434,8 @@ function ArenaSection() {
         {/* Stats bar */}
         <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-6 sm:mb-8">
           {[
+            { v: "20", l: "задачи/месец" },
             { v: "€500", l: "пул/месец" },
-            { v: `${arenaBriefs.length}`, l: "активни brief-а" },
             { v: "∞", l: "опити/участник" },
           ].map((stat) => (
             <div key={stat.l} className="rounded-xl border border-white/10 bg-[#0e0e0e] p-3 sm:p-5">
@@ -436,62 +445,99 @@ function ArenaSection() {
           ))}
         </div>
 
-        {/* Interactive brief board */}
+        {/* Месечен Drop */}
         <div className="rounded-2xl sm:rounded-3xl border border-white/10 bg-[#0e0e0e] overflow-hidden">
 
           {/* Header bar */}
-          <div className="px-4 sm:px-6 py-3 sm:py-4 bg-[#111] border-b border-white/10 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff00] animate-pulse" />
-              <p className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-white/80">
-                Live Brief Board
+          <div className="px-4 sm:px-6 py-3 sm:py-4 bg-[#111] border-b border-white/10 flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff00] animate-pulse flex-shrink-0" />
+              <p className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-white/80 truncate">
+                Месечен Drop · {tierCounts.all} задачи
               </p>
             </div>
-            <p className="text-[10px] sm:text-xs text-white/30">
+            <p className="text-[10px] sm:text-xs text-white/30 flex-shrink-0">
               Общо: <span className="text-[#c8ff00] font-bold">€{totalPool}</span>
             </p>
           </div>
 
-          {/* Brief selector tabs */}
-          <div className="grid grid-cols-4 border-b border-white/10">
-            {arenaBriefs.map((brief, i) => {
-              const isActive = active === i;
+          {/* Tier filter */}
+          <div className="flex gap-1.5 sm:gap-2 px-4 sm:px-6 py-3 sm:py-4 border-b border-white/10 overflow-x-auto">
+            {([
+              { id: "all", label: "Всички", count: tierCounts.all, color: "bg-[#c8ff00]/15 text-[#c8ff00]" },
+              { id: "premium", label: "Premium €50", count: tierCounts.premium, color: "bg-[#c8ff00]/10 text-[#c8ff00]" },
+              { id: "standard", label: "Standard €20", count: tierCounts.standard, color: "bg-white/10 text-white" },
+              { id: "quick", label: "Quick €10", count: tierCounts.quick, color: "bg-white/5 text-white/70" },
+            ] as const).map((t) => {
+              const isSel = filter === t.id;
               return (
                 <button
-                  key={brief.id}
-                  onClick={() => handleClick(i)}
-                  className={`relative py-3 sm:py-4 px-1 sm:px-4 text-center transition-all duration-300 ${isActive ? "bg-[#c8ff00]/5" : "hover:bg-white/[0.03]"} ${i < arenaBriefs.length - 1 ? "border-r border-white/10" : ""}`}
+                  key={t.id}
+                  onClick={() => setFilter(t.id)}
+                  className={`flex-shrink-0 rounded-full px-3 sm:px-4 py-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all border ${isSel ? `${t.color} border-current` : "bg-white/[0.02] text-white/40 border-white/10 hover:text-white/70"}`}
                 >
-                  <span className={`block text-[9px] sm:text-xs font-bold uppercase tracking-widest mb-0.5 transition-colors ${isActive ? "text-[#c8ff00]" : "text-white/25"}`}>
-                    #{brief.id}
-                  </span>
-                  <span className={`block font-black text-sm sm:text-lg transition-colors ${isActive ? "text-white" : "text-white/40"}`}>
-                    €{brief.budget}
-                  </span>
-                  <div className={`absolute bottom-0 left-0 right-0 h-[2px] ${isActive ? "bg-[#c8ff00]" : "bg-transparent"}`}>
-                    {isActive && autoPlay && <div className="h-full bg-[#c8ff00] animate-[progress_4.5s_linear_forwards]" />}
-                  </div>
+                  {t.label} <span className="opacity-50 ml-1">· {t.count}</span>
                 </button>
               );
             })}
           </div>
 
+          {/* 20 brief grid */}
+          <div className="p-3 sm:p-5 border-b border-white/10">
+            <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-10 gap-1.5 sm:gap-2">
+              {arenaBriefs.map((brief, i) => {
+                const isActive = active === i;
+                const visible = filter === "all" || brief.tier === filter;
+                const tm = tierMeta[brief.tier];
+                return (
+                  <button
+                    key={brief.id}
+                    onClick={() => handleClick(i)}
+                    className={`relative aspect-square rounded-lg border transition-all duration-300 flex flex-col items-center justify-center gap-0.5 ${
+                      isActive
+                        ? "border-[#c8ff00] bg-[#c8ff00]/10 scale-105 shadow-[0_0_20px_rgba(200,255,0,0.25)] z-10"
+                        : visible
+                          ? "border-white/10 bg-[#0a0a0a] hover:border-white/25 hover:bg-white/[0.03]"
+                          : "border-white/5 bg-[#0a0a0a]/50 opacity-25"
+                    }`}
+                  >
+                    <span className={`w-1 h-1 rounded-full ${tm.dot} absolute top-1.5 right-1.5`} />
+                    <span className={`text-[8px] sm:text-[9px] font-bold uppercase tracking-widest ${isActive ? "text-[#c8ff00]" : "text-white/25"}`}>
+                      #{brief.id}
+                    </span>
+                    <span className={`font-black text-[11px] sm:text-sm leading-none ${isActive ? "text-white" : "text-white/60"}`}>
+                      €{brief.budget}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+            {visibleBriefs.length < arenaBriefs.length && (
+              <p className="text-white/30 text-[10px] sm:text-xs mt-3 text-center">
+                Показани {visibleBriefs.length} от {arenaBriefs.length}
+              </p>
+            )}
+          </div>
+
           {/* Active brief detail */}
           <div className="p-5 sm:p-8 md:p-10" key={active}>
-            <div className="flex items-center gap-2 mb-3 animate-[fadeIn_0.3s_ease]">
+            <div className="flex items-center gap-2 mb-3 animate-[fadeIn_0.3s_ease] flex-wrap">
               <span className="text-[#c8ff00]/70 text-[10px] sm:text-xs font-bold uppercase tracking-widest">Brief #{b.id}</span>
+              <span className="w-1 h-1 rounded-full bg-white/20" />
+              <span className={`text-[10px] sm:text-xs font-bold uppercase tracking-wider ${tierMeta[b.tier].color}`}>
+                {tierMeta[b.tier].label}
+              </span>
               <span className="w-1 h-1 rounded-full bg-white/20" />
               <span className="text-white/30 text-[10px] sm:text-xs uppercase tracking-wider">{b.client}</span>
             </div>
             <h3 className="text-2xl sm:text-3xl md:text-4xl font-black mb-4 animate-[fadeIn_0.3s_ease] tracking-tight leading-tight">{b.title}</h3>
             <p className="text-white/60 text-sm sm:text-base leading-relaxed max-w-2xl mb-6 animate-[fadeIn_0.35s_ease]">{b.brief}</p>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mb-6 animate-[fadeIn_0.4s_ease]">
+            <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-6 animate-[fadeIn_0.4s_ease]">
               {[
                 { l: "Награда", v: `€${b.budget}`, accent: true },
                 { l: "Deadline", v: b.deadline },
                 { l: "Формат", v: b.format },
-                { l: "Участници", v: String(b.participants) },
               ].map((m) => (
                 <div key={m.l} className={`rounded-lg border p-2.5 sm:p-3 ${m.accent ? "border-[#c8ff00]/30 bg-[#c8ff00]/5" : "border-white/10 bg-[#0a0a0a]"}`}>
                   <p className="text-white/30 text-[9px] sm:text-[10px] uppercase tracking-widest mb-1">{m.l}</p>
@@ -504,14 +550,14 @@ function ArenaSection() {
               <Link href="/sign-up" className="bg-[#c8ff00] text-black font-black px-6 py-3 rounded-full text-sm text-center hover:bg-[#d4ff1a] transition-colors">
                 Участвай в Арена →
               </Link>
-              <p className="text-white/40 text-xs text-center sm:text-left">Отключваш с активен план · Без ограничение в опитите</p>
+              <p className="text-white/40 text-xs text-center sm:text-left">Отключваш с активен план · Неограничени опити</p>
             </div>
           </div>
         </div>
 
         <div className="border-l-4 border-[#c8ff00] pl-5 sm:pl-6 py-2 mt-8">
           <p className="text-white/50 leading-relaxed text-sm">
-            Награди се изплащат директно от Vekto след одобрение на проекта.{" "}
+            Награди се изплащат директно от Vekto след одобрение.{" "}
             <span className="text-white">Най-добрите участници получават дългосрочни Vekto задачи и стават част от екипа.</span>
           </p>
         </div>
