@@ -581,6 +581,179 @@ function CommunitySection() {
   );
 }
 
+function JourneySection() {
+  const steps = [
+    {
+      month: "Месец 1",
+      label: "Старт",
+      title: "Учиш. Практикуваш. Влизаш в общността.",
+      unlocks: [
+        { icon: "▸", text: "Пълен курс · 7 модула" },
+        { icon: "▸", text: "Общност + weekly Q&A" },
+        { icon: "▸", text: "Арена · участваш в brief-ове" },
+      ],
+      pay: "Без приход още",
+      payNote: "Фокус · учене и темпо",
+    },
+    {
+      month: "Месец 2-3",
+      label: "Доказваш се",
+      title: "Печелиш Premium brief-ове. Vekto те забелязва.",
+      unlocks: [
+        { icon: "★", text: "Shortlist — в радара на Vekto" },
+        { icon: "★", text: "Първи клиентски brief-ове" },
+        { icon: "★", text: "Peer review на твои case studies" },
+      ],
+      pay: "€50 – €800/brief",
+      payNote: "Печалби от Арена + първи freelance проекти",
+    },
+    {
+      month: "Месец 4+",
+      label: "Постоянна работа",
+      title: "Регулярни Vekto задачи. Или full-time в екипа.",
+      unlocks: [
+        { icon: "●", text: "Contractor · постоянен поток от задачи" },
+        { icon: "●", text: "Team · full-time или strategic partner" },
+        { icon: "●", text: "Работиш с реални brand-ове в production" },
+      ],
+      pay: "€1k – 3k/мес или заплата",
+      payNote: "Целта · постоянен приход с Vekto",
+      highlight: true,
+    },
+  ];
+
+  const [active, setActive] = useState(0);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused) return;
+    intervalRef.current = setInterval(() => {
+      setActive((a) => (a + 1) % steps.length);
+    }, 4500);
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [paused, steps.length]);
+
+  const current = steps[active];
+
+  return (
+    <section id="jobs" className="py-16 sm:py-24 px-4 sm:px-6 bg-[#0a0a0a] border-y border-white/10 relative overflow-hidden scroll-mt-20">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-[#c8ff00]/3 rounded-full blur-[140px]" />
+      </div>
+      <div className="max-w-5xl mx-auto relative z-10">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <span className="text-[#c8ff00] text-sm font-semibold uppercase tracking-widest mb-3 block">Работа · Pipeline</span>
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-tight leading-[1.05] mb-4">
+            Какво отключваш <span className="text-[#c8ff00]">по месеци.</span>
+          </h2>
+          <p className="text-white/50 text-sm sm:text-base max-w-xl mx-auto">От първи ден до постоянна работа с Vekto — в 3 ясни стъпки.</p>
+        </div>
+
+        {/* Timeline strip */}
+        <div className="mb-8 sm:mb-10" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+          <div className="relative flex items-center justify-between max-w-3xl mx-auto px-2">
+            {/* Progress line bg */}
+            <div className="absolute top-1/2 left-6 right-6 h-[2px] bg-white/10 -translate-y-1/2" />
+            {/* Progress line filled */}
+            <div
+              className="absolute top-1/2 left-6 h-[2px] bg-[#c8ff00] -translate-y-1/2 transition-all duration-500"
+              style={{ width: `calc(${(active / (steps.length - 1)) * 100}% - ${active === 0 ? 0 : 12}px)` }}
+            />
+
+            {steps.map((s, i) => (
+              <button
+                key={i}
+                onClick={() => setActive(i)}
+                className="relative z-10 flex flex-col items-center gap-3 group"
+              >
+                <span
+                  className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-black text-sm transition-all duration-300 ${
+                    i <= active
+                      ? "bg-[#c8ff00] text-black shadow-[0_0_20px_rgba(200,255,0,0.4)]"
+                      : "bg-[#111] border border-white/10 text-white/40 group-hover:border-white/30"
+                  }`}
+                >
+                  0{i + 1}
+                </span>
+                <span className={`text-[10px] sm:text-xs font-bold uppercase tracking-widest transition-colors ${i === active ? "text-[#c8ff00]" : "text-white/30"}`}>
+                  {s.month}
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Active step card */}
+        <div
+          className={`rounded-3xl p-6 sm:p-10 transition-all duration-500 ${
+            current.highlight
+              ? "bg-[#c8ff00]/[0.06] border-2 border-[#c8ff00]/40 shadow-[0_0_60px_rgba(200,255,0,0.1)]"
+              : "bg-[#0d0d0d] border border-white/10"
+          }`}
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10">
+            {/* Left */}
+            <div className="flex flex-col gap-5">
+              <div className="flex items-center gap-3 flex-wrap">
+                <span className="inline-flex items-center gap-2 bg-black/40 border border-white/10 rounded-full px-3 py-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff00]" />
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-white/70">{current.month}</span>
+                </span>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-[#c8ff00]">{current.label}</span>
+              </div>
+
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight leading-[1.1] transition-all duration-300 min-h-[80px] sm:min-h-[100px]" key={active}>
+                {current.title}
+              </h3>
+
+              <div className="pt-5 mt-auto border-t border-white/10">
+                <p className="text-white/30 text-[10px] uppercase tracking-widest mb-2 font-semibold">Приход</p>
+                <p className={`text-2xl sm:text-3xl font-black leading-none mb-2 ${current.highlight ? "text-[#c8ff00]" : "text-white"}`}>
+                  {current.pay}
+                </p>
+                <p className="text-white/40 text-xs">{current.payNote}</p>
+              </div>
+            </div>
+
+            {/* Right — unlocks */}
+            <div className="flex flex-col gap-4">
+              <p className="text-[#c8ff00] text-[10px] font-bold uppercase tracking-widest mb-1">Отключваш</p>
+              <div className="flex flex-col gap-3" key={`unlocks-${active}`}>
+                {current.unlocks.map((u, i) => (
+                  <div
+                    key={u.text}
+                    className="flex items-start gap-3 p-4 rounded-xl bg-black/30 border border-white/10 animate-[fadeIn_0.4s_ease-out_both]"
+                    style={{ animationDelay: `${i * 100}ms` }}
+                  >
+                    <span className="text-[#c8ff00] font-black text-sm mt-0.5 flex-shrink-0">{u.icon}</span>
+                    <span className="text-white/80 text-sm font-semibold">{u.text}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Reality check + CTA */}
+        <div className="mt-10 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4">
+          <Link href="#pricing" className="bg-[#c8ff00] text-black font-black px-8 py-4 rounded-full text-sm sm:text-base text-center hover:bg-[#d4ff1a] transition-colors shadow-[0_0_40px_rgba(200,255,0,0.2)]">
+            Започни от Месец 1 →
+          </Link>
+          <p className="text-white/40 text-xs sm:text-sm text-center sm:text-left max-w-sm">
+            Без гаранции за работа — но който се доказва, Vekto го вижда.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function CurriculumSection() {
   const [open, setOpen] = useState<number | null>(0);
 
@@ -1106,84 +1279,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Jobs — кариерна стълба Vekto */}
-      <section id="jobs" className="py-16 sm:py-24 px-4 sm:px-6 bg-[#0a0a0a] border-y border-white/10 relative overflow-hidden scroll-mt-20">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-[#c8ff00]/3 rounded-full blur-[140px]" />
-        </div>
-        <div className="max-w-6xl mx-auto relative z-10">
-          {/* Header */}
-          <div className="text-center mb-14">
-            <span className="text-[#c8ff00] text-sm font-semibold uppercase tracking-widest mb-3 block">Работа · Pipeline</span>
-            <h2 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-tight leading-[1.05] mb-4">
-              От Академия до <span className="text-[#c8ff00]">Vekto екип.</span>
-            </h2>
-            <p className="text-white/50 text-sm sm:text-base max-w-2xl mx-auto">Реалният път, по който creators в общността минават — от първи Premium победи до постоянна работа с Vekto.</p>
-          </div>
-
-          {/* Career ladder — 4 cards */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-3 sm:gap-4 mb-10 relative">
-            {[
-              { n: "01", label: "Shortlist", title: "Попадаш в радара", entry: "3+ Premium победи в Арена", pay: "€50-150/мес", desc: "Vekto преглежда твоя профил и те добавя в shortlist-а за реални клиентски проекти извън Арена." },
-              { n: "02", label: "Freelance", title: "Първи клиентски brief-ове", entry: "Одобрение от shortlist", pay: "€200-800/brief", desc: "Директно се включваш в реални Vekto проекти — работиш по brief-ове от истински клиенти със стандартни агенционни бюджети." },
-              { n: "03", label: "Contractor", title: "Постоянен приход", entry: "3+ успешни brief-а", pay: "€1k-3k/мес", desc: "Vekto те задържа като regular contractor. Получаваш постоянен поток от задачи, предвидим приход." },
-              { n: "04", label: "Team", title: "Част от Vekto", entry: "Top 5% + fit с екипа", pay: "Заплата + бонуси", desc: "Влизаш постоянно в екипа на Vekto. Full-time или strategic partner — работиш с реални brand-ове в production.", highlight: true },
-            ].map((s, i, arr) => (
-              <div key={s.n} className="relative">
-                <div className={`rounded-2xl p-5 sm:p-6 h-full flex flex-col ${s.highlight ? "bg-[#c8ff00]/[0.06] border-2 border-[#c8ff00]/40 shadow-[0_0_40px_rgba(200,255,0,0.08)]" : "bg-[#0d0d0d] border border-white/10"}`}>
-                  {s.highlight && (
-                    <span className="absolute -top-3 left-5 bg-[#c8ff00] text-black text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider">Целта</span>
-                  )}
-                  <div className="flex items-center justify-between mb-4">
-                    <span className={`w-9 h-9 rounded-full flex items-center justify-center font-black text-xs border ${s.highlight ? "bg-[#c8ff00] text-black border-[#c8ff00]" : "bg-white/5 text-[#c8ff00] border-white/10"}`}>
-                      {s.n}
-                    </span>
-                    <span className={`text-[10px] font-bold uppercase tracking-widest ${s.highlight ? "text-[#c8ff00]" : "text-white/40"}`}>
-                      {s.label}
-                    </span>
-                  </div>
-                  <h3 className="font-black text-lg mb-3 leading-tight">{s.title}</h3>
-                  <p className="text-white/50 text-sm leading-relaxed mb-5 flex-1">{s.desc}</p>
-                  <div className="space-y-2.5 pt-4 border-t border-white/10 mt-auto">
-                    <div>
-                      <p className="text-white/30 text-[10px] uppercase tracking-widest mb-0.5">Условие</p>
-                      <p className="text-white/70 text-xs font-semibold">{s.entry}</p>
-                    </div>
-                    <div>
-                      <p className="text-white/30 text-[10px] uppercase tracking-widest mb-0.5">Приход</p>
-                      <p className={`text-sm font-black ${s.highlight ? "text-[#c8ff00]" : "text-white"}`}>{s.pay}</p>
-                    </div>
-                  </div>
-                </div>
-                {i < arr.length - 1 && (
-                  <div className="hidden md:flex absolute top-1/2 -right-2 -translate-y-1/2 z-10 items-center justify-center w-6 h-6 rounded-full bg-[#0a0a0a] border border-white/10 text-[#c8ff00] text-xs">
-                    →
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* Reality check */}
-          <div className="rounded-2xl border border-white/10 bg-[#0d0d0d] p-5 sm:p-6 mb-8 flex items-start gap-4">
-            <span className="w-10 h-10 rounded-full bg-[#c8ff00]/10 border border-[#c8ff00]/30 flex items-center justify-center text-[#c8ff00] text-lg flex-shrink-0">!</span>
-            <div>
-              <p className="font-black text-sm mb-1">Без гаранции — но пътят е ясен</p>
-              <p className="text-white/50 text-sm leading-relaxed">
-                Не обещаваме работа на всеки. Но който се доказва в Арена — Vekto го вижда. Премеждаването между етапите зависи от качеството на работата ти, не от време прекарано в платформата.
-              </p>
-            </div>
-          </div>
-
-          {/* CTA */}
-          <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-center">
-            <Link href="#pricing" className="bg-[#c8ff00] text-black font-black px-8 py-4 rounded-full text-sm sm:text-base text-center hover:bg-[#d4ff1a] transition-colors shadow-[0_0_40px_rgba(200,255,0,0.2)]">
-              Започни пътя си →
-            </Link>
-            <p className="text-white/40 text-xs sm:text-sm text-center">Стартираш с обучението. Фаза 2 е на 2-3 месеца разстояние.</p>
-          </div>
-        </div>
-      </section>
+      {/* Jobs — month-based interactive journey */}
+      <JourneySection />
 
       {/* Curriculum — Месец 1: обучението */}
       <CurriculumSection />
