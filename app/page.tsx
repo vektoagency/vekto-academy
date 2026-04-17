@@ -503,7 +503,7 @@ export default function HomePage() {
         </h1>
 
         <p className="hero-reveal text-white/50 text-sm sm:text-base max-w-xl mb-6 relative z-10 leading-relaxed text-center" style={{ animationDelay: "950ms" }}>
-          3 месеца структурирано обучение. Реални брифове от Vekto. Наемане на най-добрите.
+          3 месеца структурирано обучение. Реални задачи от Vekto. Наемане на най-добрите.
         </p>
 
         {/* CTA with plan toggle */}
