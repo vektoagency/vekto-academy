@@ -4,52 +4,6 @@ import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { createCheckout } from "./actions/checkout";
 
-type BriefTier = "premium" | "standard" | "quick";
-type Brief = {
-  id: string;
-  tier: BriefTier;
-  client: string;
-  title: string;
-  budget: number;
-  deadline: string;
-  format: string;
-  brief: string;
-};
-
-const arenaBriefs: Brief[] = [
-  // Premium — 5 × €50 = €250
-  { id: "01", tier: "premium", client: "Tech SaaS", title: "Product Launch — AI Tool", budget: 50, deadline: "4 дни", format: "16:9", brief: "UGC видео представящо нов AI продукт. Benefit-driven, 20-30 секунди, 3 варианта за A/B тест." },
-  { id: "02", tier: "premium", client: "Fashion Brand", title: "Summer Hero Campaign", budget: 50, deadline: "5 дни", format: "9:16 + 1:1", brief: "Hero видео за летен лукс-дроп. Cinematic feel, slow-mo moments, professional color grade." },
-  { id: "03", tier: "premium", client: "B2B Startup", title: "Explainer — SaaS Platform", budget: 50, deadline: "6 дни", format: "16:9", brief: "45-60 сек explainer с английски voiceover. Ясен скрипт, професионален feel, product shots." },
-  { id: "04", tier: "premium", client: "Crypto Project", title: "Token Launch Teaser", budget: 50, deadline: "3 дни", format: "16:9 + 9:16", brief: "Teaser за token launch. High-energy edit, modern VFX, countdown elements, 15-30 сек." },
-  { id: "05", tier: "premium", client: "E-commerce", title: "Black Friday Hero", budget: 50, deadline: "5 дни", format: "9:16", brief: "Кампания за Black Friday sale. Product-centric, динамични cuts, ясен price reveal." },
-
-  // Standard — 10 × €20 = €200
-  { id: "06", tier: "standard", client: "F&B", title: "Restaurant Quick Promo", budget: 20, deadline: "3 дни", format: "9:16", brief: "Food shots, апетитни ъгли, music-driven. 15-20 сек TikTok-ready." },
-  { id: "07", tier: "standard", client: "Beauty Brand", title: "Skincare UGC", budget: 20, deadline: "4 дни", format: "9:16", brief: "UGC-style преди/след, close-up texture shots. Authentic feel, не pro-commercial." },
-  { id: "08", tier: "standard", client: "Fitness Studio", title: "Gym Reel Highlight", budget: 20, deadline: "3 дни", format: "9:16", brief: "Highlight reel от тренировки. Energetic cuts, beat-synced, 20 сек." },
-  { id: "09", tier: "standard", client: "Travel Agency", title: "Destination Teaser", budget: 20, deadline: "5 дни", format: "16:9", brief: "30 сек teaser за дестинация. Breathtaking visuals, music-led, subtle brand integration." },
-  { id: "10", tier: "standard", client: "Real Estate", title: "Property Tour Cut", budget: 20, deadline: "4 дни", format: "16:9", brief: "Tour montage на имот. Smooth transitions, lifestyle shots, 45 сек." },
-  { id: "11", tier: "standard", client: "Music Label", title: "Artist Promo Clip", budget: 20, deadline: "3 дни", format: "9:16", brief: "Promo clip за нов сингъл. Snippet + artist shots, beat-synced, 15 сек." },
-  { id: "12", tier: "standard", client: "Fashion", title: "Outfit Transition", budget: 20, deadline: "2 дни", format: "9:16", brief: "Outfit transition видео — 3-4 looks, smooth match-cuts, trending audio." },
-  { id: "13", tier: "standard", client: "Auto Dealer", title: "Car Review Edit", budget: 20, deadline: "4 дни", format: "16:9", brief: "Review edit от съществуващи footage. Ясни feature callouts, 60 сек." },
-  { id: "14", tier: "standard", client: "Gaming", title: "Trailer Highlight", budget: 20, deadline: "3 дни", format: "16:9", brief: "Gameplay highlight trailer. Epic music, quick cuts, logo reveal." },
-  { id: "15", tier: "standard", client: "EdTech", title: "Course Promo", budget: 20, deadline: "4 дни", format: "9:16", brief: "Promo за онлайн курс. Benefit hooks, student testimonial feel, CTA endcard." },
-
-  // Quick — 5 × €10 = €50
-  { id: "16", tier: "quick", client: "Local Biz", title: "Event Recap", budget: 10, deadline: "2 дни", format: "9:16", brief: "15 сек recap от събитие. Highlights only, caption overlays." },
-  { id: "17", tier: "quick", client: "Influencer", title: "Story Cut", budget: 10, deadline: "1 ден", format: "9:16", brief: "Story montage от raw footage. Minimal cuts, vibe-driven." },
-  { id: "18", tier: "quick", client: "Podcast", title: "Clip Highlight", budget: 10, deadline: "2 дни", format: "16:9 + 9:16", brief: "30 сек клип от подкаст епизод. Captions, branded frame." },
-  { id: "19", tier: "quick", client: "Local Ad", title: "Ad Remix", budget: 10, deadline: "1 ден", format: "1:1", brief: "Ремикс на стар реклама. Свежи cuts, нова музика, 15 сек." },
-  { id: "20", tier: "quick", client: "Creator", title: "Trend Flip", budget: 10, deadline: "1 ден", format: "9:16", brief: "Trend video с flip на концепта. Trending audio, sharp hook." },
-];
-
-const tierMeta: Record<BriefTier, { label: string; color: string; dot: string }> = {
-  premium: { label: "Premium", color: "text-[#c8ff00]", dot: "bg-[#c8ff00]" },
-  standard: { label: "Standard", color: "text-white", dot: "bg-white/70" },
-  quick: { label: "Quick", color: "text-white/60", dot: "bg-white/30" },
-};
-
 const navLinks = [
   { href: "#about", label: "За нас" },
   { href: "#curriculum", label: "Програма" },
@@ -899,32 +853,6 @@ function CurriculumSection() {
 }
 
 function ArenaSection() {
-  const [active, setActive] = useState(0);
-  const [filter, setFilter] = useState<"all" | BriefTier>("all");
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  useEffect(() => {
-    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    intervalRef.current = setInterval(() => {
-      setActive((prev) => (prev + 1) % arenaBriefs.length);
-    }, 5000);
-    return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
-  }, []);
-
-  function handleClick(index: number) {
-    setActive(index);
-    if (intervalRef.current) clearInterval(intervalRef.current);
-  }
-
-  const b = arenaBriefs[active];
-  const totalPool = arenaBriefs.reduce((s, x) => s + x.budget, 0);
-  const tierCounts = {
-    all: arenaBriefs.length,
-    premium: arenaBriefs.filter((x) => x.tier === "premium").length,
-    standard: arenaBriefs.filter((x) => x.tier === "standard").length,
-    quick: arenaBriefs.filter((x) => x.tier === "quick").length,
-  };
-
   return (
     <section id="arena" className="py-20 sm:py-32 px-4 sm:px-6 relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
@@ -965,7 +893,7 @@ function ArenaSection() {
           ))}
         </div>
 
-        {/* Месечен Drop */}
+        {/* Месечен пул — proof card */}
         <div className="rounded-2xl sm:rounded-3xl border border-white/10 bg-[#0e0e0e] overflow-hidden">
 
           {/* Header bar */}
@@ -973,135 +901,112 @@ function ArenaSection() {
             <div className="flex items-center gap-2 min-w-0">
               <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff00] animate-pulse flex-shrink-0" />
               <p className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-white/80 truncate">
-                Месечен Drop · {tierCounts.all} задачи
+                Месечен пул · €500 · 20 brief-а
               </p>
             </div>
-            <p className="text-[10px] sm:text-xs text-white/30 flex-shrink-0">
-              Общо: <span className="text-[#c8ff00] font-bold">€{totalPool}</span>
+            <p className="text-[10px] sm:text-xs text-white/30 flex-shrink-0 hidden sm:block">
+              Отваря се <span className="text-[#c8ff00] font-bold">1-во число</span> на месеца
             </p>
           </div>
 
-          {/* Tier filter */}
-          <div className="flex gap-1.5 sm:gap-2 px-4 sm:px-6 py-3 sm:py-4 border-b border-white/10 overflow-x-auto">
-            {([
-              { id: "all", label: "Всички", count: tierCounts.all, color: "bg-[#c8ff00]/15 text-[#c8ff00]" },
-              { id: "premium", label: "Premium €50", count: tierCounts.premium, color: "bg-[#c8ff00]/10 text-[#c8ff00]" },
-              { id: "standard", label: "Standard €20", count: tierCounts.standard, color: "bg-white/10 text-white" },
-              { id: "quick", label: "Quick €10", count: tierCounts.quick, color: "bg-white/5 text-white/70" },
-            ] as const).map((t) => {
-              const isSel = filter === t.id;
-              return (
-                <button
-                  key={t.id}
-                  onClick={() => setFilter(t.id)}
-                  className={`flex-shrink-0 rounded-full px-3 sm:px-4 py-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all border ${isSel ? `${t.color} border-current` : "bg-white/[0.02] text-white/40 border-white/10 hover:text-white/70"}`}
-                >
-                  {t.label} <span className="opacity-50 ml-1">· {t.count}</span>
-                </button>
-              );
-            })}
-          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-white/10">
 
-          {/* Compact brief ribbon — 20 tier-colored bars */}
-          <div className="px-4 sm:px-6 pt-4 pb-5 border-b border-white/10">
-            <div className="flex items-center justify-between mb-3 gap-3">
-              <span className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-white/50">
-                Brief <span className="text-[#c8ff00]">#{b.id}</span> <span className="text-white/20">/ {arenaBriefs.length}</span>
-              </span>
-              <div className="flex items-center gap-1.5">
-                <button
-                  onClick={() => handleClick(Math.max(0, active - 1))}
-                  disabled={active === 0}
-                  aria-label="Предишен brief"
-                  className="w-7 h-7 rounded-full border border-white/15 flex items-center justify-center text-white/60 hover:border-[#c8ff00]/50 hover:text-[#c8ff00] transition-colors disabled:opacity-25 disabled:cursor-not-allowed text-xs"
-                >
-                  ←
-                </button>
-                <button
-                  onClick={() => handleClick(Math.min(arenaBriefs.length - 1, active + 1))}
-                  disabled={active === arenaBriefs.length - 1}
-                  aria-label="Следващ brief"
-                  className="w-7 h-7 rounded-full border border-white/15 flex items-center justify-center text-white/60 hover:border-[#c8ff00]/50 hover:text-[#c8ff00] transition-colors disabled:opacity-25 disabled:cursor-not-allowed text-xs"
-                >
-                  →
-                </button>
+            {/* Left: Money split */}
+            <div className="p-5 sm:p-8">
+              <p className="text-[#c8ff00] text-[10px] font-bold uppercase tracking-widest mb-4">Как се дели пулът</p>
+
+              {/* Stacked bar */}
+              <div className="flex h-11 sm:h-12 rounded-lg overflow-hidden border border-white/10 mb-3">
+                <div style={{ width: "50%" }} className="bg-[#c8ff00] flex items-center justify-center text-black font-black text-[11px] sm:text-xs">5 × €50</div>
+                <div style={{ width: "40%" }} className="bg-white/70 flex items-center justify-center text-black font-black text-[11px] sm:text-xs">10 × €20</div>
+                <div style={{ width: "10%" }} className="bg-white/30 flex items-center justify-center text-black font-bold text-[9px] sm:text-[11px]">5 × €10</div>
+              </div>
+
+              {/* Legend */}
+              <div className="grid grid-cols-3 gap-2 mb-6">
+                {[
+                  { t: "Premium", v: "€50", c: "text-[#c8ff00]" },
+                  { t: "Standard", v: "€20", c: "text-white" },
+                  { t: "Quick", v: "€10", c: "text-white/60" },
+                ].map((l) => (
+                  <div key={l.t}>
+                    <p className={`font-black text-lg sm:text-xl leading-none ${l.c}`}>{l.v}</p>
+                    <p className="text-white/40 text-[10px] uppercase tracking-widest mt-1">{l.t}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Realistic earnings scenarios */}
+              <div className="rounded-xl border border-[#c8ff00]/25 bg-[#c8ff00]/[0.05] p-4 sm:p-5">
+                <p className="text-white/50 text-[10px] sm:text-xs mb-3 uppercase tracking-widest font-semibold">Реалистично · месечно</p>
+                <div className="space-y-2.5">
+                  {[
+                    { label: "1 Premium + 2 Standard", amount: "€90" },
+                    { label: "2 Premium + 1 Standard", amount: "€120" },
+                    { label: "3 Premium", amount: "€150" },
+                  ].map((s) => (
+                    <div key={s.label} className="flex items-center justify-between gap-3 text-sm">
+                      <span className="text-white/70">{s.label}</span>
+                      <span className="font-black text-[#c8ff00] tabular-nums">{s.amount}</span>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-white/40 text-[11px] mt-3 pt-3 border-t border-[#c8ff00]/15">Топ участниците → постоянна работа с Vekto извън пула.</p>
               </div>
             </div>
-            <div className="flex gap-1 sm:gap-1.5 items-end h-10 sm:h-12">
-              {arenaBriefs.map((brief, i) => {
-                const isActive = active === i;
-                const visible = filter === "all" || brief.tier === filter;
-                const heightClass = brief.tier === "premium" ? "h-full" : brief.tier === "standard" ? "h-[70%]" : "h-[45%]";
-                const tm = tierMeta[brief.tier];
-                return (
-                  <button
-                    key={brief.id}
-                    onClick={() => handleClick(i)}
-                    aria-label={`Brief #${brief.id} — €${brief.budget}`}
-                    className={`group relative flex-1 ${heightClass} rounded-sm transition-all duration-300 ${
-                      isActive
-                        ? `${tm.dot} shadow-[0_0_16px_rgba(200,255,0,0.5)] z-10`
-                        : visible
-                          ? `${tm.dot} opacity-50 hover:opacity-90`
-                          : `${tm.dot} opacity-10`
-                    }`}
-                  >
-                    {isActive && (
-                      <span className="absolute -top-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#c8ff00] shadow-[0_0_8px_rgba(200,255,0,0.8)]" />
-                    )}
-                    <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 text-[9px] font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap bg-black/90 border border-white/10 px-2 py-0.5 rounded">
-                      #{brief.id} · €{brief.budget}
+
+            {/* Right: How payout works */}
+            <div className="p-5 sm:p-8">
+              <p className="text-[#c8ff00] text-[10px] font-bold uppercase tracking-widest mb-4">Как получаваш парите</p>
+
+              <ol className="space-y-3 sm:space-y-4 mb-6">
+                {[
+                  { n: "01", t: "Клиент възлага видео на Vekto", s: "Част от бюджета отива в Арена като brief." },
+                  { n: "02", t: "Предаваш своята версия", s: "Неограничени опити, без такси за участие." },
+                  { n: "03", t: "Vekto избира победителя", s: "Професионално ревю + feedback за всеки опит." },
+                  { n: "04", t: "Плащане на IBAN до 7 дни", s: "Директно от Vekto — без посредници." },
+                ].map((step) => (
+                  <li key={step.n} className="flex items-start gap-3 sm:gap-4">
+                    <span className="flex-shrink-0 w-8 h-8 rounded-full bg-[#c8ff00]/10 border border-[#c8ff00]/30 text-[#c8ff00] font-black text-[11px] flex items-center justify-center">
+                      {step.n}
                     </span>
-                  </button>
-                );
-              })}
-            </div>
-            <div className="flex items-center justify-between mt-3 text-[10px] text-white/30">
-              <span className="flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-sm bg-[#c8ff00]" /> Premium €50
-              </span>
-              <span className="flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-sm bg-white/70" /> Standard €20
-              </span>
-              <span className="flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-sm bg-white/30" /> Quick €10
-              </span>
+                    <div className="min-w-0">
+                      <p className="text-white font-semibold text-sm leading-snug">{step.t}</p>
+                      <p className="text-white/45 text-xs mt-0.5 leading-relaxed">{step.s}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+
+              {/* Client proof */}
+              <div className="pt-5 border-t border-white/10">
+                <p className="text-white/35 text-[10px] uppercase tracking-widest mb-3 font-semibold">Brief-овете идват от клиенти като</p>
+                <div className="flex items-center gap-4 sm:gap-6 flex-wrap opacity-70">
+                  {clients.slice(0, 5).map((c) => (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img
+                      key={c.name}
+                      src={c.logo}
+                      alt={c.name}
+                      loading="lazy"
+                      decoding="async"
+                      style={{ height: c.circular ? "32px" : "20px", width: c.circular ? "32px" : "auto", maxWidth: "90px", objectFit: "contain" }}
+                    />
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Active brief detail */}
-          <div className="p-5 sm:p-8 md:p-10" key={active}>
-            <div className="flex items-center gap-2 mb-3 animate-[fadeIn_0.3s_ease] flex-wrap">
-              <span className="text-[#c8ff00]/70 text-[10px] sm:text-xs font-bold uppercase tracking-widest">Brief #{b.id}</span>
-              <span className="w-1 h-1 rounded-full bg-white/20" />
-              <span className={`text-[10px] sm:text-xs font-bold uppercase tracking-wider ${tierMeta[b.tier].color}`}>
-                {tierMeta[b.tier].label}
-              </span>
-              <span className="w-1 h-1 rounded-full bg-white/20" />
-              <span className="text-white/30 text-[10px] sm:text-xs uppercase tracking-wider">{b.client}</span>
+          {/* CTA bar */}
+          <div className="px-5 sm:px-8 py-5 sm:py-6 border-t border-white/10 bg-[#0a0a0a] flex flex-col sm:flex-row items-stretch sm:items-center gap-4 justify-between">
+            <div>
+              <p className="text-white font-bold text-sm sm:text-base">Плащаш да учиш. Ние ти плащаме.</p>
+              <p className="text-white/40 text-xs mt-0.5">Отключваш с активен план · Неограничени опити</p>
             </div>
-            <h3 className="text-2xl sm:text-3xl md:text-4xl font-black mb-4 animate-[fadeIn_0.3s_ease] tracking-tight leading-tight">{b.title}</h3>
-            <p className="text-white/60 text-sm sm:text-base leading-relaxed max-w-2xl mb-6 animate-[fadeIn_0.35s_ease]">{b.brief}</p>
-
-            <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-6 animate-[fadeIn_0.4s_ease]">
-              {[
-                { l: "Награда", v: `€${b.budget}`, accent: true },
-                { l: "Deadline", v: b.deadline },
-                { l: "Формат", v: b.format },
-              ].map((m) => (
-                <div key={m.l} className={`rounded-lg border p-2.5 sm:p-3 ${m.accent ? "border-[#c8ff00]/30 bg-[#c8ff00]/5" : "border-white/10 bg-[#0a0a0a]"}`}>
-                  <p className="text-white/30 text-[9px] sm:text-[10px] uppercase tracking-widest mb-1">{m.l}</p>
-                  <p className={`font-black text-sm sm:text-base ${m.accent ? "text-[#c8ff00]" : "text-white"}`}>{m.v}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center animate-[fadeIn_0.45s_ease]">
-              <Link href="/sign-up" className="bg-[#c8ff00] text-black font-black px-6 py-3 rounded-full text-sm text-center hover:bg-[#d4ff1a] transition-colors">
-                Участвай в Арена →
-              </Link>
-              <p className="text-white/40 text-xs text-center sm:text-left">Отключваш с активен план · Неограничени опити</p>
-            </div>
+            <Link href="/sign-up" className="bg-[#c8ff00] text-black font-black px-6 py-3 rounded-full text-sm text-center hover:bg-[#d4ff1a] transition-colors flex-shrink-0 shadow-[0_0_30px_rgba(200,255,0,0.2)]">
+              Участвай в Арена →
+            </Link>
           </div>
         </div>
 
