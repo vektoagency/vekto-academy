@@ -26,6 +26,12 @@ body {
   animation: scrollLeft 90s linear infinite;
 }
 
+@media (max-width: 768px) {
+  .scroll-left {
+    animation-duration: 30s;
+  }
+}
+
 /* Pipeline */
 @keyframes progress {
   from { width: 0%; }
