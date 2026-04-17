@@ -451,8 +451,8 @@ export default function HomePage() {
       {/* Nav */}
       <MobileNav />
 
-      {/* Hero */}
-      <section className="relative flex flex-col items-center text-center px-5 pt-24 pb-0 min-h-screen">
+      {/* Hero — compact, fits above fold */}
+      <section className="relative flex flex-col items-center text-center px-5 pt-20 sm:pt-24 pb-10 sm:pb-12">
         {/* Background glows */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#c8ff00]/4 rounded-full blur-[140px]" />
@@ -460,74 +460,66 @@ export default function HomePage() {
         </div>
 
         {/* Promo banner — Lifetime offer */}
-        <div className="inline-flex flex-col sm:flex-row items-center gap-1.5 sm:gap-3 bg-[#c8ff00] text-black rounded-full px-4 sm:px-5 py-2 mb-6 relative z-10 shadow-[0_0_30px_rgba(200,255,0,0.25)]">
+        <div className="hero-reveal inline-flex items-center gap-2 sm:gap-3 bg-[#c8ff00] text-black rounded-full px-4 py-1.5 mb-5 relative z-10 shadow-[0_0_30px_rgba(200,255,0,0.25)]" style={{ animationDelay: "0ms" }}>
           <span className="flex items-center gap-1.5 text-[11px] sm:text-xs font-black uppercase tracking-wider">
             <span>⚡</span>
-            <span>Доживотен достъп €349</span>
+            <span>Доживотен €349</span>
           </span>
-          <span className="hidden sm:block w-1 h-1 rounded-full bg-black/30" />
-          <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider">Всичко отворено веднага</span>
-          <span className="hidden sm:block w-1 h-1 rounded-full bg-black/30" />
+          <span className="w-1 h-1 rounded-full bg-black/30" />
           <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider">До 1 юни</span>
         </div>
 
-        {/* Headline — asymmetric with animated arrow between lines */}
-        <h1 className="font-display relative z-10 mb-5 flex flex-col items-center font-extrabold tracking-[-0.03em] leading-[0.95]">
-          {/* Kicker */}
-          <span
-            className="hero-reveal text-[10px] sm:text-xs font-semibold uppercase tracking-[0.4em] text-white/40 mb-4"
-            style={{ animationDelay: "0ms" }}
-          >
-            Твоят път
-          </span>
-
+        {/* Headline — compact, animated */}
+        <h1 className="font-display relative z-10 mb-4 flex flex-col items-center font-extrabold tracking-[-0.03em] leading-[0.95]">
           {/* Line 1 */}
           <span
-            className="hero-reveal block text-[2.6rem] sm:text-5xl md:text-[5.5rem] text-white"
-            style={{ animationDelay: "150ms" }}
+            className="hero-reveal block text-[2.4rem] sm:text-5xl md:text-[4.5rem] text-white"
+            style={{ animationDelay: "100ms" }}
           >
             От <span className="italic font-light text-white/70">AI видео</span>
           </span>
 
           {/* Animated connector arrow */}
           <svg
-            className="hero-arrow my-3 sm:my-4 w-7 h-7 sm:w-10 sm:h-10 text-[#c8ff00] drop-shadow-[0_0_16px_rgba(200,255,0,0.5)]"
+            className="hero-arrow my-1.5 sm:my-2 w-6 h-6 sm:w-8 sm:h-8 text-[#c8ff00] drop-shadow-[0_0_16px_rgba(200,255,0,0.5)]"
             viewBox="0 0 40 60"
             fill="none"
             stroke="currentColor"
             strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
-            style={{ animationDelay: "650ms" }}
+            style={{ animationDelay: "500ms" }}
           >
-            <path d="M20 5 L20 50 M8 38 L20 50 L32 38" style={{ animationDelay: "650ms" }} />
+            <path d="M20 5 L20 50 M8 38 L20 50 L32 38" style={{ animationDelay: "500ms" }} />
           </svg>
 
-          {/* Line 2 — with subtle yellow sheen */}
+          {/* Line 2 — with sheen */}
           <span
-            className="hero-reveal block text-[2.6rem] sm:text-5xl md:text-[5.5rem] drop-shadow-[0_0_60px_rgba(200,255,0,0.3)]"
-            style={{ animationDelay: "900ms" }}
+            className="hero-reveal block text-[2.4rem] sm:text-5xl md:text-[4.5rem] drop-shadow-[0_0_60px_rgba(200,255,0,0.3)]"
+            style={{ animationDelay: "750ms" }}
           >
             <span className="hero-sheen">първия ти клиент.</span>
           </span>
         </h1>
 
-        <p className="text-white/50 text-sm sm:text-base md:text-lg max-w-xl mb-8 relative z-10 leading-relaxed text-center">
+        <p className="hero-reveal text-white/50 text-sm sm:text-base max-w-xl mb-6 relative z-10 leading-relaxed text-center" style={{ animationDelay: "950ms" }}>
           3 месеца структурирано обучение. Реални брифове от Vekto. Наемане на най-добрите.
         </p>
 
         {/* CTA with plan toggle */}
-        <PricingToggle />
+        <div className="hero-reveal w-full flex justify-center" style={{ animationDelay: "1100ms" }}>
+          <PricingToggle />
+        </div>
 
         {/* Social proof */}
-        <div className="flex flex-wrap justify-center items-center gap-4 text-xs sm:text-sm text-white/30 relative z-10 mb-10">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#c8ff00]" />
+        <div className="hero-reveal flex flex-wrap justify-center items-center gap-3 sm:gap-4 text-[11px] sm:text-xs text-white/30 relative z-10" style={{ animationDelay: "1300ms" }}>
+          <div className="flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff00]" />
             <span>Early access отворен</span>
           </div>
           <span className="text-white/10 hidden sm:block">|</span>
           <div className="flex items-center gap-1">
-            <span className="text-[#c8ff00] text-xs">★★★★★</span>
+            <span className="text-[#c8ff00]">★★★★★</span>
             <span>4.9 рейтинг</span>
           </div>
           <span className="text-white/10 hidden sm:block">|</span>
@@ -536,9 +528,11 @@ export default function HomePage() {
             <span>Реална агенция зад обучението</span>
           </div>
         </div>
+      </section>
 
-        {/* Hero video */}
-        <div className="relative mt-16 w-full max-w-4xl mx-auto rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+      {/* Hero video — separate section below hero */}
+      <section className="relative px-5 pb-16 sm:pb-20">
+        <div className="relative w-full max-w-4xl mx-auto rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
           <div className="aspect-video bg-[#111] flex items-center justify-center relative">
             <div className="absolute inset-0 bg-gradient-to-br from-[#c8ff00]/5 to-transparent" />
             {/* Placeholder за видеото — замени src с реалното видео */}
@@ -1068,8 +1062,12 @@ function PricingToggle() {
                 <span className={`text-[11px] font-bold uppercase tracking-wider ${isActive ? "text-black/70" : "text-white/40"}`}>
                   {p.label}
                 </span>
-                {p.badge && isActive && (
-                  <span className="text-[9px] font-bold bg-black text-[#c8ff00] px-1.5 py-0.5 rounded-full">
+                {p.badge && (
+                  <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ${
+                    isActive
+                      ? "bg-black text-[#c8ff00]"
+                      : "bg-[#c8ff00]/15 text-[#c8ff00] border border-[#c8ff00]/30"
+                  }`}>
                     {p.badge}
                   </span>
                 )}
