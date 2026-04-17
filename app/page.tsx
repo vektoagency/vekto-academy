@@ -1260,14 +1260,21 @@ export default function HomePage() {
                   {/* Client logo mosaic — 2x2 grid, fills middle */}
                   <div className="flex-1 grid grid-cols-2 gap-px bg-white/5 mx-5 sm:mx-6 rounded-2xl overflow-hidden border border-white/10">
                     {[
-                      { logo: "/logo-gifto2.png", name: "Gifto" },
-                      { logo: "/logo-menscare.png", name: "MensCare" },
-                      { logo: "/logo-adventuresbg.png", name: "Adventures" },
-                      { logo: "/logo-isosport.png", name: "Isosport" },
+                      { logo: "/logo-adventuresbg.png", name: "Adventures", circular: false },
+                      { logo: "/logo-menscare.png", name: "MensCare", circular: true },
+                      { logo: "/logo-gifto2.png", name: "Gifto", circular: false },
+                      { logo: "/logo-isosport.png", name: "Isosport", circular: false },
                     ].map((c) => (
-                      <div key={c.name} className="bg-[#0a0a0a] flex items-center justify-center p-4 aspect-square opacity-80 group-hover:opacity-100 transition-opacity">
+                      <div key={c.name} className="bg-[#0a0a0a] flex items-center justify-center p-6 aspect-square opacity-80 group-hover:opacity-100 transition-opacity">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={c.logo} alt={c.name} className="max-w-[70%] max-h-[40px] w-auto h-auto object-contain" />
+                        <img
+                          src={c.logo}
+                          alt={c.name}
+                          style={c.circular
+                            ? { width: "56px", height: "56px", objectFit: "contain" }
+                            : { maxHeight: "32px", maxWidth: "80%", width: "auto", height: "auto", objectFit: "contain" }
+                          }
+                        />
                       </div>
                     ))}
                   </div>
