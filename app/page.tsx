@@ -471,13 +471,44 @@ export default function HomePage() {
           <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider">До 1 юни</span>
         </div>
 
-        {/* Headline */}
-        <h1 className="font-display relative z-10 mb-5 text-center font-extrabold tracking-[-0.03em] leading-[0.98]">
-          <span className="block text-[2.8rem] sm:text-5xl md:text-[5.5rem] text-white">
-            От AI видео
+        {/* Headline — asymmetric with animated arrow between lines */}
+        <h1 className="font-display relative z-10 mb-5 flex flex-col items-center font-extrabold tracking-[-0.03em] leading-[0.95]">
+          {/* Kicker */}
+          <span
+            className="hero-reveal text-[10px] sm:text-xs font-semibold uppercase tracking-[0.4em] text-white/40 mb-4"
+            style={{ animationDelay: "0ms" }}
+          >
+            Твоят път
           </span>
-          <span className="block text-[2.8rem] sm:text-5xl md:text-[5.5rem] text-[#c8ff00] drop-shadow-[0_0_60px_rgba(200,255,0,0.3)]">
-            до първия ти клиент.
+
+          {/* Line 1 */}
+          <span
+            className="hero-reveal block text-[2.6rem] sm:text-5xl md:text-[5.5rem] text-white"
+            style={{ animationDelay: "150ms" }}
+          >
+            От <span className="italic font-light text-white/70">AI видео</span>
+          </span>
+
+          {/* Animated connector arrow */}
+          <svg
+            className="hero-arrow my-3 sm:my-4 w-7 h-7 sm:w-10 sm:h-10 text-[#c8ff00] drop-shadow-[0_0_16px_rgba(200,255,0,0.5)]"
+            viewBox="0 0 40 60"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{ animationDelay: "650ms" }}
+          >
+            <path d="M20 5 L20 50 M8 38 L20 50 L32 38" style={{ animationDelay: "650ms" }} />
+          </svg>
+
+          {/* Line 2 — with subtle yellow sheen */}
+          <span
+            className="hero-reveal block text-[2.6rem] sm:text-5xl md:text-[5.5rem] drop-shadow-[0_0_60px_rgba(200,255,0,0.3)]"
+            style={{ animationDelay: "900ms" }}
+          >
+            <span className="hero-sheen">първия ти клиент.</span>
           </span>
         </h1>
 
