@@ -32,6 +32,7 @@ export default function ArenaSubmission() {
   const [loading, setLoading] = useState(true);
   const [challenge, setChallenge] = useState<Challenge | null>(null);
   const [submission, setSubmission] = useState<Submission | null>(null);
+  const [libraryId, setLibraryId] = useState<string>("");
   const [file, setFile] = useState<File | null>(null);
   const [notes, setNotes] = useState("");
   const [progress, setProgress] = useState(0);
@@ -45,6 +46,7 @@ export default function ArenaSubmission() {
       const data = await res.json();
       setChallenge(data.challenge);
       setSubmission(data.submission);
+      setLibraryId(data.libraryId ?? "");
       if (data.submission?.notes) setNotes(data.submission.notes);
     } finally {
       setLoading(false);
@@ -179,14 +181,20 @@ export default function ArenaSubmission() {
               {statusLabel[submission.status]?.label ?? submission.status}
             </span>
           </div>
-          <div className="aspect-video bg-black rounded-xl overflow-hidden mb-3">
-            <iframe
-              src={`https://iframe.mediadelivery.net/embed/${process.env.NEXT_PUBLIC_BUNNY_LIBRARY_ID ?? ""}/${submission.bunny_video_id}`}
-              loading="lazy"
-              className="w-full h-full"
-              allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture"
-              allowFullScreen
-            />
+          <div className="aspect-video bg-black rounded-xl overflow-hidden mb-3 relative">
+            {libraryId ? (
+              <iframe
+                src={`https://iframe.mediadelivery.net/embed/${libraryId}/${submission.bunny_video_id}?autoplay=false`}
+                loading="lazy"
+                className="w-full h-full"
+                allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture"
+                allowFullScreen
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-white/30 text-xs">
+                Видеото се обработва... презареди страницата след минута.
+              </div>
+            )}
           </div>
           {submission.notes && (
             <p className="text-xs text-white/50 leading-relaxed mb-3 whitespace-pre-line">{submission.notes}</p>

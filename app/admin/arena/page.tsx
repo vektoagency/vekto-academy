@@ -47,14 +47,15 @@ export default function AdminArena() {
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [loadingSubs, setLoadingSubs] = useState(false);
-  const [bunnyLibraryId] = useState(process.env.NEXT_PUBLIC_BUNNY_LIBRARY_ID ?? "");
+  const [bunnyLibraryId, setBunnyLibraryId] = useState("");
 
   async function loadSubmissions(challengeId: number) {
     setLoadingSubs(true);
     try {
       const res = await fetch(`/api/admin/arena/submissions?challenge_id=${challengeId}`);
-      const { data } = await res.json();
+      const { data, libraryId } = await res.json();
       setSubmissions(data ?? []);
+      if (libraryId) setBunnyLibraryId(libraryId);
     } finally {
       setLoadingSubs(false);
     }

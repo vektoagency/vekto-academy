@@ -33,5 +33,9 @@ export async function GET() {
     submission = data;
   }
 
-  return NextResponse.json({ challenge, submission });
+  return NextResponse.json({
+    challenge,
+    submission,
+    libraryId: process.env.BUNNY_LIBRARY_ID ?? "",
+  });
 }
