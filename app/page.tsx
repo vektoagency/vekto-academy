@@ -1074,14 +1074,24 @@ export default function HomePage() {
         </div>
 
         {/* Promo banner — Lifetime offer */}
-        <div className="hero-reveal inline-flex items-center gap-1.5 sm:gap-3 bg-[#c8ff00] text-black rounded-full px-3 sm:px-4 py-1.5 mb-4 sm:mb-5 relative z-10 shadow-[0_0_30px_rgba(200,255,0,0.25)] max-w-full" style={{ animationDelay: "0ms" }}>
-          <span className="flex items-center gap-1 sm:gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-wider">
-            <span>⚡</span>
-            <span>Доживотен за €349</span>
+        <Link
+          href="#pricing"
+          className="hero-reveal group inline-flex items-center gap-2 sm:gap-2.5 bg-black/60 backdrop-blur-md border border-[#c8ff00]/40 text-white rounded-full pl-2.5 sm:pl-3 pr-1 sm:pr-1.5 py-1 mb-4 sm:mb-5 relative z-10 shadow-[0_0_40px_rgba(200,255,0,0.18)] hover:border-[#c8ff00]/70 hover:shadow-[0_0_50px_rgba(200,255,0,0.3)] transition-all max-w-full"
+          style={{ animationDelay: "0ms" }}
+        >
+          <span className="relative flex items-center justify-center">
+            <span className="absolute w-2 h-2 rounded-full bg-[#c8ff00] animate-ping opacity-75" />
+            <span className="relative w-1.5 h-1.5 rounded-full bg-[#c8ff00]" />
           </span>
-          <span className="w-1 h-1 rounded-full bg-black/30" />
-          <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider">До 1 юни</span>
-        </div>
+          <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider whitespace-nowrap">
+            Доживотен достъп · <span className="text-[#c8ff00] font-black">€349</span>
+          </span>
+          <span className="w-px h-3 bg-white/20" />
+          <span className="inline-flex items-center gap-1 sm:gap-1.5 bg-[#c8ff00] text-black text-[9px] sm:text-[10px] font-black uppercase tracking-wider rounded-full px-2 sm:px-2.5 py-1 whitespace-nowrap">
+            <span>До 1 юни</span>
+            <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
+          </span>
+        </Link>
 
         {/* Headline — compact, animated */}
         <h1 className="font-display relative z-10 mb-4 flex flex-col items-center font-extrabold tracking-[-0.03em] leading-[0.95] max-w-full">
