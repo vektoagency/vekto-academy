@@ -659,12 +659,17 @@ function JourneySection() {
 
         {/* Timeline strip */}
         <div className="mb-8 sm:mb-10">
+          <p className="text-center text-[10px] sm:text-xs text-white/35 mb-5 sm:mb-6 uppercase tracking-[0.25em] flex items-center justify-center gap-2">
+            <span className="hidden sm:inline-block w-6 h-px bg-white/15" />
+            <span>👆 Цъкни месец, за да видиш какво отключваш</span>
+            <span className="hidden sm:inline-block w-6 h-px bg-white/15" />
+          </p>
           <div className="relative flex items-center justify-between max-w-3xl mx-auto px-2">
             {/* Progress line bg */}
-            <div className="absolute top-1/2 left-6 right-6 h-[2px] bg-white/10 -translate-y-1/2" />
+            <div className="absolute top-6 sm:top-[30px] left-6 right-6 h-[2px] bg-white/10 -translate-y-1/2" />
             {/* Progress line filled */}
             <div
-              className="absolute top-1/2 left-6 h-[2px] bg-[#c8ff00] -translate-y-1/2 transition-all duration-500"
+              className="absolute top-6 sm:top-[30px] left-6 h-[2px] bg-[#c8ff00] -translate-y-1/2 transition-all duration-500"
               style={{ width: `calc(${(active / (steps.length - 1)) * 100}% - ${active === 0 ? 0 : 12}px)` }}
             />
 
@@ -672,22 +677,29 @@ function JourneySection() {
               <button
                 key={i}
                 onClick={() => setActive(i)}
-                className="relative z-10 flex flex-col items-center gap-3 group flex-1"
+                aria-label={`Виж ${s.month} · ${s.label}`}
+                className="relative z-10 flex flex-col items-center gap-3 group flex-1 cursor-pointer"
               >
-                <span
-                  className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-black text-sm transition-all duration-300 ${
-                    i <= active
-                      ? "bg-[#c8ff00] text-black shadow-[0_0_20px_rgba(200,255,0,0.4)]"
-                      : "bg-[#111] border border-white/10 text-white/40 group-hover:border-white/30"
-                  }`}
-                >
-                  0{i + 1}
+                <span className="relative flex items-center justify-center">
+                  {/* Pulsing ring — only on inactive, signals clickability */}
+                  {i !== active && (
+                    <span className="absolute inset-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-[#c8ff00]/30 animate-ping opacity-60" />
+                  )}
+                  <span
+                    className={`relative w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-black text-sm transition-all duration-300 ${
+                      i <= active
+                        ? "bg-[#c8ff00] text-black shadow-[0_0_24px_rgba(200,255,0,0.5)]"
+                        : "bg-[#111] border-2 border-[#c8ff00]/40 text-white/80 group-hover:border-[#c8ff00] group-hover:bg-[#c8ff00]/10 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(200,255,0,0.25)]"
+                    }`}
+                  >
+                    0{i + 1}
+                  </span>
                 </span>
                 <div className="flex flex-col items-center gap-1 text-center">
-                  <span className={`text-[10px] sm:text-xs font-bold uppercase tracking-widest transition-colors ${i === active ? "text-[#c8ff00]" : "text-white/30"}`}>
+                  <span className={`text-[10px] sm:text-xs font-bold uppercase tracking-widest transition-colors ${i === active ? "text-[#c8ff00]" : "text-white/55 group-hover:text-white"}`}>
                     {s.month} · {s.label}
                   </span>
-                  <span className={`text-[10px] sm:text-[11px] leading-tight transition-colors hidden sm:block max-w-[160px] ${i === active ? "text-white/70" : "text-white/30"}`}>
+                  <span className={`text-[10px] sm:text-[11px] leading-tight transition-colors hidden sm:block max-w-[160px] ${i === active ? "text-white/70" : "text-white/40 group-hover:text-white/70"}`}>
                     {s.tagline}
                   </span>
                 </div>
