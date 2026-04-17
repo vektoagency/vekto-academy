@@ -911,47 +911,42 @@ function ArenaSection() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-white/10">
 
-            {/* Left: Money split */}
+            {/* Left: What you actually win */}
             <div className="p-5 sm:p-8">
-              <p className="text-[#c8ff00] text-[10px] font-bold uppercase tracking-widest mb-4">Как се дели пулът</p>
+              <p className="text-[#c8ff00] text-[10px] font-bold uppercase tracking-widest mb-4">Какво печелиш</p>
 
-              {/* Stacked bar */}
-              <div className="flex h-11 sm:h-12 rounded-lg overflow-hidden border border-white/10 mb-3">
-                <div style={{ width: "50%" }} className="bg-[#c8ff00] flex items-center justify-center text-black font-black text-[11px] sm:text-xs">5 × €50</div>
-                <div style={{ width: "40%" }} className="bg-white/70 flex items-center justify-center text-black font-black text-[11px] sm:text-xs">10 × €20</div>
-                <div style={{ width: "10%" }} className="bg-white/30 flex items-center justify-center text-black font-bold text-[9px] sm:text-[11px]">5 × €10</div>
-              </div>
-
-              {/* Legend */}
-              <div className="grid grid-cols-3 gap-2 mb-6">
+              <ul className="space-y-4">
                 {[
-                  { t: "Premium", v: "€50", c: "text-[#c8ff00]" },
-                  { t: "Standard", v: "€20", c: "text-white" },
-                  { t: "Quick", v: "€10", c: "text-white/60" },
-                ].map((l) => (
-                  <div key={l.t}>
-                    <p className={`font-black text-lg sm:text-xl leading-none ${l.c}`}>{l.v}</p>
-                    <p className="text-white/40 text-[10px] uppercase tracking-widest mt-1">{l.t}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Realistic earnings scenarios */}
-              <div className="rounded-xl border border-[#c8ff00]/25 bg-[#c8ff00]/[0.05] p-4 sm:p-5">
-                <p className="text-white/50 text-[10px] sm:text-xs mb-3 uppercase tracking-widest font-semibold">Реалистично · месечно</p>
-                <div className="space-y-2.5">
-                  {[
-                    { label: "1 Premium + 2 Standard", amount: "€90" },
-                    { label: "2 Premium + 1 Standard", amount: "€120" },
-                    { label: "3 Premium", amount: "€150" },
-                  ].map((s) => (
-                    <div key={s.label} className="flex items-center justify-between gap-3 text-sm">
-                      <span className="text-white/70">{s.label}</span>
-                      <span className="font-black text-[#c8ff00] tabular-nums">{s.amount}</span>
+                  {
+                    t: "Пари от Арена",
+                    s: "20 платени brief-а всеки месец. Печелиш — получаваш на IBAN.",
+                  },
+                  {
+                    t: "Реално портфолио",
+                    s: "Видеа за реални клиенти на Vekto, не fake кейсове.",
+                  },
+                  {
+                    t: "Покана в екипа",
+                    s: "Топ участниците получават дългосрочни Vekto задачи извън пула.",
+                  },
+                ].map((it) => (
+                  <li key={it.t} className="flex items-start gap-3">
+                    <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#c8ff00]/15 border border-[#c8ff00]/40 text-[#c8ff00] flex items-center justify-center mt-0.5">
+                      <svg viewBox="0 0 12 12" className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M2.5 6.5l2.5 2.5 4.5-5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                    </span>
+                    <div className="min-w-0">
+                      <p className="text-white font-semibold text-sm leading-snug">{it.t}</p>
+                      <p className="text-white/45 text-xs mt-0.5 leading-relaxed">{it.s}</p>
                     </div>
-                  ))}
-                </div>
-                <p className="text-white/40 text-[11px] mt-3 pt-3 border-t border-[#c8ff00]/15">Топ участниците → постоянна работа с Vekto извън пула.</p>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-6 rounded-xl border border-[#c8ff00]/25 bg-[#c8ff00]/[0.05] p-4 sm:p-5">
+                <p className="text-white/50 text-[10px] uppercase tracking-widest font-semibold mb-2">Размер на наградите</p>
+                <p className="text-white/75 text-sm leading-relaxed">
+                  Зависи от brief-а и клиента. Малки задачи → по-малки награди. Hero кампании → значително по-високи. Всеки brief обявява наградата си преди да започнеш.
+                </p>
               </div>
             </div>
 
@@ -1806,7 +1801,7 @@ const faq = [
   },
   {
     q: "Как работи Арена и кога се отключва?",
-    a: "Арена стартира от месец 2, след като завършиш основите. Всеки месец имаш 20 реални платени задачи с общ пул €500 — 5 Premium по €50, 10 Standard по €20, 5 Quick по €10. Предаваш видео, получаваш ревю от Vekto, най-добрите печелят. С Доживотен достъп — Арена е отворена от ден 1.",
+    a: "Арена стартира от месец 2, след като завършиш основите. Всеки месец имаш 20 реални платени brief-а с общ пул €500. Предаваш видео, получаваш ревю от Vekto, най-добрите печелят. Размерът на наградата за всеки brief зависи от клиента и обема на задачата — обявява се преди да започнеш. С Доживотен достъп — Арена е отворена от ден 1.",
   },
   {
     q: "Наистина ли се плаща за задачите в Арена?",
@@ -1838,7 +1833,7 @@ const faq = [
   },
   {
     q: "Защо €349 е по-добра сделка от €59/мес?",
-    a: "€59 × 12 = €708 на година — €349 е под половин година. Плюс Арена работи в твоя полза: 7 Premium победи (7 × €50 = €350) и инвестицията се връща напълно. И това е преди Vekto да започне да ти възлага дългосрочни задачи.",
+    a: "€59 × 12 = €708 на година — €349 е под половин година. Плюс Арена работи в твоя полза: достатъчно победи в по-големи brief-ове и инвестицията се връща. И това е преди Vekto да започне да ти възлага дългосрочни задачи.",
   },
   {
     q: "На какъв език е обучението?",
