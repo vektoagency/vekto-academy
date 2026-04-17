@@ -40,10 +40,10 @@ function MobileNav() {
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-[#080808]/90 backdrop-blur-sm">
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
         {/* Logo */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/vekto-logo.png" alt="Vekto Academy" className="h-20 sm:h-28 w-auto" />
+        <img src="/vekto-logo.png" alt="Vekto Academy" className="h-10 sm:h-28 w-auto" />
 
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-10">
@@ -56,13 +56,13 @@ function MobileNav() {
         </div>
 
         {/* Actions */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <Link href="/sign-in" className="text-sm text-white/40 hover:text-white transition-colors hidden md:block">Влез</Link>
-          <Link href="/sign-up" className="text-sm bg-[#c8ff00] text-black font-bold px-5 py-2 rounded-full hover:bg-[#d4ff1a] transition-colors">
+          <Link href="/sign-up" className="text-xs sm:text-sm bg-[#c8ff00] text-black font-bold px-4 sm:px-5 py-2 rounded-full hover:bg-[#d4ff1a] transition-colors">
             Започни
           </Link>
-          {/* Hamburger */}
-          <button onClick={() => setOpen(!open)} className="md:hidden flex flex-col gap-1.5 p-1 ml-1" aria-label="Меню">
+          {/* Hamburger — 44px tap target */}
+          <button onClick={() => setOpen(!open)} className="md:hidden flex flex-col gap-1.5 p-2 -mr-2" aria-label="Меню">
             <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${open ? "rotate-45 translate-y-2" : ""}`} />
             <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${open ? "opacity-0" : ""}`} />
             <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${open ? "-rotate-45 -translate-y-2" : ""}`} />
@@ -197,7 +197,7 @@ const platformTabs = [
           <div className="w-2 h-2 rounded-full bg-green-500/50" />
           <span className="text-white/20 text-xs ml-2">vektoacademy.com/dashboard?tab=arena</span>
         </div>
-        <div className="p-3 sm:p-4 h-52 sm:h-64 grid grid-cols-5 gap-3 overflow-hidden">
+        <div className="p-3 sm:p-4 h-52 sm:h-64 grid grid-cols-5 gap-2 sm:gap-3 overflow-hidden">
           {/* Active challenge */}
           <div className="col-span-3 rounded-xl border border-white/8 overflow-hidden flex flex-col">
             <div className="bg-[#111] px-3 py-2 flex items-center justify-between border-b border-white/6">
@@ -262,7 +262,7 @@ const platformTabs = [
           <div className="w-2 h-2 rounded-full bg-green-500/50" />
           <span className="text-white/20 text-xs ml-2">vektoacademy.com/dashboard?tab=jobs</span>
         </div>
-        <div className="p-3 sm:p-4 h-52 sm:h-64 grid grid-cols-5 gap-3 overflow-hidden">
+        <div className="p-3 sm:p-4 h-52 sm:h-64 grid grid-cols-5 gap-2 sm:gap-3 overflow-hidden">
           {/* Profile form */}
           <div className="col-span-3 rounded-xl border border-white/8 bg-[#111] overflow-hidden flex flex-col">
             <div className="px-3 py-2 border-b border-white/6 bg-[#0d0d0d]">
@@ -325,12 +325,12 @@ function PlatformPreview() {
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-2 mb-6 justify-center">
+        <div className="flex flex-wrap gap-2 mb-6 justify-center">
           {platformTabs.map((t, i) => (
             <button
               key={t.id}
               onClick={() => setActive(i)}
-              className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${active === i ? "bg-[#c8ff00] text-black" : "bg-white/5 text-white/40 hover:text-white hover:bg-white/10"}`}
+              className={`px-3.5 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 ${active === i ? "bg-[#c8ff00] text-black" : "bg-white/5 text-white/40 hover:text-white hover:bg-white/10"}`}
             >
               {t.label}
             </button>
@@ -452,7 +452,7 @@ export default function HomePage() {
       <MobileNav />
 
       {/* Hero — compact, fits above fold */}
-      <section className="relative flex flex-col items-center text-center px-5 pt-20 sm:pt-24 pb-10 sm:pb-12">
+      <section className="relative flex flex-col items-center text-center px-4 sm:px-5 pt-16 sm:pt-24 pb-8 sm:pb-12">
         {/* Background glows */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#c8ff00]/4 rounded-full blur-[140px]" />
@@ -460,20 +460,20 @@ export default function HomePage() {
         </div>
 
         {/* Promo banner — Lifetime offer */}
-        <div className="hero-reveal inline-flex items-center gap-2 sm:gap-3 bg-[#c8ff00] text-black rounded-full px-4 py-1.5 mb-5 relative z-10 shadow-[0_0_30px_rgba(200,255,0,0.25)]" style={{ animationDelay: "0ms" }}>
-          <span className="flex items-center gap-1.5 text-[11px] sm:text-xs font-black uppercase tracking-wider">
+        <div className="hero-reveal inline-flex items-center gap-1.5 sm:gap-3 bg-[#c8ff00] text-black rounded-full px-3 sm:px-4 py-1.5 mb-4 sm:mb-5 relative z-10 shadow-[0_0_30px_rgba(200,255,0,0.25)] max-w-full" style={{ animationDelay: "0ms" }}>
+          <span className="flex items-center gap-1 sm:gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-wider">
             <span>⚡</span>
-            <span>Доживотен достъп за €349</span>
+            <span>Доживотен за €349</span>
           </span>
           <span className="w-1 h-1 rounded-full bg-black/30" />
           <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider">До 1 юни</span>
         </div>
 
         {/* Headline — compact, animated */}
-        <h1 className="font-display relative z-10 mb-4 flex flex-col items-center font-extrabold tracking-[-0.03em] leading-[0.95]">
+        <h1 className="font-display relative z-10 mb-4 flex flex-col items-center font-extrabold tracking-[-0.03em] leading-[0.95] max-w-full">
           {/* Line 1 */}
           <span
-            className="hero-reveal block text-[2.4rem] sm:text-5xl md:text-[4.5rem] text-white"
+            className="hero-reveal block text-[2rem] sm:text-5xl md:text-[4.5rem] text-white"
             style={{ animationDelay: "100ms" }}
           >
             От <span className="italic font-light text-white/70">AI видео</span>
@@ -481,7 +481,7 @@ export default function HomePage() {
 
           {/* Animated connector arrow */}
           <svg
-            className="hero-arrow my-1.5 sm:my-2 w-6 h-6 sm:w-8 sm:h-8 text-[#c8ff00] drop-shadow-[0_0_16px_rgba(200,255,0,0.5)]"
+            className="hero-arrow my-1 sm:my-2 w-5 h-5 sm:w-8 sm:h-8 text-[#c8ff00] drop-shadow-[0_0_16px_rgba(200,255,0,0.5)]"
             viewBox="0 0 40 60"
             fill="none"
             stroke="currentColor"
@@ -495,14 +495,14 @@ export default function HomePage() {
 
           {/* Line 2 — with sheen */}
           <span
-            className="hero-reveal block text-[2.4rem] sm:text-5xl md:text-[4.5rem] drop-shadow-[0_0_60px_rgba(200,255,0,0.3)]"
+            className="hero-reveal block text-[2rem] sm:text-5xl md:text-[4.5rem] drop-shadow-[0_0_60px_rgba(200,255,0,0.3)]"
             style={{ animationDelay: "750ms" }}
           >
             <span className="hero-sheen">първия ти клиент.</span>
           </span>
         </h1>
 
-        <p className="hero-reveal text-white/50 text-sm sm:text-base max-w-xl mb-6 relative z-10 leading-relaxed text-center" style={{ animationDelay: "950ms" }}>
+        <p className="hero-reveal text-white/50 text-[13px] sm:text-base max-w-xl mb-5 sm:mb-6 relative z-10 leading-relaxed text-center" style={{ animationDelay: "950ms" }}>
           3 месеца структурирано обучение. Работиш по реални задачи с възнаграждение. Наемаме най-добрите.
         </p>
 
@@ -531,8 +531,8 @@ export default function HomePage() {
       </section>
 
       {/* Hero video — separate section below hero */}
-      <section className="relative px-5 pb-16 sm:pb-20">
-        <div className="relative w-full max-w-4xl mx-auto rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+      <section className="relative px-4 sm:px-5 pb-12 sm:pb-20">
+        <div className="relative w-full max-w-4xl mx-auto rounded-xl sm:rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
           <div className="aspect-video bg-[#111] flex items-center justify-center relative">
             <div className="absolute inset-0 bg-gradient-to-br from-[#c8ff00]/5 to-transparent" />
             {/* Placeholder за видеото — замени src с реалното видео */}
