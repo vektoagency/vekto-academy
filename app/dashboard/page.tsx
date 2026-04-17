@@ -102,10 +102,17 @@ export default async function DashboardPage({
 
   const { success, tab = "home" } = await searchParams;
 
-  const [{ data: member }, { data: progressRows }] = await Promise.all([
+  const [{ data: member }, { data: progressRows }, { data: qaSetting }] = await Promise.all([
     supabase.from("members").select("*").eq("user_id", user.id).single(),
     supabase.from("module_progress").select("module_id, completed").eq("user_id", user.id),
+    supabase.from("app_settings").select("value").eq("key", "qa_session").maybeSingle(),
   ]);
+
+  const qa = (qaSetting?.value ?? { label: "Събота 18:00", url: "", next_at: null }) as {
+    label: string;
+    url: string;
+    next_at: string | null;
+  };
 
   const hasPlan = member?.status === "active";
   const isAdmin = (user.publicMetadata as Record<string, string>)?.role === "admin";
@@ -380,11 +387,19 @@ export default async function DashboardPage({
                     </div>
                     <p className="text-white/40 text-xs group-hover:text-white/60 transition-colors">Отвори чата →</p>
                   </Link>
-                  <div className="rounded-2xl bg-[#111] border border-white/8 p-5 flex-1">
-                    <p className="text-white/30 text-[10px] uppercase tracking-widest mb-2 font-semibold">На живо Q&A</p>
-                    <p className="text-base font-black">Събота 18:00</p>
-                    <p className="text-white/25 text-xs mt-1">Очаквай линк скоро</p>
-                  </div>
+                  {qa.url ? (
+                    <a href={qa.url} target="_blank" rel="noopener noreferrer" className="rounded-2xl bg-[#111] border border-white/8 p-5 flex-1 hover:border-[#c8ff00]/30 transition-all group block">
+                      <p className="text-white/30 text-[10px] uppercase tracking-widest mb-2 font-semibold">На живо Q&A</p>
+                      <p className="text-base font-black">{qa.label}</p>
+                      <p className="text-[#c8ff00] text-xs mt-1 font-bold group-hover:underline">Влез в стаята →</p>
+                    </a>
+                  ) : (
+                    <div className="rounded-2xl bg-[#111] border border-white/8 p-5 flex-1">
+                      <p className="text-white/30 text-[10px] uppercase tracking-widest mb-2 font-semibold">На живо Q&A</p>
+                      <p className="text-base font-black">{qa.label}</p>
+                      <p className="text-white/25 text-xs mt-1">Очаквай линк скоро</p>
+                    </div>
+                  )}
                   <Link href="/dashboard?tab=arena" className="rounded-2xl bg-[#111] border border-white/8 p-5 flex-1 hover:border-white/15 transition-all group">
                     <p className="text-white/30 text-[10px] uppercase tracking-widest mb-2 font-semibold">⚡ Арена</p>
                     <p className="text-base font-black leading-tight">Предизвикателство #001</p>

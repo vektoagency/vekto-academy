@@ -14,6 +14,7 @@ const nav = [
   { href: "/admin/notifications", label: "Известия", icon: "🔔" },
   { href: "/admin/revenue", label: "Приходи", icon: "💰" },
   { href: "/admin/moderation", label: "Модерация", icon: "🛡" },
+  { href: "/admin/settings", label: "Настройки", icon: "⚙" },
   { href: "/admin/logs", label: "Логове", icon: "📋" },
 ];
 
