@@ -1175,13 +1175,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Path — 3-month journey preview */}
+      {/* Path — учебен arc (в Академията) */}
       <section id="path" className="py-16 sm:py-24 px-4 sm:px-6 bg-[#0a0a0a] border-y border-white/10">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
-            <span className="text-[#c8ff00] text-sm font-semibold uppercase tracking-widest mb-3 block">Твоят път</span>
-            <h2 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-tight mb-4">3 месеца до първия клиент</h2>
-            <p className="text-white/50 text-sm sm:text-base max-w-2xl mx-auto">Структурирана прогресия — всеки етап надгражда предишния и те води към реална работа.</p>
+            <span className="text-[#c8ff00] text-sm font-semibold uppercase tracking-widest mb-3 block">Учебният път</span>
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-tight mb-4">От нулата до готово портфолио за 3 месеца</h2>
+            <p className="text-white/50 text-sm sm:text-base max-w-2xl mx-auto">Какво строиш вътре в Академията — умения, работни навици, реални проекти. Кариерата идва след това.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 relative">
@@ -1189,14 +1189,14 @@ export default function HomePage() {
             <div className="rounded-2xl p-6 sm:p-8 bg-[#0d0d0d] border border-white/10 flex flex-col">
               <div className="flex items-center gap-3 mb-5">
                 <span className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#c8ff00] font-black text-sm">01</span>
-                <span className="text-white/40 text-[11px] font-bold uppercase tracking-widest">Месец 1</span>
+                <span className="text-white/40 text-[11px] font-bold uppercase tracking-widest">Месец 1 · Основи</span>
               </div>
-              <h3 className="text-xl font-black mb-2">Основи</h3>
-              <p className="text-white/60 text-sm mb-5">Изграждаш фундамента — AI инструменти, prompting, workflow-и и първите ти завършени проекти.</p>
+              <h3 className="text-xl font-black mb-2">Умения</h3>
+              <p className="text-white/60 text-sm mb-5">AI инструменти, prompting, workflow-и. Завършваш първите си 3-5 къси AI видеа от нулата.</p>
               <ul className="space-y-2 text-sm text-white/70 mt-auto">
-                <li className="flex items-start gap-2"><span className="text-[#c8ff00] mt-0.5">✓</span>Видео модули от нулата</li>
-                <li className="flex items-start gap-2"><span className="text-[#c8ff00] mt-0.5">✓</span>Практически задания</li>
-                <li className="flex items-start gap-2"><span className="text-[#c8ff00] mt-0.5">✓</span>Общност + Weekly Q&amp;A</li>
+                <li className="flex items-start gap-2"><span className="text-[#c8ff00] mt-0.5">✓</span>7 модула обучение</li>
+                <li className="flex items-start gap-2"><span className="text-[#c8ff00] mt-0.5">✓</span>Weekly Q&amp;A с Vekto</li>
+                <li className="flex items-start gap-2"><span className="text-[#c8ff00] mt-0.5">✓</span>Първите завършени проекти</li>
               </ul>
             </div>
 
@@ -1204,36 +1204,36 @@ export default function HomePage() {
             <div className="rounded-2xl p-6 sm:p-8 bg-[#0d0d0d] border border-white/10 flex flex-col">
               <div className="flex items-center gap-3 mb-5">
                 <span className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#c8ff00] font-black text-sm">02</span>
-                <span className="text-white/40 text-[11px] font-bold uppercase tracking-widest">Месец 2</span>
+                <span className="text-white/40 text-[11px] font-bold uppercase tracking-widest">Месец 2 · Темпо</span>
               </div>
-              <h3 className="text-xl font-black mb-2">Арена</h3>
-              <p className="text-white/60 text-sm mb-5">Влизаш в месечните brief-ове. Печелиш първите си пари докато учиш и изграждаш портфолио.</p>
+              <h3 className="text-xl font-black mb-2">Работни навици</h3>
+              <p className="text-white/60 text-sm mb-5">Правиш видеа под deadline. Ускоряваш се, получаваш peer review, изграждаш продукционен рефлекс.</p>
               <ul className="space-y-2 text-sm text-white/70 mt-auto">
-                <li className="flex items-start gap-2"><span className="text-[#c8ff00] mt-0.5">✓</span>20 платени brief-а/мес</li>
-                <li className="flex items-start gap-2"><span className="text-[#c8ff00] mt-0.5">✓</span>Ревю от Vekto екипа</li>
-                <li className="flex items-start gap-2"><span className="text-[#c8ff00] mt-0.5">✓</span>Leaderboard и значки</li>
+                <li className="flex items-start gap-2"><span className="text-[#c8ff00] mt-0.5">✓</span>Седмични deadline-и</li>
+                <li className="flex items-start gap-2"><span className="text-[#c8ff00] mt-0.5">✓</span>Peer review от общността</li>
+                <li className="flex items-start gap-2"><span className="text-[#c8ff00] mt-0.5">✓</span>Ретроспекция на твоите проекти</li>
               </ul>
             </div>
 
             {/* Step 3 — highlighted */}
             <div className="rounded-2xl p-6 sm:p-8 bg-[#c8ff00]/[0.06] border-2 border-[#c8ff00]/40 flex flex-col shadow-[0_0_40px_rgba(200,255,0,0.08)] relative">
-              <span className="absolute -top-3 left-6 bg-[#c8ff00] text-black text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider">Целта</span>
+              <span className="absolute -top-3 left-6 bg-[#c8ff00] text-black text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider">Готов</span>
               <div className="flex items-center gap-3 mb-5">
                 <span className="w-10 h-10 rounded-full bg-[#c8ff00] text-black flex items-center justify-center font-black text-sm">03</span>
-                <span className="text-[#c8ff00] text-[11px] font-bold uppercase tracking-widest">Месец 3</span>
+                <span className="text-[#c8ff00] text-[11px] font-bold uppercase tracking-widest">Месец 3 · Портфолио</span>
               </div>
-              <h3 className="text-xl font-black mb-2">Shortlist + Vekto</h3>
-              <p className="text-white/70 text-sm mb-5">Изграждаш професионално портфолио и влизаш в shortlist за реални клиентски задачи от Vekto.</p>
+              <h3 className="text-xl font-black mb-2">Reel готов за клиент</h3>
+              <p className="text-white/70 text-sm mb-5">Завършваш 2-3 case study проекта под менторство. Излизаш с портфолио което може да продаваш.</p>
               <ul className="space-y-2 text-sm text-white/80 mt-auto">
-                <li className="flex items-start gap-2"><span className="text-[#c8ff00] mt-0.5">✓</span>Професионално портфолио</li>
-                <li className="flex items-start gap-2"><span className="text-[#c8ff00] mt-0.5">✓</span>Freelance brief-ове €200-800</li>
-                <li className="flex items-start gap-2"><span className="text-[#c8ff00] mt-0.5">✓</span>Pipeline към Vekto екип</li>
+                <li className="flex items-start gap-2"><span className="text-[#c8ff00] mt-0.5">✓</span>2-3 полирани case study-та</li>
+                <li className="flex items-start gap-2"><span className="text-[#c8ff00] mt-0.5">✓</span>Ментор-ревю преди финал</li>
+                <li className="flex items-start gap-2"><span className="text-[#c8ff00] mt-0.5">✓</span>Показваш се на клиенти</li>
               </ul>
             </div>
           </div>
 
           <p className="text-center text-white/40 text-xs sm:text-sm mt-10 max-w-2xl mx-auto">
-            С <span className="text-[#c8ff00] font-semibold">Доживотен достъп</span> получаваш цялата структура отворена от ден 1 — можеш да прескачаш напред, да се връщаш и да работиш по свой темп.
+            Арената и кариерният pipeline започват паралелно — виж ги по-надолу. С <span className="text-[#c8ff00] font-semibold">Доживотен достъп</span> цялата структура е отворена от ден 1.
           </p>
         </div>
       </section>
