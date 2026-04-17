@@ -52,10 +52,10 @@ const tierMeta: Record<BriefTier, { label: string; color: string; dot: string }>
 
 const navLinks = [
   { href: "#curriculum", label: "Програма" },
-  { href: "#for-who", label: "За кого" },
-  { href: "#path", label: "Път" },
+  { href: "#community", label: "Общност" },
+  { href: "#arena", label: "Арена" },
+  { href: "#jobs", label: "Работа" },
   { href: "#about", label: "За нас" },
-  { href: "#testimonials", label: "Резултати" },
   { href: "#pricing", label: "Цени" },
   { href: "#faq", label: "FAQ" },
 ];
@@ -519,6 +519,185 @@ function PlatformPreview() {
   );
 }
 
+function CommunitySection() {
+  const benefits = [
+    { icon: "💬", title: "Real-time чат", desc: "Без Discord, без Telegram. Каналите са вградени в платформата — задаваш въпрос, получаваш отговор в минути." },
+    { icon: "📅", title: "Weekly Q&A на живо", desc: "Всяка седмица live сесия с Vekto екипа. Донасяш проект — получаваш директна обратна връзка." },
+    { icon: "👥", title: "Peer review", desc: "Качваш проект преди submit — получаваш feedback от други creators. По-добри шансове в Арена." },
+    { icon: "🎯", title: "Директен достъп до Vekto", desc: "Екипът участва в разговорите активно. Не си сам пред AI инструмент — имаш хора зад гърба си." },
+  ];
+
+  return (
+    <section id="community" className="py-16 sm:py-24 px-4 sm:px-6 bg-[#080808] border-b border-white/10">
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="mb-10 sm:mb-14">
+          <span className="text-[#c8ff00] text-sm font-semibold uppercase tracking-widest mb-3 block">Общност</span>
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-[1.05]">
+              Не си сам.<br />
+              <span className="text-[#c8ff00]">Общност, която гради.</span>
+            </h2>
+            <p className="text-white/50 text-sm sm:text-base max-w-sm">
+              Разлика от YouTube видеа: тук питаш в chat и получаваш отговор. Vekto екипът е вътре всеки ден.
+            </p>
+          </div>
+        </div>
+
+        {/* Stats strip */}
+        <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-6 sm:mb-8">
+          {[
+            { v: "24/7", l: "Real-time chat" },
+            { v: "52", l: "Q&A сесии/год" },
+            { v: "< 30 мин", l: "Средно време за отговор" },
+          ].map((s) => (
+            <div key={s.l} className="rounded-xl border border-white/10 bg-[#0e0e0e] p-3 sm:p-5">
+              <p className="text-[#c8ff00] font-black text-xl sm:text-3xl leading-none">{s.v}</p>
+              <p className="text-white/40 text-[10px] sm:text-xs mt-1.5 sm:mt-2 uppercase tracking-widest leading-snug">{s.l}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* 2x2 grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 mb-8">
+          {benefits.map((b) => (
+            <div key={b.title} className="rounded-2xl border border-white/10 bg-[#0d0d0d] p-5 sm:p-7 hover:border-[#c8ff00]/25 hover:bg-[#c8ff00]/[0.02] transition-colors">
+              <div className="text-2xl sm:text-3xl mb-3">{b.icon}</div>
+              <h3 className="font-black text-base sm:text-lg mb-2">{b.title}</h3>
+              <p className="text-white/50 text-sm leading-relaxed">{b.desc}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* CTA */}
+        <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-center">
+          <Link href="#pricing" className="bg-[#c8ff00] text-black font-black px-7 py-3.5 rounded-full text-sm text-center hover:bg-[#d4ff1a] transition-colors">
+            Влез в общността →
+          </Link>
+          <p className="text-white/40 text-xs text-center">Отключено от ден 1 — месечен или Доживотен достъп</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function JobPipelineSection() {
+  const stages = [
+    {
+      n: "01",
+      label: "Shortlist",
+      title: "Попадаш в радара",
+      entry: "3+ Premium победи в Арена",
+      pay: "€50-150/мес",
+      desc: "Vekto преглежда твоя профил и те добавя в shortlist-а за реални клиентски проекти извън Арена.",
+    },
+    {
+      n: "02",
+      label: "Freelance",
+      title: "Първи клиентски brief-ове",
+      entry: "Одобрение от shortlist",
+      pay: "€200-800/brief",
+      desc: "Директно се включваш в реални Vekto проекти — работиш по brief-ове от истински клиенти със стандартни агенционни бюджети.",
+    },
+    {
+      n: "03",
+      label: "Contractor",
+      title: "Постоянен приход",
+      entry: "3+ успешни brief-а",
+      pay: "€1k-3k/мес",
+      desc: "Vekto те задържа като regular contractor. Получаваш постоянен поток от задачи, предвидим приход.",
+    },
+    {
+      n: "04",
+      label: "Team",
+      title: "Част от Vekto",
+      entry: "Top 5% + fit с екипа",
+      pay: "Заплата + бонуси",
+      desc: "Влизаш постоянно в екипа на Vekto. Full-time или strategic partner — работиш с реални brand-ове в production.",
+      highlight: true,
+    },
+  ];
+
+  return (
+    <section id="jobs" className="py-20 sm:py-32 px-4 sm:px-6 relative overflow-hidden border-t border-white/10">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-[#c8ff00]/3 rounded-full blur-[140px]" />
+      </div>
+      <div className="max-w-6xl mx-auto relative z-10">
+        {/* Header */}
+        <div className="mb-10 sm:mb-16">
+          <span className="text-[#c8ff00] text-sm font-semibold uppercase tracking-widest mb-3 block">Работа · Pipeline</span>
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-black tracking-tight leading-[1.05] mb-5">
+            От Академия до<br />
+            <span className="text-[#c8ff00]">Vekto екип.</span>
+          </h2>
+          <p className="text-white/50 text-sm sm:text-base max-w-xl leading-relaxed">
+            Реалният път, по който creators в общността минават — от първи Premium победи до постоянна работа с Vekto.
+          </p>
+        </div>
+
+        {/* 4-stage pipeline */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-3 sm:gap-4 mb-10 relative">
+          {stages.map((s, i) => (
+            <div key={s.n} className="relative">
+              <div className={`rounded-2xl p-5 sm:p-6 h-full flex flex-col ${s.highlight ? "bg-[#c8ff00]/[0.06] border-2 border-[#c8ff00]/40 shadow-[0_0_40px_rgba(200,255,0,0.08)]" : "bg-[#0d0d0d] border border-white/10"}`}>
+                {s.highlight && (
+                  <span className="absolute -top-3 left-5 bg-[#c8ff00] text-black text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider">Целта</span>
+                )}
+                <div className="flex items-center justify-between mb-4">
+                  <span className={`w-9 h-9 rounded-full flex items-center justify-center font-black text-xs border ${s.highlight ? "bg-[#c8ff00] text-black border-[#c8ff00]" : "bg-white/5 text-[#c8ff00] border-white/10"}`}>
+                    {s.n}
+                  </span>
+                  <span className={`text-[10px] font-bold uppercase tracking-widest ${s.highlight ? "text-[#c8ff00]" : "text-white/40"}`}>
+                    {s.label}
+                  </span>
+                </div>
+                <h3 className="font-black text-lg mb-3 leading-tight">{s.title}</h3>
+                <p className="text-white/50 text-sm leading-relaxed mb-5 flex-1">{s.desc}</p>
+                <div className="space-y-2.5 pt-4 border-t border-white/10 mt-auto">
+                  <div>
+                    <p className="text-white/30 text-[10px] uppercase tracking-widest mb-0.5">Условие</p>
+                    <p className="text-white/70 text-xs font-semibold">{s.entry}</p>
+                  </div>
+                  <div>
+                    <p className="text-white/30 text-[10px] uppercase tracking-widest mb-0.5">Приход</p>
+                    <p className={`text-sm font-black ${s.highlight ? "text-[#c8ff00]" : "text-white"}`}>{s.pay}</p>
+                  </div>
+                </div>
+              </div>
+              {/* Arrow connector — desktop only */}
+              {i < stages.length - 1 && (
+                <div className="hidden md:flex absolute top-1/2 -right-2 -translate-y-1/2 z-10 items-center justify-center w-6 h-6 rounded-full bg-[#080808] border border-white/10 text-[#c8ff00] text-xs">
+                  →
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Reality check note */}
+        <div className="rounded-2xl border border-white/10 bg-[#0d0d0d] p-5 sm:p-6 mb-8 flex items-start gap-4">
+          <span className="w-10 h-10 rounded-full bg-[#c8ff00]/10 border border-[#c8ff00]/30 flex items-center justify-center text-[#c8ff00] text-lg flex-shrink-0">!</span>
+          <div>
+            <p className="font-black text-sm mb-1">Без гаранции — но пътят е ясен</p>
+            <p className="text-white/50 text-sm leading-relaxed">
+              Не обещаваме работа на всеки. Но който се доказва в Арена — Vekto го вижда. Премеждаването между етапите зависи от качеството на работата ти, не от време прекарано в платформата.
+            </p>
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-center">
+          <Link href="#pricing" className="bg-[#c8ff00] text-black font-black px-8 py-4 rounded-full text-sm sm:text-base text-center hover:bg-[#d4ff1a] transition-colors shadow-[0_0_40px_rgba(200,255,0,0.2)]">
+            Започни пътя си →
+          </Link>
+          <p className="text-white/40 text-xs sm:text-sm text-center">Стартираш с обучението. Етап 01 е на 2-3 месеца разстояние.</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function CurriculumSection() {
   const [open, setOpen] = useState<number | null>(0);
 
@@ -646,7 +825,7 @@ function ArenaSection() {
   };
 
   return (
-    <section className="py-20 sm:py-32 px-4 sm:px-6 relative overflow-hidden">
+    <section id="arena" className="py-20 sm:py-32 px-4 sm:px-6 relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#c8ff00]/3 rounded-full blur-[140px]" />
       </div>
@@ -941,32 +1120,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* What's inside — тъмен bg, 2+4 grid layout */}
-      <section id="features" className="py-16 sm:py-24 px-4 sm:px-6 bg-[#0a0a0a]">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
-            <div>
-              <span className="text-[#c8ff00] text-sm font-semibold uppercase tracking-widest mb-3 block">Вътре в Academy-то</span>
-              <h2 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-tight">Всичко на едно място</h2>
-              <p className="text-white/40 text-sm mt-3 max-w-sm leading-relaxed">Един акаунт. Всичко точно тук — без Discord, без Telegram, без разхвърляни линкове.</p>
-            </div>
-            <div className="flex flex-col gap-1 md:items-end">
-              <p className="text-white font-black text-lg md:text-right">Обучение. Общност. Работа.</p>
-              <p className="text-white/40 text-sm md:text-right">На едно място. Влизаш и започваш.</p>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {features.map((f) => (
-              <div key={f.title} className="rounded-2xl p-5 sm:p-6 border border-white/8 hover:border-[#c8ff00]/20 transition-all group bg-[#111]">
-                <div className="text-2xl mb-3">{f.icon}</div>
-                <h3 className="font-semibold mb-1">{f.title}</h3>
-                <p className="text-white/40 text-sm leading-relaxed">{f.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Platform preview */}
       <PlatformPreview />
 
@@ -1068,6 +1221,15 @@ export default function HomePage() {
       {/* Curriculum — 7 модула accordion */}
       <CurriculumSection />
 
+      {/* Community — chat, Q&A, peer review */}
+      <CommunitySection />
+
+      {/* Arena — €500/мес в изплащания, live brief board */}
+      <ArenaSection />
+
+      {/* Job Pipeline — 4 stages от студент до Vekto екип */}
+      <JobPipelineSection />
+
       {/* Instructor — premium split layout */}
       <section id="about" className="py-16 sm:py-24 bg-[#0d0d0d] border-y border-white/10 overflow-hidden">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -1121,9 +1283,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* Arena — €500/мес в изплащания, live brief board */}
-      <ArenaSection />
 
       {/* Testimonials — brutal, big photo */}
       <section id="testimonials" className="py-16 sm:py-24 px-4 sm:px-6 bg-[#0a0a0a] border-t border-white/10">
@@ -1534,39 +1693,6 @@ const clients = [
   { name: "KRISTA G", logo: "/logo-krista-g-2022.png", circular: false },
   { name: "GIFTO", logo: "/logo-gifto2.png", circular: false },
   { name: "ADVENTURES BG", logo: "/logo-adventuresbg.png", circular: false },
-];
-
-const features = [
-  {
-    icon: "🎬",
-    title: "Видео обучение",
-    desc: "Структурирани модули директно в платформата — гледаш, учиш и практикуваш без да излизаш навсякъде.",
-  },
-  {
-    icon: "💬",
-    title: "Общност & чат",
-    desc: "Real-time чат с всички членове в платформата. Задаваш въпрос — получаваш отговор в минути.",
-  },
-  {
-    icon: "📅",
-    title: "Weekly Q&A",
-    desc: "Всяка седмица live сесия с екипа на Vekto — директно в платформата, без Zoom линкове.",
-  },
-  {
-    icon: "💼",
-    title: "Работа",
-    desc: "Реални платени проекти от Vekto Agency — получаваш brief директно в профила си.",
-  },
-  {
-    icon: "🛠️",
-    title: "Templates & Assets",
-    desc: "Промпти, workflow шаблони и asset пакети от реални проекти — свалими с един клик.",
-  },
-  {
-    icon: "🔄",
-    title: "Постоянни ъпдейти",
-    desc: "Платформата расте с теб — нови уроци и ресурси всяка седмица, автоматично в акаунта ти.",
-  },
 ];
 
 const faq = [
