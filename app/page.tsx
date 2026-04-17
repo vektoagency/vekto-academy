@@ -483,7 +483,7 @@ function PlatformPreview() {
   const [active, setActive] = useState(0);
   const tab = platformTabs[active];
   return (
-    <section className="py-16 sm:py-24 px-4 sm:px-6 bg-[#080808] border-t border-white/10">
+    <section className="py-16 sm:py-24 px-4 sm:px-6" style={{ background: "linear-gradient(to bottom, #080808, #0a0a0f, #080808)" }}>
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-12">
           <span className="text-[#c8ff00] text-sm font-semibold uppercase tracking-widest mb-3 block">Платформата</span>
@@ -528,7 +528,7 @@ function CommunitySection() {
   ];
 
   return (
-    <section id="community" className="py-16 sm:py-24 px-4 sm:px-6 bg-[#080808] border-b border-white/10">
+    <section id="community" className="py-16 sm:py-24 px-4 sm:px-6" style={{ background: "linear-gradient(to bottom, #080808, #0b0a08, #080808)" }}>
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-10 sm:mb-14">
@@ -642,7 +642,7 @@ function JourneySection() {
   const current = steps[active];
 
   return (
-    <section id="jobs" className="py-16 sm:py-24 px-4 sm:px-6 bg-[#0a0a0a] border-y border-white/10 relative overflow-hidden scroll-mt-20">
+    <section id="jobs" className="py-16 sm:py-24 px-4 sm:px-6 relative overflow-hidden scroll-mt-20" style={{ background: "linear-gradient(to bottom, #080808, #0a0a0f, #080808)" }}>
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-[#c8ff00]/3 rounded-full blur-[140px]" />
       </div>
@@ -768,7 +768,7 @@ function CurriculumSection() {
   const totalLessons = curriculumModules.reduce((s, m) => s + m.lessons, 0);
 
   return (
-    <section id="curriculum" className="py-16 sm:py-24 px-4 sm:px-6 bg-[#0a0a0a] border-y border-white/10">
+    <section id="curriculum" className="py-16 sm:py-24 px-4 sm:px-6" style={{ background: "linear-gradient(to bottom, #080808, #0c0c14, #080808)" }}>
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="mb-10 sm:mb-14">
@@ -1170,7 +1170,7 @@ export default function HomePage() {
       </section>
 
       {/* Logos — клиенти на Vekto */}
-      <section className="border-y border-white/10 py-8 md:py-16 px-0">
+      <section className="py-8 md:py-16 px-0" style={{ background: "linear-gradient(to bottom, #080808, #070707, #080808)" }}>
         <p className="text-center text-xs text-white/30 uppercase tracking-widest mb-12">Реални клиенти. Реален опит. Това преподаваме.</p>
         <div className="overflow-hidden relative">
           <div className="scroll-left flex gap-12 md:gap-24 items-center" style={{ width: "max-content" }}>
@@ -1186,7 +1186,7 @@ export default function HomePage() {
 
 
       {/* Instructor — trust anchor right after client logos */}
-      <section id="about" className="py-16 sm:py-24 bg-[#0d0d0d] border-y border-white/10 overflow-hidden relative">
+      <section id="about" className="py-16 sm:py-24 overflow-hidden relative" style={{ background: "linear-gradient(to bottom, #080808, #0d0d0d, #080808)" }}>
         {/* Background accent */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[#c8ff00]/3 rounded-full blur-[140px]" />
@@ -1320,7 +1320,7 @@ export default function HomePage() {
       <PlatformPreview />
 
       {/* Testimonials — brutal, big photo */}
-      <section id="testimonials" className="py-16 sm:py-24 px-4 sm:px-6 bg-[#0a0a0a] border-t border-white/10">
+      <section id="testimonials" className="py-16 sm:py-24 px-4 sm:px-6" style={{ background: "linear-gradient(to bottom, #080808, #0b0a08, #080808)" }}>
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
             <div>
@@ -1363,7 +1363,7 @@ export default function HomePage() {
       </section>
 
       {/* Pricing — asymmetric, lifetime dominant */}
-      <section id="pricing" className="py-16 sm:py-24 px-4 sm:px-6 border-t border-white/10 relative overflow-hidden">
+      <section id="pricing" className="py-16 sm:py-24 px-4 sm:px-6 relative overflow-hidden" style={{ background: "linear-gradient(to bottom, #080808, #0a0a0f, #080808)" }}>
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-[#c8ff00]/4 rounded-full blur-[120px]" />
         </div>
@@ -1457,7 +1457,7 @@ export default function HomePage() {
       </section>
 
       {/* FAQ — compact без карти */}
-      <section id="faq" className="py-16 sm:py-24 px-4 sm:px-6 bg-[#0a0a0a] border-t border-white/10">
+      <section id="faq" className="py-16 sm:py-24 px-4 sm:px-6" style={{ background: "linear-gradient(to bottom, #080808, #0c0c14, #080808)" }}>
         <div className="max-w-3xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-start gap-12">
             <div className="md:w-48 flex-shrink-0">
