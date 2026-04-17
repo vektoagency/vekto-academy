@@ -1595,7 +1595,7 @@ export default function HomePage() {
               </p>
               <div className="flex items-center gap-2 text-xs text-white/35">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff00] animate-pulse" />
-                София · България · работим глобално
+                София · България
               </div>
             </div>
 
@@ -1619,8 +1619,6 @@ export default function HomePage() {
               <ul className="space-y-2.5 text-sm text-white/60">
                 <li><Link href="/sign-in" className="hover:text-[#c8ff00] transition-colors">Вход</Link></li>
                 <li><Link href="/sign-up" className="hover:text-[#c8ff00] transition-colors">Регистрация</Link></li>
-                <li><Link href="/dashboard" className="hover:text-[#c8ff00] transition-colors">Dashboard</Link></li>
-                <li><Link href="#pricing" className="hover:text-[#c8ff00] transition-colors">Присъедини се</Link></li>
               </ul>
             </div>
 
@@ -1632,11 +1630,6 @@ export default function HomePage() {
                   <Link href="https://vektoagency.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#c8ff00] transition-colors">
                     vektoagency.com
                   </Link>
-                </li>
-                <li>
-                  <a href="mailto:hello@vektoagency.com" className="hover:text-[#c8ff00] transition-colors">
-                    hello@vektoagency.com
-                  </a>
                 </li>
               </ul>
               <Link
