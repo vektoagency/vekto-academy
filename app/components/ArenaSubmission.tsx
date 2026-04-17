@@ -176,7 +176,7 @@ export default function ArenaSubmission() {
       {submission && (
         <div className="bg-[#111] border border-white/6 rounded-2xl p-6">
           <div className="flex items-center justify-between mb-3">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-white/30">Твоята предложба</span>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-white/30">Твоят проект</span>
             <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${statusLabel[submission.status]?.cls ?? "bg-white/10 text-white/40"}`}>
               {statusLabel[submission.status]?.label ?? submission.status}
             </span>

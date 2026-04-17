@@ -263,7 +263,7 @@ export default function AdminArena() {
                         onClick={() => toggleExpand(c.id)}
                         className="px-3 py-1 text-[11px] rounded-lg bg-[#c8ff00]/10 text-[#c8ff00]/80 hover:text-[#c8ff00] hover:bg-[#c8ff00]/20 transition-colors"
                       >
-                        {expandedId === c.id ? "Скрий" : "Предложби"}
+                        {expandedId === c.id ? "Скрий" : "Проекти"}
                       </button>
                       <button
                         onClick={() => setEditing(c)}
@@ -288,11 +288,11 @@ export default function AdminArena() {
                           <div className="w-5 h-5 border-2 border-white/10 border-t-[#c8ff00] rounded-full animate-spin" />
                         </div>
                       ) : submissions.length === 0 ? (
-                        <p className="text-center py-6 text-white/20 text-xs">Няма предложби за тази задача.</p>
+                        <p className="text-center py-6 text-white/20 text-xs">Няма проекти за тази задача.</p>
                       ) : (
                         <div className="space-y-3">
                           <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-2">
-                            {submissions.length} предложби
+                            {submissions.length} проекта
                           </p>
                           {submissions.map((s) => {
                             const isWinner = c.winner_submission_id === s.id;
