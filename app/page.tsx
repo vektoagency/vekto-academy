@@ -53,9 +53,9 @@ const tierMeta: Record<BriefTier, { label: string; color: string; dot: string }>
 const navLinks = [
   { href: "#about", label: "За нас" },
   { href: "#curriculum", label: "Програма" },
+  { href: "#community", label: "Общност" },
   { href: "#arena", label: "Арена" },
   { href: "#jobs", label: "Работа" },
-  { href: "#community", label: "Общност" },
   { href: "#pricing", label: "Цени" },
   { href: "#faq", label: "FAQ" },
 ];
@@ -1241,14 +1241,14 @@ export default function HomePage() {
       {/* Curriculum — Месец 1: обучението */}
       <CurriculumSection />
 
+      {/* Community — support veднага след обучението */}
+      <CommunitySection />
+
       {/* Arena — Месец 2: плащат ти докато учиш */}
       <ArenaSection />
 
       {/* Job Pipeline — Месец 3+: shortlist → Vekto екип */}
       <JobPipelineSection />
-
-      {/* Community — support orbiting всички етапи */}
-      <CommunitySection />
 
       {/* Platform preview — tour of the product */}
       <PlatformPreview />
