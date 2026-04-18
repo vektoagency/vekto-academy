@@ -8,14 +8,19 @@ export async function GET() {
   const adminCheck = await requireAdmin();
   if ("error" in adminCheck && adminCheck.error) return adminCheck.error;
 
-  // Members stats
-  const { data: members } = await supabase.from("members").select("*");
-  const totalMembers = members?.length ?? 0;
-  const activeMembers = members?.filter((m) => m.status === "active").length ?? 0;
-  const cancelledMembers = members?.filter((m) => m.status === "cancelled").length ?? 0;
+  // Live Clerk user IDs — used to skip orphaned Supabase rows
+  const clerkUsers = await adminCheck.client!.users.getUserList({ limit: 500 });
+  const liveUserIds = new Set(clerkUsers.data.map((u) => u.id));
+
+  // Members stats (ignore rows whose Clerk user has been deleted)
+  const { data: allMembers } = await supabase.from("members").select("*");
+  const members = (allMembers ?? []).filter((m) => liveUserIds.has(m.user_id));
+  const totalMembers = members.length;
+  const activeMembers = members.filter((m) => m.status === "active").length;
+  const cancelledMembers = members.filter((m) => m.status === "cancelled").length;
 
   const planCounts: Record<string, number> = {};
-  for (const m of members ?? []) {
+  for (const m of members) {
     if (m.plan) planCounts[m.plan] = (planCounts[m.plan] || 0) + 1;
   }
 
