@@ -745,6 +745,19 @@ export default async function DashboardPage({
 
                 {/* Name edit */}
                 <ProfileNameForm />
+                <Link
+                  href="/dashboard/settings"
+                  className="flex items-center justify-between gap-3 mb-4 px-4 py-3 rounded-xl bg-white/4 border border-white/6 hover:bg-white/6 hover:border-white/10 transition-colors group"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-lg">⚙️</span>
+                    <div>
+                      <p className="text-sm font-bold text-white/80">Email, парола и снимка</p>
+                      <p className="text-xs text-white/40">Управлявай сигурност и устройства</p>
+                    </div>
+                  </div>
+                  <span className="text-white/30 group-hover:text-[#c8ff00] transition-colors">→</span>
+                </Link>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="bg-white/4 border border-white/6 rounded-xl p-3">
                     <p className="text-white/25 text-[10px] uppercase tracking-widest mb-1">План</p>

@@ -109,6 +109,8 @@ function Avatar({ user, size = 38 }: { user: { name?: string; image?: string }; 
   );
 }
 
+const REACTION_EMOJIS = ["👍", "❤", "🔥", "😂", "😮", "🎉"];
+
 // ── Single Message ─────────────────────────────────────
 function MessageItem({ msg, showHeader }: { msg: FormatMessageResponse; showHeader: boolean }) {
   const { client } = useChatContext();
@@ -119,7 +121,23 @@ function MessageItem({ msg, showHeader }: { msg: FormatMessageResponse; showHead
   const iAmMentioned = !!mentionedUsers?.some((u) => u.id === client.userID);
   const [hovered, setHovered] = useState(false);
   const [showModMenu, setShowModMenu] = useState(false);
+  const [showReactionPicker, setShowReactionPicker] = useState(false);
   const canModerate = _isAdmin && !isMe && !isDeleted;
+
+  const ownReactions = (msg.own_reactions ?? []) as { type: string }[];
+  const hasReacted = (emoji: string) => ownReactions.some((r) => r.type === emoji);
+
+  async function toggleReaction(emoji: string) {
+    if (!msg.id) return;
+    try {
+      if (hasReacted(emoji)) {
+        await channel.deleteReaction(msg.id, emoji);
+      } else {
+        await channel.sendReaction(msg.id, { type: emoji });
+      }
+    } catch { /* ignore */ }
+    setShowReactionPicker(false);
+  }
 
   function logModAction(action: string) {
     fetch("/api/admin/moderation", {
@@ -213,18 +231,52 @@ function MessageItem({ msg, showHeader }: { msg: FormatMessageResponse; showHead
         {/* Reactions */}
         {msg.reaction_groups && Object.keys(msg.reaction_groups).length > 0 && (
           <div className="flex flex-wrap gap-1 mt-1.5">
-            {Object.entries(msg.reaction_groups).map(([emoji, data]) => (
-              <span key={emoji} className="flex items-center gap-1 bg-white/6 border border-white/8 rounded-full px-2 py-0.5 text-xs cursor-pointer hover:bg-white/10 transition-colors">
-                {emoji} <span className="text-white/50">{(data as any).count}</span>
-              </span>
-            ))}
+            {Object.entries(msg.reaction_groups).map(([emoji, data]) => {
+              const mine = hasReacted(emoji);
+              return (
+                <button
+                  key={emoji}
+                  onClick={() => toggleReaction(emoji)}
+                  className={`flex items-center gap-1 rounded-full px-2 py-0.5 text-xs transition-colors border ${mine ? "bg-[#c8ff00]/15 border-[#c8ff00]/40 text-[#c8ff00]" : "bg-white/6 border-white/8 text-white/75 hover:bg-white/10"}`}
+                >
+                  {emoji} <span className={mine ? "text-[#c8ff00]/80" : "text-white/50"}>{(data as { count: number }).count}</span>
+                </button>
+              );
+            })}
           </div>
         )}
       </div>
 
-      {/* Mod actions */}
-      {canModerate && hovered && (
-        <div className="absolute right-3 top-1">
+      {/* Hover actions — reaction picker (all users) + mod menu (admins) */}
+      {hovered && !isDeleted && (
+        <div className="absolute right-3 top-1 flex items-center gap-1">
+          <div className="relative">
+            <button
+              onClick={() => setShowReactionPicker((o) => !o)}
+              className="p-1 rounded-md bg-[#111] border border-white/10 text-white/30 hover:text-white/70 hover:bg-white/10 transition-colors"
+              title="Реакция"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="9" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01" />
+              </svg>
+            </button>
+            {showReactionPicker && (
+              <div className="absolute right-0 top-full mt-1 flex items-center gap-0.5 bg-[#111] border border-white/10 rounded-xl shadow-2xl shadow-black/60 px-1.5 py-1 z-50">
+                {REACTION_EMOJIS.map((e) => (
+                  <button
+                    key={e}
+                    onClick={() => toggleReaction(e)}
+                    className={`w-7 h-7 flex items-center justify-center rounded-md text-base hover:bg-white/10 transition-colors ${hasReacted(e) ? "bg-[#c8ff00]/15" : ""}`}
+                  >
+                    {e}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+          {canModerate && (
+          <div className="relative">
           <button
             onClick={() => setShowModMenu(o => !o)}
             className="p-1 rounded-md bg-[#111] border border-white/10 text-white/30 hover:text-white/70 hover:bg-white/10 transition-colors"
@@ -255,6 +307,8 @@ function MessageItem({ msg, showHeader }: { msg: FormatMessageResponse; showHead
                 Банвай потребител
               </button>
             </div>
+          )}
+          </div>
           )}
         </div>
       )}

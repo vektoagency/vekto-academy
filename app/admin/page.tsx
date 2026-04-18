@@ -10,6 +10,13 @@ type Stats = {
   totalLessonsCompleted: number;
   mrr: number;
   recentCharges: { amount: number; currency: string; date: number; email: string | null }[];
+  wau: number;
+  lessonsThisWeek: number;
+  newMembersWeek: number;
+  newMembersMonth: number;
+  totalSubmissions: number;
+  submissionsThisWeek: number;
+  jobsPending: number;
 };
 
 const planLabel: Record<string, string> = {
@@ -67,6 +74,38 @@ export default function AdminDashboard() {
           </div>
         ))}
       </div>
+
+      {/* Activity — last 7 days */}
+      <div>
+        <h2 className="text-sm font-bold text-white/60 mb-3">Активност (7 дни)</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+          {[
+            { label: "Активни users (WAU)", value: stats.wau, hint: "уникални, гледали урок", color: "text-[#c8ff00]" },
+            { label: "Завършени уроци", value: stats.lessonsThisWeek, hint: "тази седмица", color: "text-blue-400" },
+            { label: "Нови регистрации", value: stats.newMembersWeek, hint: `${stats.newMembersMonth} за 30 дни`, color: "text-emerald-400" },
+            { label: "Арена проекти", value: stats.submissionsThisWeek, hint: `${stats.totalSubmissions} общо`, color: "text-amber-400" },
+          ].map((c) => (
+            <div key={c.label} className="bg-[#111] border border-white/6 rounded-2xl p-4">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-white/30">{c.label}</p>
+              <p className={`text-2xl font-black mt-2 ${c.color}`}>{c.value}</p>
+              <p className="text-[10px] text-white/25 mt-1">{c.hint}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Action items */}
+      {stats.jobsPending > 0 && (
+        <div className="bg-amber-500/5 border border-amber-500/20 rounded-2xl p-4 flex items-center justify-between gap-3 flex-wrap">
+          <div>
+            <p className="text-sm font-bold text-amber-400">💼 {stats.jobsPending} кандидатури чакат преглед</p>
+            <p className="text-xs text-white/40 mt-1">Отиди в Кандидатури за да ги прегледаш.</p>
+          </div>
+          <a href="/admin/jobs" className="px-4 py-2 rounded-lg bg-amber-500/20 text-amber-400 text-xs font-bold hover:bg-amber-500/30 transition-colors">
+            Преглед →
+          </a>
+        </div>
+      )}
 
       {/* Plans breakdown */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

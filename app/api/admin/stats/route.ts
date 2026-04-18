@@ -62,6 +62,49 @@ export async function GET() {
     // Stripe may not be configured yet
   }
 
+  // Activity windows
+  const sevenDaysAgo = new Date(Date.now() - 7 * 86400000).toISOString();
+  const thirtyDaysAgoIso = new Date(Date.now() - 30 * 86400000).toISOString();
+
+  // WAU — distinct users with progress update in last 7d
+  const { data: recentProgress } = await supabase
+    .from("module_progress")
+    .select("user_id")
+    .gte("updated_at", sevenDaysAgo);
+  const wau = new Set((recentProgress ?? []).map((r) => r.user_id)).size;
+
+  // Lessons completed this week
+  const { count: lessonsThisWeek } = await supabase
+    .from("module_progress")
+    .select("*", { count: "exact", head: true })
+    .eq("completed", true)
+    .gte("updated_at", sevenDaysAgo);
+
+  // New members this week / this month
+  const { count: newMembersWeek } = await supabase
+    .from("members")
+    .select("*", { count: "exact", head: true })
+    .gte("created_at", sevenDaysAgo);
+  const { count: newMembersMonth } = await supabase
+    .from("members")
+    .select("*", { count: "exact", head: true })
+    .gte("created_at", thirtyDaysAgoIso);
+
+  // Arena activity
+  const { count: totalSubmissions } = await supabase
+    .from("arena_submissions")
+    .select("*", { count: "exact", head: true });
+  const { count: submissionsThisWeek } = await supabase
+    .from("arena_submissions")
+    .select("*", { count: "exact", head: true })
+    .gte("created_at", sevenDaysAgo);
+
+  // Jobs pipeline pending review
+  const { count: jobsPending } = await supabase
+    .from("job_profiles")
+    .select("*", { count: "exact", head: true })
+    .eq("status", "submitted");
+
   return NextResponse.json({
     totalMembers,
     activeMembers,
@@ -70,5 +113,13 @@ export async function GET() {
     totalLessonsCompleted: totalLessonsCompleted ?? 0,
     mrr: Math.round(mrr * 100) / 100,
     recentCharges,
+    // extended
+    wau,
+    lessonsThisWeek: lessonsThisWeek ?? 0,
+    newMembersWeek: newMembersWeek ?? 0,
+    newMembersMonth: newMembersMonth ?? 0,
+    totalSubmissions: totalSubmissions ?? 0,
+    submissionsThisWeek: submissionsThisWeek ?? 0,
+    jobsPending: jobsPending ?? 0,
   });
 }
