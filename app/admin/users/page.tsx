@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import PageHeader from "../PageHeader";
 
 type User = {
@@ -27,12 +28,37 @@ const statusBadge: Record<string, string> = {
   cancelled: "bg-red-500/20 text-red-400",
 };
 
-export default function AdminUsers() {
+export default function AdminUsersPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex items-center justify-center h-64">
+          <div className="w-6 h-6 border-2 border-white/10 border-t-[#c8ff00] rounded-full animate-spin" />
+        </div>
+      }
+    >
+      <AdminUsers />
+    </Suspense>
+  );
+}
+
+function AdminUsers() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const statusFilter = searchParams.get("status") ?? "";
+  const roleFilter = searchParams.get("role") ?? "";
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+
+  function setFilter(key: "status" | "role", value: string) {
+    const params = new URLSearchParams(searchParams.toString());
+    if (value) params.set(key, value);
+    else params.delete(key);
+    router.replace(`/admin/users${params.toString() ? `?${params}` : ""}`);
+  }
 
   useEffect(() => {
     fetch("/api/admin/users")
@@ -44,11 +70,13 @@ export default function AdminUsers() {
 
   const filtered = users.filter((u) => {
     const q = search.toLowerCase();
-    return (
+    const matchesSearch =
       u.email.toLowerCase().includes(q) ||
       (u.firstName?.toLowerCase() ?? "").includes(q) ||
-      (u.lastName?.toLowerCase() ?? "").includes(q)
-    );
+      (u.lastName?.toLowerCase() ?? "").includes(q);
+    const matchesStatus = !statusFilter || u.status === statusFilter;
+    const matchesRole = !roleFilter || u.role === roleFilter;
+    return matchesSearch && matchesStatus && matchesRole;
   });
 
   async function toggleRole(user: User) {
@@ -106,7 +134,7 @@ export default function AdminUsers() {
     <div className="space-y-6">
       <PageHeader
         title="Потребители"
-        subtitle={`${users.length} регистрирани`}
+        subtitle={`${filtered.length}${filtered.length !== users.length ? ` от ${users.length}` : ""} ${filtered.length === 1 ? "регистриран" : "регистрирани"}`}
         icon="👥"
         actions={
           <input
@@ -118,6 +146,22 @@ export default function AdminUsers() {
           />
         }
       />
+
+      {/* Filter chips */}
+      <div className="flex flex-wrap items-center gap-2">
+        <FilterChip active={!statusFilter && !roleFilter} onClick={() => { setFilter("status", ""); setFilter("role", ""); }}>
+          Всички
+        </FilterChip>
+        <FilterChip active={statusFilter === "active"} onClick={() => setFilter("status", statusFilter === "active" ? "" : "active")}>
+          Активни
+        </FilterChip>
+        <FilterChip active={statusFilter === "cancelled"} onClick={() => setFilter("status", statusFilter === "cancelled" ? "" : "cancelled")}>
+          Отписани
+        </FilterChip>
+        <FilterChip active={roleFilter === "admin"} onClick={() => setFilter("role", roleFilter === "admin" ? "" : "admin")}>
+          Админи
+        </FilterChip>
+      </div>
 
       {/* Table */}
       <div className="bg-[#111] border border-white/6 rounded-2xl overflow-hidden overflow-x-auto">
@@ -243,5 +287,28 @@ export default function AdminUsers() {
         </table>
       </div>
     </div>
+  );
+}
+
+function FilterChip({
+  active,
+  onClick,
+  children,
+}: {
+  active: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-colors border ${
+        active
+          ? "bg-[#c8ff00]/10 text-[#c8ff00] border-[#c8ff00]/25"
+          : "bg-white/4 text-white/50 border-white/8 hover:bg-white/8 hover:text-white/80"
+      }`}
+    >
+      {children}
+    </button>
   );
 }

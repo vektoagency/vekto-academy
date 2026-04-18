@@ -100,13 +100,15 @@ export default function AdminDashboard() {
           hint="Месечен recurring доход"
           icon="💰"
           accent="emerald"
+          href="/admin/revenue"
         />
         <HeroCard
           label="Активни членове"
           value={stats.activeMembers}
-          hint={`${stats.totalMembers} общо регистрирани`}
+          hint={`${stats.totalMembers} общо регистрирани · виж списъка →`}
           icon="⚡"
           accent="lime"
+          href="/admin/users?status=active"
         />
         <HeroCard
           label="WAU"
@@ -252,21 +254,23 @@ function HeroCard({
   hint,
   icon,
   accent,
+  href,
 }: {
   label: string;
   value: string | number;
   hint: string;
   icon: string;
   accent: "emerald" | "lime" | "blue";
+  href?: string;
 }) {
   const accents = {
-    emerald: { text: "text-emerald-400", glow: "from-emerald-500/10", bg: "bg-emerald-500/10 border-emerald-500/20" },
-    lime: { text: "text-[#c8ff00]", glow: "from-[#c8ff00]/10", bg: "bg-[#c8ff00]/10 border-[#c8ff00]/25" },
-    blue: { text: "text-blue-400", glow: "from-blue-500/10", bg: "bg-blue-500/10 border-blue-500/20" },
+    emerald: { text: "text-emerald-400", glow: "from-emerald-500/10", bg: "bg-emerald-500/10 border-emerald-500/20", hover: "hover:border-emerald-500/30" },
+    lime: { text: "text-[#c8ff00]", glow: "from-[#c8ff00]/10", bg: "bg-[#c8ff00]/10 border-[#c8ff00]/25", hover: "hover:border-[#c8ff00]/35" },
+    blue: { text: "text-blue-400", glow: "from-blue-500/10", bg: "bg-blue-500/10 border-blue-500/20", hover: "hover:border-blue-500/30" },
   };
   const a = accents[accent];
-  return (
-    <div className="relative bg-[#111] border border-white/8 rounded-2xl p-5 overflow-hidden">
+  const inner = (
+    <>
       <div className={`absolute inset-0 bg-gradient-to-br ${a.glow} to-transparent pointer-events-none opacity-60`} />
       <div className="relative">
         <div className="flex items-center justify-between mb-4">
@@ -278,8 +282,17 @@ function HeroCard({
         <p className={`text-4xl font-black tracking-tight ${a.text}`}>{value}</p>
         <p className="text-xs text-white/35 mt-1.5">{hint}</p>
       </div>
-    </div>
+    </>
   );
+  const base = `relative bg-[#111] border border-white/8 rounded-2xl p-5 overflow-hidden block transition-colors ${a.hover}`;
+  if (href) {
+    return (
+      <Link href={href} className={base}>
+        {inner}
+      </Link>
+    );
+  }
+  return <div className={base}>{inner}</div>;
 }
 
 function MetricCard({
