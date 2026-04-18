@@ -23,6 +23,8 @@ export async function GET() {
   const token = process.env.SENTRY_AUTH_TOKEN;
   const org = process.env.SENTRY_ORG;
   const project = process.env.SENTRY_PROJECT ?? "vekto-academy";
+  const region = process.env.SENTRY_REGION ?? "us";
+  const host = region === "de" ? "de.sentry.io" : "sentry.io";
 
   if (!token || !org) {
     return NextResponse.json({
@@ -32,7 +34,7 @@ export async function GET() {
   }
 
   try {
-    const url = `https://sentry.io/api/0/projects/${org}/${project}/issues/?query=is:unresolved&limit=25&statsPeriod=14d`;
+    const url = `https://${host}/api/0/projects/${org}/${project}/issues/?query=is:unresolved&limit=25&statsPeriod=14d`;
     const res = await fetch(url, {
       headers: { Authorization: `Bearer ${token}` },
       cache: "no-store",
