@@ -17,6 +17,7 @@ const nav = [
   { href: "/admin/moderation", label: "Модерация", icon: "🛡" },
   { href: "/admin/settings", label: "Настройки", icon: "⚙" },
   { href: "/admin/logs", label: "Логове", icon: "📋" },
+  { href: "/admin/errors", label: "Грешки", icon: "🚨" },
 ];
 
 function SidebarContent({ pathname, onNavigate }: { pathname: string; onNavigate?: () => void }) {
