@@ -1,7 +1,29 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import * as tus from "tus-js-client";
+
+function useCountdown(deadline: string | null) {
+  const [now, setNow] = useState(() => Date.now());
+  useEffect(() => {
+    if (!deadline) return;
+    const id = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(id);
+  }, [deadline]);
+
+  return useMemo(() => {
+    if (!deadline) return null;
+    const end = new Date(deadline).getTime();
+    const diff = end - now;
+    if (isNaN(end)) return null;
+    if (diff <= 0) return { expired: true, days: 0, hours: 0, minutes: 0, seconds: 0 };
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const minutes = Math.floor((diff % 3600000) / 60000);
+    const seconds = Math.floor((diff % 60000) / 1000);
+    return { expired: false, days, hours, minutes, seconds };
+  }, [deadline, now]);
+}
 
 type Challenge = {
   id: number;
@@ -39,6 +61,7 @@ export default function ArenaSubmission() {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const countdown = useCountdown(challenge?.deadline ?? null);
 
   async function load() {
     try {
@@ -170,6 +193,30 @@ export default function ArenaSubmission() {
             </div>
           )}
         </div>
+        {countdown && (
+          <div className="mt-4 pt-4 border-t border-white/6">
+            {countdown.expired ? (
+              <p className="text-xs font-bold text-red-400 uppercase tracking-widest">⏱ Срокът изтече</p>
+            ) : (
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-2">⏱ Остават</p>
+                <div className="flex items-center gap-2">
+                  {[
+                    { label: "дни", value: countdown.days },
+                    { label: "часа", value: countdown.hours },
+                    { label: "мин", value: countdown.minutes },
+                    { label: "сек", value: countdown.seconds },
+                  ].map((u) => (
+                    <div key={u.label} className="flex-1 bg-white/3 border border-white/6 rounded-lg px-2 py-2 text-center">
+                      <p className="text-lg font-black text-white/90 leading-none tabular-nums">{String(u.value).padStart(2, "0")}</p>
+                      <p className="text-[9px] text-white/30 uppercase tracking-widest mt-1">{u.label}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Existing submission status */}

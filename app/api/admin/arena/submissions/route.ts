@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { requireAdmin, supabase, logAdminAction } from "../../helpers";
+import { sendEmail, getUserEmail, templates } from "@/app/lib/email";
 
 // GET ?challenge_id= — list submissions for a challenge
 export async function GET(req: Request) {
@@ -63,6 +64,13 @@ export async function POST(req: Request) {
     .single();
   if (!sub) return NextResponse.json({ error: "Submission not found" }, { status: 404 });
 
+  const { data: challenge } = await supabase
+    .from("challenges")
+    .select("title, prize")
+    .eq("id", sub.challenge_id)
+    .single();
+  const challengeTitle = challenge?.title ?? `#${sub.challenge_id}`;
+
   if (action === "winner") {
     const { error: updErr } = await supabase
       .from("arena_submissions")
@@ -80,6 +88,15 @@ export async function POST(req: Request) {
       challenge_id: sub.challenge_id,
       user_id: sub.user_id,
     });
+
+    const userEmail = await getUserEmail(sub.user_id);
+    if (userEmail) {
+      await sendEmail(
+        userEmail,
+        `🏆 Ти спечели — ${challengeTitle}`,
+        templates.winnerAnnouncement(challengeTitle, challenge?.prize ?? "—", feedback ?? null)
+      );
+    }
     return NextResponse.json({ ok: true });
   }
 
@@ -90,6 +107,17 @@ export async function POST(req: Request) {
       .eq("id", submission_id);
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
     await logAdminAction(adminCheck.userId!, adminCheck.email!, `arena.${action}`, `submission ${submission_id}`);
+
+    if (feedback) {
+      const userEmail = await getUserEmail(sub.user_id);
+      if (userEmail) {
+        await sendEmail(
+          userEmail,
+          `Обратна връзка — ${challengeTitle}`,
+          templates.feedbackReceived(challengeTitle, action, feedback)
+        );
+      }
+    }
     return NextResponse.json({ ok: true });
   }
 

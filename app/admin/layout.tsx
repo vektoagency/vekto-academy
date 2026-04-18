@@ -11,6 +11,7 @@ const nav = [
   { href: "/admin/users", label: "Потребители", icon: "👥" },
   { href: "/admin/modules", label: "Модули", icon: "📚" },
   { href: "/admin/arena", label: "Арена", icon: "🏆" },
+  { href: "/admin/jobs", label: "Кандидатури", icon: "💼" },
   { href: "/admin/notifications", label: "Известия", icon: "🔔" },
   { href: "/admin/revenue", label: "Приходи", icon: "💰" },
   { href: "/admin/moderation", label: "Модерация", icon: "🛡" },

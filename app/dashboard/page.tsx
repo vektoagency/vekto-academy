@@ -9,6 +9,7 @@ import NotificationBell from "../components/NotificationBell";
 import ProfileNameForm from "../components/ProfileNameForm";
 import JobProfileForm from "../components/JobProfileForm";
 import ArenaSubmission from "../components/ArenaSubmission";
+import ArenaScoreboard from "../components/ArenaScoreboard";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -601,27 +602,7 @@ export default async function DashboardPage({
                 <div className="lg:col-span-2 flex flex-col gap-4">
                   <ArenaRules />
 
-                  <div className="border border-white/6 rounded-2xl overflow-hidden">
-                    <div className="px-4 py-3 bg-[#0d0d0d] border-b border-white/6 flex items-center justify-between">
-                      <p className="text-xs font-black uppercase tracking-widest text-white/40">🏆 Scoreboard</p>
-                      <span className="text-white/15 text-[10px]">2 завършени</span>
-                    </div>
-                    <div className="divide-y divide-white/4">
-                      {[
-                        { num: 1, title: "Brand Awareness — Fashion клиент", prize: "€30", winner: "М. Георгиев", entries: 8 },
-                        { num: 2, title: "AI Avatar Demo × 3 видеа", prize: "€30", winner: "И. Петров", entries: 14 },
-                      ].map((c) => (
-                        <div key={c.num} className="px-4 py-3 flex items-center gap-3">
-                          <p className="text-white/10 font-black text-base w-5 flex-shrink-0">#{c.num}</p>
-                          <div className="flex-1 min-w-0">
-                            <p className="text-xs font-semibold truncate">{c.title}</p>
-                            <p className="text-white/25 text-[10px]">🥇 {c.winner} · {c.entries} предадени</p>
-                          </div>
-                          <span className="text-[#c8ff00] text-sm font-black flex-shrink-0">{c.prize}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                  <ArenaScoreboard />
                 </div>
 
               </div>

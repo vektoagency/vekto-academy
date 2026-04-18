@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import { createClient } from "@supabase/supabase-js";
+import { sendEmail, getAdminEmails, templates } from "@/app/lib/email";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -33,7 +34,7 @@ export async function POST(req: Request) {
 
   const { data: challenge } = await supabase
     .from("challenges")
-    .select("id, status")
+    .select("id, title, status")
     .eq("id", challenge_id)
     .single();
   if (!challenge) {
@@ -80,5 +81,17 @@ export async function POST(req: Request) {
     .select()
     .single();
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+
+  // Notify admins of new submission (best-effort, don't block)
+  const admins = await getAdminEmails();
+  if (admins.length) {
+    const client = await clerkClient();
+    const u = await client.users.getUser(userId).catch(() => null);
+    const userName = u
+      ? [u.firstName, u.lastName].filter(Boolean).join(" ") || u.emailAddresses[0]?.emailAddress || userId
+      : userId;
+    await sendEmail(admins, `Ново предаване в Арена — ${challenge.title}`, templates.newSubmission(challenge.title, userName, safeNotes));
+  }
+
   return NextResponse.json({ submission: created });
 }
