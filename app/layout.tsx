@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Unbounded } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
+import SentryUserContext from "./components/SentryUserContext";
 import "./globals.css";
 
 const geist = Geist({
@@ -59,6 +60,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="bg" className={`${geist.variable} ${display.variable} h-full antialiased`}>
         <body className="min-h-full flex flex-col bg-[#080808] text-white">
+          <SentryUserContext />
           {children}
         </body>
       </html>

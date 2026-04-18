@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 type Issue = {
   id: string;
@@ -133,11 +134,9 @@ export default function ErrorsPage() {
       ) : (
         <div className="space-y-2">
           {data.issues.map((issue) => (
-            <a
+            <Link
               key={issue.id}
-              href={issue.permalink}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={`/admin/errors/${issue.id}`}
               className="block bg-[#111] border border-white/6 rounded-xl p-4 hover:border-white/15 transition-colors"
             >
               <div className="flex items-start gap-3">
@@ -164,9 +163,9 @@ export default function ErrorsPage() {
                     <span>последно преди {timeAgo(issue.lastSeen)}</span>
                   </div>
                 </div>
-                <span className="text-white/20 text-xs flex-shrink-0">↗</span>
+                <span className="text-white/20 text-xs flex-shrink-0">→</span>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       )}
