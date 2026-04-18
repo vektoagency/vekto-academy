@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import PageHeader from "../PageHeader";
 
 type Issue = {
   id: string;
@@ -72,10 +73,7 @@ export default function ErrorsPage() {
   if (!data?.configured) {
     return (
       <div className="space-y-6">
-        <div>
-          <h1 className="text-2xl font-black text-white/90">Грешки</h1>
-          <p className="text-sm text-white/30 mt-1">Production грешки от Sentry</p>
-        </div>
+        <PageHeader title="Грешки" subtitle="Production грешки от Sentry" icon="🚨" />
         <div className="bg-amber-500/5 border border-amber-500/20 rounded-2xl p-6">
           <p className="text-sm font-bold text-amber-400 mb-2">⚠ Sentry не е конфигуриран</p>
           <p className="text-sm text-white/50 mb-4">
@@ -102,22 +100,23 @@ export default function ErrorsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-black text-white/90">Грешки</h1>
-          <p className="text-sm text-white/30 mt-1">
-            {data.issues.length === 0
-              ? "Няма нерешени грешки — всичко работи 🎉"
-              : `${data.issues.length} нерешени грешки от последните 14 дни`}
-          </p>
-        </div>
-        <button
-          onClick={load}
-          className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs text-white/60 hover:bg-white/10 transition-colors"
-        >
-          ↻ Обнови
-        </button>
-      </div>
+      <PageHeader
+        title="Грешки"
+        subtitle={
+          data.issues.length === 0
+            ? "Няма нерешени грешки — всичко работи"
+            : `${data.issues.length} нерешени грешки от последните 14 дни`
+        }
+        icon="🚨"
+        actions={
+          <button
+            onClick={load}
+            className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-semibold text-white/60 hover:bg-white/10 hover:text-white transition-colors"
+          >
+            ↻ Обнови
+          </button>
+        }
+      />
 
       {data.error && (
         <div className="bg-red-500/5 border border-red-500/20 rounded-xl p-3 text-sm text-red-400">

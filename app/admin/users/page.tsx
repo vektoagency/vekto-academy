@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import PageHeader from "../PageHeader";
 
 type User = {
   id: string;
@@ -103,19 +104,20 @@ export default function AdminUsers() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div>
-          <h1 className="text-2xl font-black text-white/90">Потребители</h1>
-          <p className="text-sm text-white/30 mt-1">{users.length} регистрирани</p>
-        </div>
-        <input
-          type="text"
-          placeholder="Търси по имейл или име..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-sm text-white/80 placeholder-white/20 w-full sm:w-72 focus:outline-none focus:border-[#c8ff00]/30"
-        />
-      </div>
+      <PageHeader
+        title="Потребители"
+        subtitle={`${users.length} регистрирани`}
+        icon="👥"
+        actions={
+          <input
+            type="text"
+            placeholder="Търси по имейл или име..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-sm text-white/80 placeholder-white/20 w-full sm:w-72 focus:outline-none focus:border-[#c8ff00]/30 transition-colors"
+          />
+        }
+      />
 
       {/* Table */}
       <div className="bg-[#111] border border-white/6 rounded-2xl overflow-hidden overflow-x-auto">

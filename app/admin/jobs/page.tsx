@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import PageHeader from "../PageHeader";
 
 type Profile = {
   user_id: string;
@@ -64,10 +65,7 @@ export default function AdminJobs() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-black text-white/90">Кандидатури</h1>
-        <p className="text-sm text-white/30 mt-1">{profiles.length} профила общо</p>
-      </div>
+      <PageHeader title="Кандидатури" subtitle={`${profiles.length} профила общо`} icon="💼" />
 
       {/* Filter tabs */}
       <div className="flex flex-wrap gap-2">
