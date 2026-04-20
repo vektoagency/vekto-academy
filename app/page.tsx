@@ -870,7 +870,7 @@ function ArenaSection() {
           <div className="flex flex-col sm:flex-row sm:items-end gap-4 sm:gap-10">
             <div className="flex items-baseline gap-2 sm:gap-3 leading-none">
               <span className="text-white/20 text-sm sm:text-base font-semibold">+</span>
-              <span className="text-5xl sm:text-7xl md:text-8xl font-black text-white tracking-tight drop-shadow-[0_0_40px_rgba(200,255,0,0.15)]">€500</span>
+              <span className="text-5xl sm:text-7xl md:text-8xl font-black text-white tracking-tight drop-shadow-[0_0_40px_rgba(200,255,0,0.15)]">€200–€1000</span>
               <span className="text-white/40 text-xs sm:text-sm uppercase tracking-widest font-semibold">/мес</span>
             </div>
             <p className="text-white/50 text-sm sm:text-base max-w-md leading-relaxed sm:pb-2">
@@ -883,7 +883,7 @@ function ArenaSection() {
         <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-6 sm:mb-8">
           {[
             { v: "20", l: "задачи/месец" },
-            { v: "€500", l: "пул/месец" },
+            { v: "€200–1000", l: "пул/месец" },
             { v: "∞", l: "опити/участник" },
           ].map((stat) => (
             <div key={stat.l} className="rounded-xl border border-white/10 bg-[#0e0e0e] p-3 sm:p-5">
@@ -901,7 +901,7 @@ function ArenaSection() {
             <div className="flex items-center gap-2 min-w-0">
               <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff00] animate-pulse flex-shrink-0" />
               <p className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-white/80 truncate">
-                Месечен пул · €500 · 20 задачи
+                Месечен пул · €200–€1000 · 20 задачи
               </p>
             </div>
             <p className="text-[10px] sm:text-xs text-white/30 flex-shrink-0 hidden sm:block">
@@ -1010,7 +1010,7 @@ function ArenaSection() {
             <span className="w-8 h-8 rounded-full bg-[#c8ff00] text-black font-black text-xs flex items-center justify-center flex-shrink-0">02</span>
             <div>
               <p className="text-[#c8ff00] text-[10px] font-bold uppercase tracking-widest mb-1">Арена стартира от месец 2</p>
-              <p className="text-white/60 text-sm leading-relaxed">Месец 1 изграждаш основите. От месец 2 имаш достъп до всички €500 в Арена. С Доживотен достъп — отворено от ден 1.</p>
+              <p className="text-white/60 text-sm leading-relaxed">Месец 1 изграждаш основите. От месец 2 имаш достъп до целия пул в Арена. С Доживотен достъп — отворено от ден 1.</p>
             </div>
           </div>
           <div className="rounded-2xl border border-white/10 bg-[#0d0d0d] p-5 flex items-start gap-3">
