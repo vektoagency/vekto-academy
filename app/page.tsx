@@ -560,7 +560,7 @@ function JourneySection() {
         { icon: "★", text: "Получаваш редовен фийдбек от ментор и общност" },
         { icon: "★", text: "Завършваш проекти, които влизат в портфолиото ти" },
       ],
-      pay: "€200 – €1000/мес",
+      pay: "€200–1000/мес",
       payNote: "Зависи от задачите, които печелиш",
     },
     {
@@ -573,7 +573,7 @@ function JourneySection() {
         { icon: "●", text: "Презентираш и договаряш като професионалист" },
         { icon: "●", text: "Изграждаш собствен pipeline от клиенти" },
       ],
-      pay: "€200 – €1000/мес",
+      pay: "€200–1000/мес",
       payNote: "Портфолиото отваря врати — сам или с нас",
       highlight: true,
     },
@@ -684,7 +684,7 @@ function JourneySection() {
 
               <div className="pt-5 mt-auto border-t border-white/10">
                 <p className="text-white/30 text-[10px] uppercase tracking-widest mb-2 font-semibold">Приход</p>
-                <p className={`text-2xl sm:text-3xl font-black leading-none mb-2 ${current.highlight ? "text-[#c8ff00]" : "text-white"}`}>
+                <p className={`text-2xl sm:text-3xl font-black leading-none mb-2 whitespace-nowrap ${current.highlight ? "text-[#c8ff00]" : "text-white"}`}>
                   {current.pay}
                 </p>
                 <p className="text-white/40 text-xs">{current.payNote}</p>
@@ -870,7 +870,7 @@ function ArenaSection() {
           <div className="flex flex-col sm:flex-row sm:items-end gap-4 sm:gap-10">
             <div className="flex items-baseline gap-2 sm:gap-3 leading-none">
               <span className="text-white/20 text-sm sm:text-base font-semibold">+</span>
-              <span className="text-5xl sm:text-7xl md:text-8xl font-black text-white tracking-tight drop-shadow-[0_0_40px_rgba(200,255,0,0.15)]">€200–€1000</span>
+              <span className="text-4xl sm:text-5xl md:text-7xl font-black text-white tracking-tight drop-shadow-[0_0_40px_rgba(200,255,0,0.15)] whitespace-nowrap">€200–1000</span>
               <span className="text-white/40 text-xs sm:text-sm uppercase tracking-widest font-semibold">/мес</span>
             </div>
             <p className="text-white/50 text-sm sm:text-base max-w-md leading-relaxed sm:pb-2">
@@ -887,7 +887,7 @@ function ArenaSection() {
             { v: "∞", l: "опити/участник" },
           ].map((stat) => (
             <div key={stat.l} className="rounded-xl border border-white/10 bg-[#0e0e0e] p-3 sm:p-5">
-              <p className="text-[#c8ff00] font-black text-2xl sm:text-3xl leading-none">{stat.v}</p>
+              <p className="text-[#c8ff00] font-black text-base sm:text-2xl md:text-3xl leading-none whitespace-nowrap">{stat.v}</p>
               <p className="text-white/40 text-[10px] sm:text-xs mt-1.5 sm:mt-2 uppercase tracking-widest">{stat.l}</p>
             </div>
           ))}
@@ -901,7 +901,7 @@ function ArenaSection() {
             <div className="flex items-center gap-2 min-w-0">
               <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff00] animate-pulse flex-shrink-0" />
               <p className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-white/80 truncate">
-                Месечен пул · €200–€1000 · 20 задачи
+                Месечен пул · €200–1000 · 20 задачи
               </p>
             </div>
             <p className="text-[10px] sm:text-xs text-white/30 flex-shrink-0 hidden sm:block">
