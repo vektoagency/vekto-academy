@@ -75,6 +75,41 @@ export const templates = {
       ${feedback ? `<div style="margin-top:16px;padding:12px;background:rgba(255,255,255,0.04);border-radius:8px;white-space:pre-line;">${escapeHtml(feedback)}</div>` : ""}
       <p style="margin-top:16px;">Продължавай да практикуваш — следващата задача идва скоро.</p>
     `),
+
+  paymentFailed: (attempt: number, daysLeft: number) => {
+    const subj = attempt === 1
+      ? "⚠ Плащането не премина — обнови карта"
+      : attempt === 2
+      ? "Напомняне: плащането все още не е успешно"
+      : `Последно напомняне — остават ${daysLeft} дни`;
+    const urgency = attempt === 1
+      ? "Не успяхме да изтеглим €59 от картата ти. Може картата да е изтекла или да няма достатъчно средства."
+      : attempt === 2
+      ? "Опитахме пак без успех. Достъпът ти все още е активен, но ще бъде спрян скоро ако не обновиш картата."
+      : `Това е последен опит преди достъпът ти да бъде автоматично прекратен. Остават ти <strong>${daysLeft} дни</strong> да обновиш картата.`;
+    return SHELL(subj, `
+      <p>${urgency}</p>
+      <p style="margin-top:16px;">Достъпът ти до платформата <strong>е все още активен</strong> — не си изпуснал нищо. Просто обнови плащането от твоя акаунт.</p>
+      <p style="margin-top:20px;text-align:center;">
+        <a href="https://vektoacademy.com/dashboard" style="background:#c8ff00;color:#000;padding:12px 24px;border-radius:10px;text-decoration:none;font-weight:800;font-size:14px;display:inline-block;">
+          Обнови картата →
+        </a>
+      </p>
+      <p style="margin-top:20px;font-size:12px;color:rgba(255,255,255,0.4);">
+        След ${daysLeft} дни без успешно плащане абонаментът се отменя автоматично. Винаги можеш да се върнеш по-късно.
+      </p>
+    `);
+  },
+
+  subscriptionCancelled: () => SHELL("Абонаментът ти е прекратен", `
+    <p>Поради неуспешно плащане след няколко опита, абонаментът ти към Vekto Academy беше прекратен.</p>
+    <p style="margin-top:16px;">Достъпът до платформата е спрян, но всичкият ти прогрес и проекти в Арена са <strong>запазени</strong>. Ако решиш да се върнеш, просто се абонирай отново.</p>
+    <p style="margin-top:20px;text-align:center;">
+      <a href="https://vektoacademy.com/#pricing" style="background:#c8ff00;color:#000;padding:12px 24px;border-radius:10px;text-decoration:none;font-weight:800;font-size:14px;display:inline-block;">
+        Активирай отново →
+      </a>
+    </p>
+  `),
 };
 
 function escapeHtml(s: string): string {
