@@ -117,7 +117,8 @@ export default async function DashboardPage({
   };
 
   const isAdmin = (user.publicMetadata as Record<string, string>)?.role === "admin";
-  const hasPlan = isAdmin || member?.status === "active";
+  const hasPlan = isAdmin || member?.status === "active" || member?.status === "past_due";
+  const isPastDue = member?.status === "past_due";
   const completedLessons = (progressRows ?? []).filter((p: { completed: boolean }) => p.completed).length;
   const hasStarted = isAdmin || completedLessons > 0;
   const totalLessonsCount = 26; // 2+2+5+7+5+3+2 across 7 modules
@@ -265,7 +266,10 @@ export default async function DashboardPage({
               <p className="text-sm font-semibold truncate leading-tight">{fullName || "Потребител"}</p>
               <p className="text-white/30 text-xs truncate mt-0.5">{planLabel[member?.plan]}</p>
             </div>
-            <span className="w-2 h-2 rounded-full bg-[#c8ff00] flex-shrink-0" title="Активен" />
+            <span
+              className={`w-2 h-2 rounded-full flex-shrink-0 ${isPastDue ? "bg-amber-400 animate-pulse" : "bg-[#c8ff00]"}`}
+              title={isPastDue ? "Плащането не премина — обнови карта" : "Активен"}
+            />
           </div>
         </div>
       </aside>
@@ -317,6 +321,22 @@ export default async function DashboardPage({
             <div className="mb-6 rounded-xl bg-[#c8ff00]/10 border border-[#c8ff00]/20 px-5 py-3 flex items-center gap-3 max-w-5xl mx-auto">
               <span className="text-[#c8ff00] font-bold">✓</span>
               <p className="text-[#c8ff00] text-sm font-semibold">Плащането е успешно! Добре дошъл в Vekto Academy.</p>
+            </div>
+          )}
+
+          {/* Past-due payment banner — shows during Stripe retry window */}
+          {isPastDue && (
+            <div className="mb-6 rounded-xl bg-amber-500/10 border border-amber-500/30 px-5 py-4 flex items-start sm:items-center gap-4 max-w-5xl mx-auto flex-col sm:flex-row">
+              <span className="text-amber-400 text-2xl flex-shrink-0">⚠</span>
+              <div className="flex-1 min-w-0">
+                <p className="text-amber-300 text-sm font-bold mb-0.5">Плащането не премина</p>
+                <p className="text-amber-200/70 text-xs leading-relaxed">
+                  Опитваме автоматично повторно плащане през следващите дни. Достъпът ти е запазен. Моля обнови картата си или провери баланса, за да не прекъснем абонамента.
+                </p>
+              </div>
+              <div className="flex-shrink-0">
+                <BillingPortalButton variant="compact" />
+              </div>
             </div>
           )}
 

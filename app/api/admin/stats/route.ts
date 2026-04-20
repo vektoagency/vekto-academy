@@ -17,6 +17,7 @@ export async function GET() {
   const members = (allMembers ?? []).filter((m) => liveUserIds.has(m.user_id));
   const totalMembers = members.length;
   const activeMembers = members.filter((m) => m.status === "active").length;
+  const pastDueMembers = members.filter((m) => m.status === "past_due").length;
   const cancelledMembers = members.filter((m) => m.status === "cancelled").length;
 
   const planCounts: Record<string, number> = {};
@@ -113,6 +114,7 @@ export async function GET() {
   return NextResponse.json({
     totalMembers,
     activeMembers,
+    pastDueMembers,
     cancelledMembers,
     planCounts,
     totalLessonsCompleted: totalLessonsCompleted ?? 0,

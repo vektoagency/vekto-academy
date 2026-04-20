@@ -1503,7 +1503,7 @@ export default function HomePage() {
               </p>
               <div className="flex items-center gap-2 text-xs text-white/35">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#c8ff00] animate-pulse" />
-                София · България
+                Варна · България
               </div>
             </div>
 
@@ -1551,8 +1551,13 @@ export default function HomePage() {
           </div>
 
           {/* Bottom bar */}
-          <div className="border-t border-white/8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="border-t border-white/8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-xs text-white/30">© {new Date().getFullYear()} Vekto Academy · Всички права запазени.</p>
+            <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-white/40">
+              <Link href="/terms" className="hover:text-[#c8ff00] transition-colors">Общи условия</Link>
+              <Link href="/privacy" className="hover:text-[#c8ff00] transition-colors">Поверителност</Link>
+              <Link href="/cookies" className="hover:text-[#c8ff00] transition-colors">Бисквитки</Link>
+            </div>
             <p className="text-xs text-white/30">
               Продукт на <Link href="https://vektoagency.com" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-[#c8ff00] transition-colors">Vekto Agency</Link>
             </p>

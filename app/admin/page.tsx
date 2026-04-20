@@ -7,6 +7,7 @@ import PageHeader from "./PageHeader";
 type Stats = {
   totalMembers: number;
   activeMembers: number;
+  pastDueMembers: number;
   cancelledMembers: number;
   planCounts: Record<string, number>;
   totalLessonsCompleted: number;
@@ -72,6 +73,25 @@ export default function AdminDashboard() {
       />
 
       {/* Action items (if any) */}
+      {stats.pastDueMembers > 0 && (
+        <Link
+          href="/admin/users?status=past_due"
+          className="group flex items-center justify-between gap-4 bg-gradient-to-r from-amber-500/8 to-amber-500/4 border border-amber-500/25 rounded-2xl p-4 sm:p-5 hover:border-amber-500/40 transition-colors"
+        >
+          <div className="flex items-center gap-4 min-w-0">
+            <div className="w-11 h-11 rounded-xl bg-amber-500/15 border border-amber-500/25 flex items-center justify-center text-lg flex-shrink-0">
+              ⚠
+            </div>
+            <div className="min-w-0">
+              <p className="text-sm font-bold text-amber-400">
+                {stats.pastDueMembers} абонамент{stats.pastDueMembers === 1 ? "" : "а"} с неуспешно плащане
+              </p>
+              <p className="text-xs text-white/40 mt-0.5">Stripe опитва повторно — ако не успее, ще се откажат автоматично</p>
+            </div>
+          </div>
+          <span className="text-amber-400 text-sm font-bold group-hover:translate-x-0.5 transition-transform flex-shrink-0">→</span>
+        </Link>
+      )}
       {stats.jobsPending > 0 && (
         <Link
           href="/admin/jobs"

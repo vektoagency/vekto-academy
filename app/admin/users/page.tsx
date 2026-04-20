@@ -25,6 +25,7 @@ const planBadge: Record<string, string> = {
 
 const statusBadge: Record<string, string> = {
   active: "bg-emerald-500/20 text-emerald-400",
+  past_due: "bg-amber-500/20 text-amber-400",
   cancelled: "bg-red-500/20 text-red-400",
 };
 
@@ -154,6 +155,9 @@ function AdminUsers() {
         </FilterChip>
         <FilterChip active={statusFilter === "active"} onClick={() => setFilter("status", statusFilter === "active" ? "" : "active")}>
           Активни
+        </FilterChip>
+        <FilterChip active={statusFilter === "past_due"} onClick={() => setFilter("status", statusFilter === "past_due" ? "" : "past_due")}>
+          Просрочени
         </FilterChip>
         <FilterChip active={statusFilter === "cancelled"} onClick={() => setFilter("status", statusFilter === "cancelled" ? "" : "cancelled")}>
           Отписани

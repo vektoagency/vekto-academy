@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-export default function BillingPortalButton() {
+export default function BillingPortalButton({ variant = "full" }: { variant?: "full" | "compact" }) {
   const [loading, setLoading] = useState(false);
 
   async function handleClick() {
@@ -16,6 +16,18 @@ export default function BillingPortalButton() {
       alert("Нещо се обърка. Опитай пак.");
       setLoading(false);
     }
+  }
+
+  if (variant === "compact") {
+    return (
+      <button
+        onClick={handleClick}
+        disabled={loading}
+        className="bg-amber-400 text-black font-bold px-4 py-2 rounded-lg text-xs hover:bg-amber-300 transition-colors whitespace-nowrap disabled:opacity-60"
+      >
+        {loading ? "Зареждане..." : "Обнови карта"}
+      </button>
+    );
   }
 
   return (
