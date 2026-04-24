@@ -5,6 +5,10 @@ on:
     - cron: '0 9 * * *'
   workflow_dispatch:
 
+env:
+  SUPABASE_URL: https://aiprhfskhoodoglfjjjm.supabase.co
+  SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFpcHJoZnNraG9vZG9nbGZqamptIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwMjk0OTksImV4cCI6MjA5MTYwNTQ5OX0.QnqJF1cvXlxXLIJnYvJF1Xtcu5Lv4mt5pM8G8ZYcuSA
+
 jobs:
   ping:
     runs-on: ubuntu-latest
@@ -12,9 +16,9 @@ jobs:
       - name: Ping Supabase
         run: |
           curl -sf \
-            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
-            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
-            "https://aiprhfskhoodoglfjjjm.supabase.co/rest/v1/course_modules?select=id&limit=1" \
+            -H "apikey: $SUPABASE_ANON_KEY" \
+            -H "Authorization: Bearer $SUPABASE_ANON_KEY" \
+            "$SUPABASE_URL/rest/v1/course_modules?select=id&limit=1" \
             | head -c 200
           echo
           echo "Keepalive ping successful"
