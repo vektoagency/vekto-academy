@@ -1,0 +1,20 @@
+name: Supabase Keepalive
+
+on:
+  schedule:
+    - cron: '0 9 * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase
+        run: |
+          curl -sf \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
+            "https://aiprhfskhoodoglfjjjm.supabase.co/rest/v1/course_modules?select=id&limit=1" \
+            | head -c 200
+          echo
+          echo "Keepalive ping successful"
